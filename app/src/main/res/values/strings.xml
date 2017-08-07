@@ -1,3 +1,85 @@
 <resources>
     <string name="app_name">Admin</string>
+
+    <string name="login">Login</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="login_id">Enter your mobile number</string>
+    <string name="password">Password</string>
+    <string name="no_user">User doesn\'t exist</string>
+    <string name="username_error">Mobile number cannot be empty</string>
+    <string name="password_error">Password cannot be empty</string>
+    <string name="valid_mobile">Should be of 10 numbers</string>
+    <string name="valid_password">Should be atleast 6 characters long</string>
+
+    <string name="network_error">A network error has occurred.</string>
+    <string name="request_error">Connection timed out.</string>
+    <string name="retry">Retry</string>
+    <string name="refresh">Refresh</string>
+
+    <string name="dashboard">Dashboard</string>
+    <string name="logout">Logout</string>
+
+    <string name="no_timetable">No Timetable</string>
+    <string name="no_data_available">No Data Available</string>
+    <string name="no_groups">You are not part of any group</string>
+    <string name="groups">Groups</string>
+    <string name="new_group">Create new group</string>
+
+    <string name="group_name">Group Name</string>
+    <string name="group_info">Group Info</string>
+    <string name="tap_group">Tap here for group info</string>
+    <string name="select_class">Select Class</string>
+    <string name="select_section">Select Section</string>
+    <string name="select_student">Select Student</string>
+    <string name="select_period">Select Period</string>
+    <string name="for_school">This group is for school</string>
+    <string name="for_class">This group is for class</string>
+    <string name="save">Save</string>
+
+    <string name="edit">Edit</string>
+    <string name="members">Members</string>
+    <string name="add_students">Add Student</string>
+    <string name="add_teachers">Add Teacher</string>
+    <string name="select_all">Select All</string>
+    <string name="no_members">No members!</string>
+    <string name="menu_item_delete">Delete</string>
+
+    <string name="from">From :</string>
+    <string name="created_at">Created at :</string>
+
+    <string name="title">Title :</string>
+    <string name="start_date">Start Date :</string>
+    <string name="desc">Description :</string>
+    <string name="end_date">End Date :</string>
+    <string name="start_time">Start Time :</string>
+    <string name="end_time">End Time :</string>
+
+    <string name="no_chats">No Chats!</string>
+    <string name="chat">Chat</string>
+    <string name="type_your_message">Enter msg</string>
+    <string name="msg_if_any">Message if any..</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="select_image">Click here to choose image</string>
+    <string name="send">Send</string>
+
+    <!-- Attendance View & Homework View-->
+    <string name="attendance">Attendance</string>
+    <string name="session">Session :</string>
+    <string name="morning">Morning</string>
+    <string name="afternoon">Afternoon</string>
+    <string name="period">Period</string>
+    <string name="homework">Homework</string>
+    <string name="absentees">Absentees</string>
+    <string name="mark_absentees">Mark Absentees</string>
+    <string name="change">Change</string>
+    <string name="future_date">Selected date can\'t be future to present day</string>
+    <string name="enter_homework">Enter homework for &#8230;</string>
+    <string name="enter_hw">Enter homework</string>
+    <string name="title_activity_group">GroupActivity</string>
+
+    <string name="timetable">Timetable</string>
+    <string name="events">Events</string>
+    <string name="title_activity_new_group">New Group</string>
+    <string name="title_activity_message">Messages</string>
+    <string name="title_activity_user_group">Group Members</string>
 </resources>

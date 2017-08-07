@@ -4,4 +4,27 @@
     <color name="colorPrimaryDark">#00796B</color>
     <color name="colorPrimaryLight">#B2DFDB</color>
     <color name="colorAccent">#FFC107</color>
+
+    <color name="default_white">#FAFAFA</color>
+    <color name="primaryTextColor">#212121</color>
+    <color name="secondaryTextColor">#757575</color>
+    <color name="default_tv_color">#515151</color>
+    <color name="dividerColor">#BDBDBD</color>
+    <color name="divider_light">#D2D2D2</color>
+    <color name="divider_lightest">#EEEEEE</color>
+
+    <color name="list_divider">#979797</color>
+    <color name="list_item_selected_state">#EEEEEE</color>
+    <color name="list_item_normal_state">#FAFAFA</color>
+
+    <color name="multiple_image_select_primary">#009688</color>
+    <color name="multiple_image_select_primaryDark">#00796B</color>
+    <color name="multiple_image_select_primaryLight">#B2DFDB</color>
+    <color name="multiple_image_select_accent">#607D8B</color>
+    <color name="multiple_image_select_primaryText">#212121</color>
+    <color name="multiple_image_select_secondaryText">#727272</color>
+    <color name="multiple_image_select_divider">#B6B6B6</color>
+    <color name="multiple_image_select_toolbarPrimaryText">#FFFFFF</color>
+    <color name="multiple_image_select_albumTextBackground">#99FFFFFF</color>
+    <color name="multiple_image_select_imageSelectBackground">#000000</color>
 </resources>
