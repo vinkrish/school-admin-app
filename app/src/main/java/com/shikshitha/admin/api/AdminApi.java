@@ -1,6 +1,7 @@
 package com.shikshitha.admin.api;
 
 import com.shikshitha.admin.attendance.AttendanceSet;
+import com.shikshitha.admin.model.Attendance;
 import com.shikshitha.admin.model.Authorization;
 import com.shikshitha.admin.model.Chat;
 import com.shikshitha.admin.model.Clas;
@@ -24,6 +25,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 /**
@@ -47,15 +49,8 @@ public interface AdminApi {
     @GET("class/school/{schoolId}")
     Call<List<Clas>> getClassList(@Path("schoolId") long schoolId);
 
-    @GET("class/teacher/{teacherId}")
-    Call<List<Clas>> getSectionTeacherClasses(@Path("teacherId") long teacherId);
-
     @GET("section/class/{classId}")
     Call<List<Section>> getSectionList(@Path("classId") long classId);
-
-    @GET("section/class/{classId}/teacher/{teacherId}")
-    Call<List<Section>> getSectionTeacherSections(@Path("classId") long classId,
-                                                  @Path("teacherId") long teacherId);
 
     @GET("student/section/{sectionId}")
     Call<List<Student>> getStudents(@Path("sectionId") long sectionId);
@@ -140,11 +135,26 @@ public interface AdminApi {
                                          @Path("dateAttendance") String dateAttendance,
                                          @Path("session") int session);
 
+    @POST("app/attendance")
+    Call<Void> saveAttendance(@Body ArrayList<Attendance> attendances);
+
+    @POST("app/attendance/delete")
+    Call<Void> deleteAttendance(@Body ArrayList<Attendance> attendanceList);
+
     //Homework API
 
     @GET("homework/section/{sectionId}/date/{homeworkDate}")
     Call<List<Homework>> getHomework(@Path("sectionId") long sectionId,
                                      @Path("homeworkDate") String homeworkDate);
+
+    @POST("homework")
+    Call<Homework> saveHomework(@Body Homework homework);
+
+    @PUT("homework")
+    Call<Void> updateHomework(@Body Homework homework);
+
+    @POST("homework/delete")
+    Call<Void> deleteHomework(@Body List<Homework> homeworks);
 
     //Timetable API
 

@@ -71,6 +71,35 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".messagegroup.MessageActivity" />
         </activity>
+        <activity
+            android:name=".attendance.AttendanceActivity"
+            android:label="@string/attendance"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.ContextToolbarTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".group.GroupActivity" />
+        </activity>
+        <activity
+            android:name=".homework.HomeworkActivity"
+            android:label="@string/homework"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.ContextToolbarTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".group.GroupActivity" />
+        </activity>
+        <activity
+            android:name=".timetable.TimetableActivity"
+            android:label="@string/timetable"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".group.GroupActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -30,9 +30,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.shikshitha.admin.R;
+import com.shikshitha.admin.attendance.AttendanceActivity;
 import com.shikshitha.admin.dao.GroupDao;
 import com.shikshitha.admin.dao.ServiceDao;
 import com.shikshitha.admin.dao.TeacherDao;
+import com.shikshitha.admin.homework.HomeworkActivity;
 import com.shikshitha.admin.login.LoginActivity;
 import com.shikshitha.admin.messagegroup.MessageActivity;
 import com.shikshitha.admin.model.Groups;
@@ -40,6 +42,7 @@ import com.shikshitha.admin.model.Service;
 import com.shikshitha.admin.model.Teacher;
 import com.shikshitha.admin.newgroup.NewGroupActivity;
 import com.shikshitha.admin.sqlite.SqlDbHelper;
+import com.shikshitha.admin.timetable.TimetableActivity;
 import com.shikshitha.admin.util.DividerItemDecoration;
 import com.shikshitha.admin.util.NetworkUtil;
 import com.shikshitha.admin.util.PermissionUtil;
@@ -298,13 +301,13 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
                         startActivity(new Intent(GroupActivity.this, GroupActivity.class));
                         break;
                     case R.id.attendance_item:
-                        //startActivity(new Intent(GroupActivity.this, AttendanceActivity.class));
+                        startActivity(new Intent(GroupActivity.this, AttendanceActivity.class));
                         break;
                     case R.id.homework_item:
-                        //startActivity(new Intent(GroupActivity.this, HomeworkActivity.class));
+                        startActivity(new Intent(GroupActivity.this, HomeworkActivity.class));
                         break;
                     case R.id.timetable_item:
-                        //startActivity(new Intent(GroupActivity.this, TimetableActivity.class));
+                        startActivity(new Intent(GroupActivity.this, TimetableActivity.class));
                         break;
                     case R.id.event_item:
                         //startActivity(new Intent(GroupActivity.this, CalendarActivity.class));
