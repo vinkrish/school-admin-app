@@ -57,6 +57,7 @@
     <string name="no_chats">No Chats!</string>
     <string name="chat">Chat</string>
     <string name="type_your_message">Enter msg</string>
+    <string name="enter_message">Enter msg</string>
     <string name="msg_if_any">Message if any..</string>
     <string name="upload_image">Upload Image</string>
     <string name="select_image">Click here to choose image</string>
@@ -82,4 +83,7 @@
     <string name="title_activity_new_group">New Group</string>
     <string name="title_activity_message">Messages</string>
     <string name="title_activity_user_group">Group Members</string>
+    <string name="title_activity_chats">Chats</string>
+    <string name="title_activity_new_chat">New Chat</string>
+    <string name="title_activity_chat">Chat</string>
 </resources>

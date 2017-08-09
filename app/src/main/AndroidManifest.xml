@@ -100,6 +100,43 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".group.GroupActivity" />
         </activity>
+        <activity android:name=".calendar.CalendarActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".group.GroupActivity" />
+        </activity>
+        <activity
+            android:name=".chathome.ChatsActivity"
+            android:label="@string/title_activity_chats"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".group.GroupActivity" />
+        </activity>
+        <activity
+            android:name=".newchat.NewChatActivity"
+            android:label="@string/title_activity_new_chat"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".group.GroupActivity" />
+        </activity>
+        <activity
+            android:name=".chat.ChatActivity"
+            android:label="@string/title_activity_chat"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".chathome.ChatsActivity" />
+        </activity>
     </application>
 
 </manifest>

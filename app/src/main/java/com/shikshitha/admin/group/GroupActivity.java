@@ -31,6 +31,8 @@ import android.widget.TextView;
 
 import com.shikshitha.admin.R;
 import com.shikshitha.admin.attendance.AttendanceActivity;
+import com.shikshitha.admin.calendar.CalendarActivity;
+import com.shikshitha.admin.chathome.ChatsActivity;
 import com.shikshitha.admin.dao.GroupDao;
 import com.shikshitha.admin.dao.ServiceDao;
 import com.shikshitha.admin.dao.TeacherDao;
@@ -310,10 +312,10 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
                         startActivity(new Intent(GroupActivity.this, TimetableActivity.class));
                         break;
                     case R.id.event_item:
-                        //startActivity(new Intent(GroupActivity.this, CalendarActivity.class));
+                        startActivity(new Intent(GroupActivity.this, CalendarActivity.class));
                         break;
                     case R.id.chat_item:
-                        //startActivity(new Intent(GroupActivity.this, ChatsActivity.class));
+                        startActivity(new Intent(GroupActivity.this, ChatsActivity.class));
                         break;
                     case R.id.logout_item:
                         logout();

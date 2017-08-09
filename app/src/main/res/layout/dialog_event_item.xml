@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/spacing_small"
+    android:background="@color/default_white"
+    android:padding="@dimen/spacing_small">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_small"
+        android:text="@string/title"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/text_small"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/event_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/title"
+        android:layout_gravity="center_vertical"
+        android:layout_toRightOf="@+id/title"
+        android:paddingLeft="@dimen/spacing_small"
+        android:textColor="@color/default_tv_color"
+        android:textSize="@dimen/text_xsmall" />
+
+    <TextView
+        android:id="@+id/start_date_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_marginBottom="@dimen/spacing_small"
+        android:text="@string/start_date"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/text_small"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/start_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/start_date_tv"
+        android:layout_gravity="center_vertical"
+        android:layout_toRightOf="@+id/start_date_tv"
+        android:lines="1"
+        android:paddingLeft="@dimen/spacing_small"
+        android:textColor="@color/default_tv_color"
+        android:textSize="@dimen/text_xsmall" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/start_date_tv">
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:lineSpacingExtra="3dp"
+            android:textColor="@color/default_tv_color"
+            android:textSize="@dimen/text_medium" />
+
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/close_window"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:background="@drawable/ic_close_black"
+        android:clickable="true"
+        android:contentDescription="@string/app_name" />
+
+</RelativeLayout>

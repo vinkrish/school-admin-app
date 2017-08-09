@@ -98,7 +98,7 @@ public interface AdminApi {
     @POST("chat")
     Call<Chat> saveChat(@Body Chat chat);
 
-    @GET("chat/principal/{id}")
+    @GET("chat/teacher/{id}")
     Call<List<Chat>> getChats(@Path("id") long id);
 
     @GET("chat/{chatId}")
