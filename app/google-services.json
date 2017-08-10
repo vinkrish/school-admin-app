@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "446775999162",
+    "firebase_url": "https://shikshitha-admin.firebaseio.com",
+    "project_id": "shikshitha-admin",
+    "storage_bucket": "shikshitha-admin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:446775999162:android:b77d4abc6b7c48cd",
+        "android_client_info": {
+          "package_name": "com.shikshitha.admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "446775999162-bk8bvanhdpnvn95urld7krgn4mtcc08h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByabbnNY1Nq8RNTlTilz61BVyWCQBe5J4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

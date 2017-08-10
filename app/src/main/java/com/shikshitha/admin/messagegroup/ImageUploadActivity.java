@@ -22,6 +22,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -49,6 +50,7 @@ public class ImageUploadActivity extends AppCompatActivity
         implements ActivityCompat.OnRequestPermissionsResultCallback {
     @BindView(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
     @BindView(R.id.image_view) ImageView choseImage;
+    @BindView(R.id.progress_layout) FrameLayout progressLayout;
     @BindView(R.id.progress_bar) ProgressBar progressBar;
     @BindView(R.id.new_msg) EditText newMsg;
 
@@ -69,7 +71,6 @@ public class ImageUploadActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        progressBar.setVisibility(View.GONE);
         setResult(Activity.RESULT_CANCELED, new Intent());
         finish();
     }
@@ -78,8 +79,6 @@ public class ImageUploadActivity extends AppCompatActivity
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
-            //Log.v(TAG,"Permission: "+permissions[0]+ "was "+grantResults[0]);
-            //resume tasks needing this permission
             imagePicker();
         } else {
             showSnackbar("Permission has been denied");
@@ -96,6 +95,7 @@ public class ImageUploadActivity extends AppCompatActivity
             return;
         }
         if (NetworkUtil.isNetworkAvailable(this)){
+            progressLayout.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.VISIBLE);
             beginUpload();
         } else showSnackbar("You are offline,check your internet");
@@ -261,7 +261,6 @@ public class ImageUploadActivity extends AppCompatActivity
         public void onStateChanged(int id, TransferState newState) {
             Log.d(TAG, "onStateChanged: " + id + ", " + newState);
             if(newState.toString().equals("COMPLETED")) {
-                progressBar.setVisibility(View.GONE);
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("text", newMsg.getText().toString().trim());
                 resultIntent.putExtra("imgName", imageName);
