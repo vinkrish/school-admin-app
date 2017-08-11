@@ -100,7 +100,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".group.GroupActivity" />
         </activity>
-        <activity android:name=".calendar.CalendarActivity"
+        <activity
+            android:name=".calendar.CalendarActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <meta-data
@@ -141,7 +142,6 @@
         <service
             android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
             android:enabled="true" />
-
         <service
             android:name=".fcm.MyFirebaseInstanceIDService"
             android:exported="true">
@@ -154,6 +154,16 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <activity
+            android:name=".messagegroup.MessageViewActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/BlackActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".messagegroup.MessageActivity" />
+        </activity>
     </application>
 
 </manifest>

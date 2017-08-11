@@ -163,7 +163,8 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
         recyclerView.setDrawingCacheEnabled(true);
         recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
-        adapter = new MessageAdapter(this, new ArrayList<Message>(0), SharedPreferenceUtil.getTeacher(this).getSchoolId());
+        adapter = new MessageAdapter(this, new ArrayList<Message>(0), SharedPreferenceUtil.getTeacher(this).getSchoolId(),
+                onItemClickListener);
         recyclerView.setAdapter(adapter);
 
         scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
@@ -358,6 +359,19 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
         }
         return false;
     }
+
+    MessageAdapter.OnItemClickListener onItemClickListener = new MessageAdapter.OnItemClickListener() {
+        @Override
+        public void onItemClick(Message message) {
+            Intent intent = new Intent(MessageActivity.this, MessageViewActivity.class);
+            Bundle args = new Bundle();
+            if(group != null){
+                args.putSerializable("message", message);
+            }
+            intent.putExtras(args);
+            startActivity(intent);
+        }
+    };
 
     @Override
     public void onDestroy() {

@@ -1,6 +1,8 @@
 package com.shikshitha.admin.model;
 
-public class Message {
+import java.io.Serializable;
+
+public class Message implements Serializable{
     private long id;
     private long senderId;
     private String senderRole;
