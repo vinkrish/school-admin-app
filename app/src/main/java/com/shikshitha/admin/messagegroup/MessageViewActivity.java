@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.chrisbanes.photoview.PhotoView;
 import com.shikshitha.admin.R;
 import com.shikshitha.admin.model.Message;
 import com.shikshitha.admin.util.SharedPreferenceUtil;
@@ -25,7 +26,7 @@ public class MessageViewActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.shared_image)
-    ImageView sharedImage;
+    PhotoView sharedImage;
     @BindView(R.id.message)
     TextView messageTV;
 
