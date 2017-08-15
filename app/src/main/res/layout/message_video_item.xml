@@ -54,11 +54,35 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/sender_name"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="@dimen/spacing_tiny"
                 android:lineSpacingExtra="2dp"
-                android:maxLines="7"
+                android:maxLines="4"
                 android:textColor="@color/default_tv_color"
                 android:textSize="@dimen/text_xsmall" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/message"
+                android:layout_marginTop="@dimen/spacing_tiny">
+
+                <com.google.android.youtube.player.YouTubeThumbnailView
+                    android:id="@+id/thumbnail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/no_thumbnail" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/black_alpha"
+                    android:padding="@dimen/spacing_tiny"
+                    android:text="@string/video"
+                    android:textColor="@color/default_white" />
+
+            </FrameLayout>
 
         </RelativeLayout>
 

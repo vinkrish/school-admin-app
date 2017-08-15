@@ -19,8 +19,8 @@ public class MessageDao {
 
     public static int insertGroupMessages(List<Message> messages) {
         String sql = "insert into message(Id, SenderId, SenderRole, SenderName, RecipientId, " +
-                "RecipientRole, GroupId, MessageType, MessageBody, ImageUrl, CreatedAt) " +
-                "values(?,?,?,?,?,?,?,?,?,?,?)";
+                "RecipientRole, GroupId, MessageType, MessageBody, ImageUrl, VideoUrl, CreatedAt) " +
+                "values(?,?,?,?,?,?,?,?,?,?,?,?)";
         SQLiteDatabase db = AppGlobal.getSqlDbHelper().getWritableDatabase();
         db.beginTransactionNonExclusive();
         SQLiteStatement stmt = db.compileStatement(sql);
@@ -36,7 +36,8 @@ public class MessageDao {
                 stmt.bindString(8, message.getMessageType());
                 stmt.bindString(9, message.getMessageBody());
                 stmt.bindString(10, message.getImageUrl());
-                stmt.bindString(11, message.getCreatedAt());
+                stmt.bindString(11, message.getVideoUrl());
+                stmt.bindString(12, message.getCreatedAt());
                 stmt.executeInsert();
                 stmt.clearBindings();
             }
@@ -51,8 +52,8 @@ public class MessageDao {
 
     public static int insertChatMessages(List<Message> messages) {
         String sql = "insert into message(Id, SenderId, SenderRole, SenderName, RecipientId, " +
-                "RecipientRole, GroupId, MessageType, MessageBody, ImageUrl, CreatedAt) " +
-                "values(?,?,?,?,?,?,?,?,?,?,?)";
+                "RecipientRole, GroupId, MessageType, MessageBody, ImageUrl, VideoUrl, CreatedAt) " +
+                "values(?,?,?,?,?,?,?,?,?,?,?,?)";
         SQLiteDatabase db = AppGlobal.getSqlDbHelper().getWritableDatabase();
         db.beginTransactionNonExclusive();
         SQLiteStatement stmt = db.compileStatement(sql);
@@ -68,7 +69,8 @@ public class MessageDao {
                 stmt.bindString(8, message.getMessageType());
                 stmt.bindString(9, message.getMessageBody());
                 stmt.bindString(10, message.getImageUrl());
-                stmt.bindString(11, message.getCreatedAt());
+                stmt.bindString(11, message.getVideoUrl());
+                stmt.bindString(12, message.getCreatedAt());
                 stmt.executeInsert();
                 stmt.clearBindings();
             }
@@ -102,6 +104,7 @@ public class MessageDao {
             message.setMessageType(c.getString(c.getColumnIndex("MessageType")));
             message.setMessageBody(c.getString(c.getColumnIndex("MessageBody")));
             message.setImageUrl(c.getString(c.getColumnIndex("ImageUrl")));
+            message.setVideoUrl(c.getString(c.getColumnIndex("VideoUrl")));
             message.setCreatedAt(c.getString(c.getColumnIndex("CreatedAt")));
             messages.add(message);
             c.moveToNext();
@@ -131,6 +134,7 @@ public class MessageDao {
             message.setMessageType(c.getString(c.getColumnIndex("MessageType")));
             message.setMessageBody(c.getString(c.getColumnIndex("MessageBody")));
             message.setImageUrl(c.getString(c.getColumnIndex("ImageUrl")));
+            message.setVideoUrl(c.getString(c.getColumnIndex("VideoUrl")));
             message.setCreatedAt(c.getString(c.getColumnIndex("CreatedAt")));
             messages.add(message);
             c.moveToNext();
@@ -157,6 +161,7 @@ public class MessageDao {
             message.setMessageType(c.getString(c.getColumnIndex("MessageType")));
             message.setMessageBody(c.getString(c.getColumnIndex("MessageBody")));
             message.setImageUrl(c.getString(c.getColumnIndex("ImageUrl")));
+            message.setVideoUrl(c.getString(c.getColumnIndex("VideoUrl")));
             message.setCreatedAt(c.getString(c.getColumnIndex("CreatedAt")));
             messages.add(message);
             c.moveToNext();
@@ -183,6 +188,7 @@ public class MessageDao {
             message.setMessageType(c.getString(c.getColumnIndex("MessageType")));
             message.setMessageBody(c.getString(c.getColumnIndex("MessageBody")));
             message.setImageUrl(c.getString(c.getColumnIndex("ImageUrl")));
+            message.setVideoUrl(c.getString(c.getColumnIndex("VideoUrl")));
             message.setCreatedAt(c.getString(c.getColumnIndex("CreatedAt")));
             messages.add(message);
             c.moveToNext();

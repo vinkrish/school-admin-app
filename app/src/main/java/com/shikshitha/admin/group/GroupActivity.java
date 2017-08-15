@@ -162,7 +162,7 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
         tv.setText(teacher.getName());
 
         if(PermissionUtil.getStoragePermissionStatus(this)) {
-            File dir = new File(Environment.getExternalStorageDirectory().getPath(), "Shikshitha/Teacher/" + teacher.getSchoolId());
+            File dir = new File(Environment.getExternalStorageDirectory().getPath(), "Shikshitha/Admin/" + teacher.getSchoolId());
             if (!dir.exists()) {
                 dir.mkdirs();
             }
