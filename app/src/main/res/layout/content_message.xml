@@ -41,7 +41,7 @@
                 android:layout_marginRight="8dp"
                 android:contentDescription="@string/app_name"
                 android:onClick="uploadImage"
-                android:src="@drawable/ic_image" />
+                app:srcCompat="@drawable/ic_image_black" />
 
             <EditText
                 android:id="@+id/new_msg"

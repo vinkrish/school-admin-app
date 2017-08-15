@@ -69,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:contentDescription="@string/app_name"
-                    android:src="@drawable/calendar" />
+                    app:srcCompat="@drawable/ic_calendar_black" />
 
                 <TextView
                     android:id="@+id/date_tv"

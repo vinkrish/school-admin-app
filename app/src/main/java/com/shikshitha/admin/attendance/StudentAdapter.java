@@ -88,9 +88,9 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
 
         private void updateAttendanceStatus(Boolean b) {
             if(b) {
-                attendanceStatus.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.cancel));
+                attendanceStatus.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_cancel_black));
             } else {
-                attendanceStatus.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.check));
+                attendanceStatus.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_check_black));
             }
         }
 

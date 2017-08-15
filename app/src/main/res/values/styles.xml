@@ -63,7 +63,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="actionModeStyle">@style/LStyled.ActionMode</item>
-        <item name="android:actionModeCloseDrawable">@drawable/ic_close</item>
+        <item name="android:actionModeCloseDrawable">@drawable/ic_clear_black</item>
         <item name="windowActionModeOverlay">true</item>
     </style>
 

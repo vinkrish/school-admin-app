@@ -9,6 +9,7 @@ android {
         targetSdkVersion 25
         versionCode 4
         versionName "0.4"
+        vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

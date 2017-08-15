@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.shikshitha.admin.calendar.EventsFragment">
 
     <android.support.v7.widget.RecyclerView
@@ -22,7 +23,7 @@
             android:layout_height="48dp"
             android:layout_gravity="center"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_storage" />
+            app:srcCompat="@drawable/ic_empty_black" />
 
         <TextView
             android:id="@+id/noTasksMain"

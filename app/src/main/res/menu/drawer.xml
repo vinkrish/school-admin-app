@@ -4,37 +4,37 @@
         <item
             android:id="@+id/dashboard_item"
             android:checked="true"
-            android:icon="@drawable/dashboard"
+            android:icon="@drawable/ic_group_black"
             android:title="@string/dashboard" />
         <item
             android:id="@+id/attendance_item"
             android:checked="false"
-            android:icon="@drawable/ic_attendance"
+            android:icon="@drawable/ic_attendance_black"
             android:title="@string/attendance" />
         <item
             android:id="@+id/homework_item"
             android:checked="false"
-            android:icon="@drawable/ic_homework"
+            android:icon="@drawable/ic_homework_black"
             android:title="@string/homework" />
         <item
             android:id="@+id/timetable_item"
             android:checked="false"
-            android:icon="@drawable/ic_timetable"
+            android:icon="@drawable/ic_timetable_black"
             android:title="@string/timetable" />
         <item
             android:id="@+id/event_item"
             android:checked="false"
-            android:icon="@drawable/ic_event"
+            android:icon="@drawable/ic_event_black"
             android:title="@string/events" />
         <item
             android:id="@+id/chat_item"
             android:checked="false"
-            android:icon="@drawable/ic_chat_bubble"
+            android:icon="@drawable/ic_chat_black"
             android:title="@string/chat" />
         <item
             android:id="@+id/logout_item"
             android:checked="false"
-            android:icon="@drawable/exit"
+            android:icon="@drawable/ic_logout_black"
             android:title="@string/logout" />
     </group>
 </menu>
