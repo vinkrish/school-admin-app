@@ -17,6 +17,7 @@ import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.shikshitha.admin.R;
 import com.shikshitha.admin.model.Message;
 import com.shikshitha.admin.util.SharedPreferenceUtil;
+import com.shikshitha.admin.util.YouTubeHelper;
 import com.shikshitha.admin.util.YoutubeDeveloperKey;
 
 import org.joda.time.DateTime;
@@ -69,14 +70,8 @@ public class MessageViewActivity extends AppCompatActivity
         FragmentManager fm = getSupportFragmentManager();
 
         if(message.getVideoUrl() != null && !message.getVideoUrl().equals("")) {
-            String pattern = "(?<=watch\\?v=|/videos/|embed\\/)[^#\\&\\?]*";
-
-            Pattern compiledPattern = Pattern.compile(pattern);
-            Matcher matcher = compiledPattern.matcher(message.getVideoUrl());
-
-            if(matcher.find()){
-                videoId = matcher.group();
-            }
+            YouTubeHelper youTubeHelper = new YouTubeHelper();
+            videoId = youTubeHelper.extractVideoIdFromUrl(message.getVideoUrl());
 
             fm.beginTransaction()
                     .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
@@ -85,7 +80,7 @@ public class MessageViewActivity extends AppCompatActivity
             frag.initialize(YoutubeDeveloperKey.DEVELOPER_KEY, this);
         } else {
             fm.beginTransaction()
-                    .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                    .setCustomAnimations(android.R.anim.fade_out, android.R.anim.fade_in)
                     .hide(frag)
                     .commit();
         }

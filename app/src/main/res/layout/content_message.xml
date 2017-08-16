@@ -21,13 +21,13 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true" />
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/new_msg_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@android:color/white"
-            android:orientation="horizontal"
+            android:gravity="center_vertical"
             android:paddingBottom="8dp"
             android:paddingTop="8dp"
             android:visibility="gone">
@@ -36,38 +36,59 @@
                 android:id="@+id/img_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:contentDescription="@string/app_name"
                 android:onClick="uploadImage"
                 app:srcCompat="@drawable/ic_image_black" />
 
+            <ImageView
+                android:id="@+id/youtube_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_toRightOf="@+id/img_button"
+                android:contentDescription="@string/app_name"
+                android:onClick="pasteYoutubeUrl"
+                app:srcCompat="@drawable/ic_youtube_black" />
+
             <EditText
                 android:id="@+id/new_msg"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/enter_msg"
+                android:layout_toRightOf="@+id/youtube_button"
                 android:hint="@string/type_your_message"
                 android:inputType="textCapSentences|textMultiLine"
                 android:lineSpacingExtra="3dp"
-                android:textSize="@dimen/text_medium" />
+                android:textSize="@dimen/text_xsmall" />
 
             <ImageView
                 android:id="@+id/enter_msg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:contentDescription="@string/app_name"
                 android:onClick="newMsgSendListener"
-                android:paddingEnd="12dp"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
-                android:paddingStart="12dp"
                 android:src="@drawable/ic_chat_send" />
 
-        </LinearLayout>
+
+            <TextView
+                android:id="@+id/youtube_url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/new_msg"
+                android:gravity="center"
+                android:visibility="gone" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

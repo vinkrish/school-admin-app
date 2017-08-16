@@ -3,6 +3,7 @@ package com.shikshitha.admin.messagegroup;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentUris;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -21,10 +22,12 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.webkit.URLUtil;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shikshitha.admin.R;
@@ -52,6 +55,7 @@ public class ImageUploadActivity extends AppCompatActivity
     @BindView(R.id.image_view) ImageView choseImage;
     @BindView(R.id.progress_layout) FrameLayout progressLayout;
     @BindView(R.id.progress_bar) ProgressBar progressBar;
+    @BindView(R.id.youtube_url) TextView youtubeURL;
     @BindView(R.id.new_msg) EditText newMsg;
 
     private static final String TAG = "ImageUploadActivity";
@@ -87,6 +91,30 @@ public class ImageUploadActivity extends AppCompatActivity
 
     private void showSnackbar(String message) {
         Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_SHORT).show();
+    }
+
+    public void pasteYoutubeUrl(View view) {
+        CharSequence pasteString = "";
+        android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        if (clipboard.getPrimaryClip() != null) {
+            android.content.ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
+            pasteString = item.getText();
+        }
+
+        if (pasteString != null) {
+            if (URLUtil.isValidUrl(pasteString.toString())) {
+                youtubeURL.setVisibility(View.VISIBLE);
+                youtubeURL.setText(pasteString);
+            } else {
+                youtubeURL.setText("");
+                youtubeURL.setVisibility(View.GONE);
+                showSnackbar("URL is not valid");
+            }
+        } else {
+            youtubeURL.setText("");
+            youtubeURL.setVisibility(View.GONE);
+            showSnackbar("copy YouTube url before pasting");
+        }
     }
 
     public void newImageSendListener (View view) {
@@ -263,6 +291,13 @@ public class ImageUploadActivity extends AppCompatActivity
             if(newState.toString().equals("COMPLETED")) {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("text", newMsg.getText().toString().trim());
+                if(youtubeURL.getText().equals("")) {
+                    resultIntent.putExtra("type", "image");
+                    resultIntent.putExtra("url", "");
+                } else {
+                    resultIntent.putExtra("type", "both");
+                    resultIntent.putExtra("url", youtubeURL.getText().toString());
+                }
                 resultIntent.putExtra("imgName", imageName);
                 setResult(Activity.RESULT_OK, resultIntent);
                 finish();

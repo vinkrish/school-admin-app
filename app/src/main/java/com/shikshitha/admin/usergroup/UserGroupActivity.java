@@ -84,16 +84,10 @@ public class UserGroupActivity extends AppCompatActivity implements
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        /*Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            group = new Groups();
-            group.setId(extras.getLong("groupId"));
-            group.setName(extras.getString("groupName"));
-            groupName.setText(group.getName());
-        }*/
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             group = (Groups) extras.getSerializable("group");
+            groupName.setText(group.getName());
         }
 
         presenter = new UserGroupPresenterImpl(this, new UserGroupInteractorImpl());

@@ -20,6 +20,7 @@ import com.google.android.youtube.player.YouTubeThumbnailLoader;
 import com.google.android.youtube.player.YouTubeThumbnailView;
 import com.shikshitha.admin.R;
 import com.shikshitha.admin.model.Message;
+import com.shikshitha.admin.util.YouTubeHelper;
 import com.shikshitha.admin.util.YoutubeDeveloperKey;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -216,7 +217,12 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
             senderName.setText(message.getSenderName());
             DateTime dateTime = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.S").parseDateTime(message.getCreatedAt());
             createdDate.setText(DateTimeFormat.forPattern("dd-MMM, HH:mm").print(dateTime));
-            messageTV.setText(message.getMessageBody());
+
+            if(message.getMessageBody().equals("")) {
+                messageTV.setVisibility(View.GONE);
+            } else {
+                messageTV.setText(message.getMessageBody());
+            }
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -225,16 +231,12 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
                 }
             });
 
-            //sharedImage.setImageResource(R.drawable.books);
             File dir = new File(Environment.getExternalStorageDirectory().getPath(), "Shikshitha/Admin/" + schoolId);
             if (!dir.exists()) {
                 dir.mkdirs();
             }
             final File file = new File(dir, message.getImageUrl());
             if(file.exists()) {
-                /*BitmapFactory.Options bitoption = new BitmapFactory.Options();
-                bitoption.inSampleSize = 4;
-                sharedImage.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath(), bitoption));*/
                 sharedImage.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
             } else {
                 Picasso.with(mContext)
@@ -288,16 +290,16 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
             senderName.setText(message.getSenderName());
             DateTime dateTime = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.S").parseDateTime(message.getCreatedAt());
             createdDate.setText(DateTimeFormat.forPattern("dd-MMM, HH:mm").print(dateTime));
-            messageTV.setText(message.getMessageBody());
+
+            if(message.getMessageBody().equals("")) {
+                messageTV.setVisibility(View.GONE);
+            } else {
+                messageTV.setText(message.getMessageBody());
+            }
+
             if(message.getVideoUrl() != null && !message.getVideoUrl().equals("")) {
-                String pattern = "(?<=watch\\?v=|/videos/|embed\\/)[^#\\&\\?]*";
-
-                Pattern compiledPattern = Pattern.compile(pattern);
-                Matcher matcher = compiledPattern.matcher(message.getVideoUrl());
-
-                if(matcher.find()){
-                    videoId = matcher.group();
-                }
+                YouTubeHelper youTubeHelper = new YouTubeHelper();
+                videoId = youTubeHelper.extractVideoIdFromUrl(message.getVideoUrl());
 
                 thumbnail.setTag(videoId);
                 thumbnail.initialize(YoutubeDeveloperKey.DEVELOPER_KEY, thumbnailListener);
@@ -340,17 +342,16 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
             senderName.setText(message.getSenderName());
             DateTime dateTime = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.S").parseDateTime(message.getCreatedAt());
             createdDate.setText(DateTimeFormat.forPattern("dd-MMM, HH:mm").print(dateTime));
-            messageTV.setText(message.getMessageBody());
+
+            if(message.getMessageBody().equals("")) {
+                messageTV.setVisibility(View.GONE);
+            } else {
+                messageTV.setText(message.getMessageBody());
+            }
 
             if(message.getVideoUrl() != null && !message.getVideoUrl().equals("")) {
-                String pattern = "(?<=watch\\?v=|/videos/|embed\\/)[^#\\&\\?]*";
-
-                Pattern compiledPattern = Pattern.compile(pattern);
-                Matcher matcher = compiledPattern.matcher(message.getVideoUrl());
-
-                if(matcher.find()){
-                    videoId = matcher.group();
-                }
+                YouTubeHelper youTubeHelper = new YouTubeHelper();
+                videoId = youTubeHelper.extractVideoIdFromUrl(message.getVideoUrl());
 
                 thumbnail.setTag(videoId);
                 thumbnail.initialize(YoutubeDeveloperKey.DEVELOPER_KEY, thumbnailListener);
@@ -365,7 +366,7 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
             });
 
             //sharedImage.setImageResource(R.drawable.books);
-            File dir = new File(Environment.getExternalStorageDirectory().getPath(), "Shikshitha/Teacher/" + schoolId);
+            File dir = new File(Environment.getExternalStorageDirectory().getPath(), "Shikshitha/Admin/" + schoolId);
             if (!dir.exists()) {
                 dir.mkdirs();
             }

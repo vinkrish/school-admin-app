@@ -21,9 +21,11 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.URLUtil;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.shikshitha.admin.R;
 import com.shikshitha.admin.dao.MessageDao;
@@ -48,8 +50,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MessageActivity extends AppCompatActivity implements MessageView, View.OnKeyListener,
-        ActivityCompat.OnRequestPermissionsResultCallback{
-    @BindView(R.id.toolbar) Toolbar toolbar;
+        ActivityCompat.OnRequestPermissionsResultCallback {
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.coordinatorLayout)
     CoordinatorLayout coordinatorLayout;
     @BindView(R.id.refreshLayout)
@@ -57,9 +60,11 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
     @BindView(R.id.new_msg_layout)
-    LinearLayout newMsgLayout;
+    RelativeLayout newMsgLayout;
     @BindView(R.id.new_msg)
     EditText newMsg;
+    @BindView(R.id.youtube_url)
+    TextView youtubeURL;
     @BindView(R.id.enter_msg)
     ImageView enterMsg;
 
@@ -77,28 +82,28 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            group = (Groups) extras.getSerializable("group");
-        }
-
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        if(!group.isSchool()) {
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            group = (Groups) extras.getSerializable("group");
+        }
+
+        if (!group.isSchool()) {
             getSupportActionBar().setSubtitle(R.string.tap_group);
             toolbar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                Intent intent = new Intent(MessageActivity.this, UserGroupActivity.class);
-                Bundle args = new Bundle();
-                if(group != null){
-                    args.putSerializable("group", group);
-                }
-                intent.putExtras(args);
-                startActivity(intent);
+                    Intent intent = new Intent(MessageActivity.this, UserGroupActivity.class);
+                    Bundle args = new Bundle();
+                    if (group != null) {
+                        args.putSerializable("group", group);
+                    }
+                    intent.putExtras(args);
+                    startActivity(intent);
                 }
             });
         }
@@ -127,7 +132,7 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
         newMsg.setOnKeyListener(this);
         newMsg.addTextChangedListener(newMsgWatcher);
 
-        if(PermissionUtil.isStoragePermissionGranted(this, WRITE_STORAGE_PERMISSION)) {
+        if (PermissionUtil.isStoragePermissionGranted(this, WRITE_STORAGE_PERMISSION)) {
             getBackupMessages();
         }
 
@@ -136,8 +141,8 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
     private void getBackupMessages() {
         List<Message> messages = MessageDao.getGroupMessages(group.getId());
         adapter.setDataSet(messages);
-        if(NetworkUtil.isNetworkAvailable(this)) {
-            if(messages.size() == 0) {
+        if (NetworkUtil.isNetworkAvailable(this)) {
+            if (messages.size() == 0) {
                 presenter.getMessages(group.getId());
             } else {
                 presenter.getRecentMessages(group.getId(), adapter.getDataSet().get(0).getId());
@@ -148,7 +153,7 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             getBackupMessages();
         } else {
             showSnackbar("Permission has been denied");
@@ -163,18 +168,18 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
         recyclerView.setDrawingCacheEnabled(true);
         recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
-        adapter = new MessageAdapter(this, new ArrayList<Message>(0), SharedPreferenceUtil.getTeacher(this).getSchoolId(),
+        adapter = new MessageAdapter(getApplicationContext(), new ArrayList<Message>(0), SharedPreferenceUtil.getTeacher(this).getSchoolId(),
                 onItemClickListener);
         recyclerView.setAdapter(adapter);
 
         scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                if(NetworkUtil.isNetworkAvailable(MessageActivity.this)) {
-                    presenter.getFollowupMessages(group.getId(), adapter.getDataSet().get(adapter.getDataSet().size()-1).getId());
+                if (NetworkUtil.isNetworkAvailable(MessageActivity.this)) {
+                    presenter.getFollowupMessages(group.getId(), adapter.getDataSet().get(adapter.getDataSet().size() - 1).getId());
                 } else {
                     List<Message> messages = MessageDao.getGroupMessagesFromId(group.getId(),
-                            adapter.getDataSet().get(adapter.getDataSet().size()-1).getId());
+                            adapter.getDataSet().get(adapter.getDataSet().size() - 1).getId());
                     adapter.updateDataSet(messages);
                 }
             }
@@ -204,10 +209,12 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
 
     @Override
     public void onBackPressed() {
-        if(newMsgLayout.getVisibility() == View.VISIBLE) {
+        if (newMsgLayout.getVisibility() == View.VISIBLE) {
             newMsgLayout.setVisibility(View.GONE);
             fabButton.showFloatingActionButton();
             newMsg.setText("");
+            youtubeURL.setText("");
+            youtubeURL.setVisibility(View.GONE);
         } else {
             super.onBackPressed();
         }
@@ -272,23 +279,51 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
         }).start();
     }
 
-    public void uploadImage (View view) {
+    public void uploadImage(View view) {
         Intent intent = new Intent(MessageActivity.this, ImageUploadActivity.class);
         startActivityForResult(intent, REQ_CODE);
     }
 
-    public void newMsgSendListener (View view) {
-        sendMessage("text", "");
+    public void pasteYoutubeUrl(View view) {
+        CharSequence pasteString = "";
+        android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        if (clipboard.getPrimaryClip() != null) {
+            android.content.ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
+            pasteString = item.getText();
+        }
+
+        if (pasteString != null) {
+            if (URLUtil.isValidUrl(pasteString.toString())) {
+                youtubeURL.setVisibility(View.VISIBLE);
+                youtubeURL.setText(pasteString);
+            } else {
+                youtubeURL.setText("");
+                youtubeURL.setVisibility(View.GONE);
+                showSnackbar("URL is not valid");
+            }
+        } else {
+            youtubeURL.setText("");
+            youtubeURL.setVisibility(View.GONE);
+            showSnackbar("copy YouTube url before pasting");
+        }
+    }
+
+    public void newMsgSendListener(View view) {
+        if (youtubeURL.getText().equals("")) {
+            sendMessage("text", "");
+        } else {
+            sendMessage("video", "");
+        }
         newMsg.setText("");
     }
 
     private void sendMessage(String messageType, String imgUrl) {
         View v = this.getCurrentFocus();
         if (v != null) {
-            InputMethodManager imm = (InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
         }
-        if(newMsg.getText().toString().trim().isEmpty() && imgUrl.equals("")) {
+        if (newMsg.getText().toString().trim().isEmpty() && imgUrl.equals("")) {
             showError("Please enter message");
         } else {
             if (NetworkUtil.isNetworkAvailable(this)) {
@@ -301,6 +336,7 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
                 message.setRecipientRole("group");
                 message.setMessageType(messageType);
                 message.setImageUrl(imgUrl);
+                message.setVideoUrl(youtubeURL.getText().toString());
                 message.setMessageBody(newMsg.getText().toString());
                 message.setCreatedAt(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(new Date()));
                 presenter.saveMessage(message);
@@ -313,13 +349,16 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch(requestCode) {
-            case (REQ_CODE) : {
+        switch (requestCode) {
+            case (REQ_CODE): {
                 if (resultCode == Activity.RESULT_OK) {
                     String msg = data.getStringExtra("text");
+                    if (!data.getStringExtra("url").equals("")) {
+                        youtubeURL.setText(data.getStringExtra("url"));
+                    }
                     newMsg.setText(msg);
                     String imgName = data.getStringExtra("imgName");
-                    sendMessage("image", imgName);
+                    sendMessage(data.getStringExtra("type"), imgName);
                 } else {
                     hideProgress();
                     showSnackbar("Canceled Image Upload");
@@ -344,9 +383,9 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
 
         @Override
         public void afterTextChanged(Editable editable) {
-            if(editable.length()==0){
+            if (editable.length() == 0) {
                 enterMsg.setImageResource(R.drawable.ic_chat_send);
-            }else{
+            } else {
                 enterMsg.setImageResource(R.drawable.ic_chat_send_active);
             }
         }
@@ -354,7 +393,7 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
 
     @Override
     public boolean onKey(View view, int i, KeyEvent keyEvent) {
-        if(i == keyEvent.KEYCODE_ENTER){
+        if (i == keyEvent.KEYCODE_ENTER) {
             sendMessage("text", "");
         }
         return false;
@@ -365,7 +404,7 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
         public void onItemClick(Message message) {
             Intent intent = new Intent(MessageActivity.this, MessageViewActivity.class);
             Bundle args = new Bundle();
-            if(group != null){
+            if (group != null) {
                 args.putSerializable("message", message);
             }
             intent.putExtras(args);
