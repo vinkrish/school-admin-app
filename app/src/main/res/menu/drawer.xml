@@ -5,7 +5,7 @@
             android:id="@+id/dashboard_item"
             android:checked="true"
             android:icon="@drawable/ic_group_black"
-            android:title="@string/dashboard" />
+            android:title="@string/groups" />
         <item
             android:id="@+id/attendance_item"
             android:checked="false"

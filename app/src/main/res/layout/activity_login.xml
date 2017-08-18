@@ -1,128 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/coordinatorLayout"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:background="@color/default_white"
-tools:context="com.shikshitha.admin.login.LoginActivity">
-
-<RelativeLayout
-    android:id="@+id/activity_login"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout
-        android:id="@+id/topPanel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:background="@color/colorPrimary"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingBottom="@dimen/spacing_normal"
-        android:paddingLeft="@dimen/spacing_small"
-        android:paddingTop="@dimen/spacing_normal">
-
-        <ImageView
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/logo" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/spacing_tiny"
-            android:text="@string/app_name"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_xlarge" />
-
-    </LinearLayout>
+    android:layout_height="match_parent"
+    android:background="@color/default_white"
+    tools:context="com.shikshitha.admin.login.LoginActivity">
 
     <RelativeLayout
+        android:id="@+id/activity_login"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/topPanel"
-        android:background="#E6FFFFFF"
-        android:paddingBottom="5dp"
-        android:paddingLeft="@dimen/spacing_normal"
-        android:paddingRight="@dimen/spacing_normal"
-        android:paddingTop="@dimen/spacing_large">
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/login_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/login_id_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/login_id"
-                android:inputType="number" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/login_id"
-            android:layout_marginTop="@dimen/spacing_small"
-            app:passwordToggleEnabled="true">
-
-            <EditText
-                android:id="@+id/password_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/password"
-                android:inputType="textPassword" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <Button
-            android:id="@+id/forgot_btn"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/password"
-            android:onClick="forgotPassword"
-            android:text="@string/forgot_password"
-            android:textAllCaps="false"
-            android:textColor="@color/colorAccent"
-            android:textSize="@dimen/text_xsmall" />
+        android:background="@drawable/admin_login">
 
         <LinearLayout
+            android:id="@+id/topPanel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/spacing_normal"
-            android:orientation="vertical">
+            android:layout_alignParentTop="true"
+            android:background="@color/colorPrimary"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/spacing_normal"
+            android:paddingLeft="@dimen/spacing_small"
+            android:paddingTop="@dimen/spacing_normal">
 
-            <Button
-                android:id="@+id/login_btn"
-                android:layout_width="match_parent"
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/logo" />
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_ripple"
-                android:onClick="login"
-                android:text="@string/login"
-                android:textAllCaps="false"
-                android:textColor="#FFFFFF"
-                android:textSize="@dimen/text_xmedium" />
+                android:paddingLeft="@dimen/spacing_tiny"
+                android:text="@string/app_name"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_xlarge" />
 
         </LinearLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/topPanel"
+            android:background="#E6FFFFFF"
+            android:paddingBottom="5dp"
+            android:paddingLeft="@dimen/spacing_normal"
+            android:paddingRight="@dimen/spacing_normal"
+            android:paddingTop="@dimen/spacing_large">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/login_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/login_id_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/login_id"
+                    android:inputType="number" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/login_id"
+                android:layout_marginTop="@dimen/spacing_small"
+                app:passwordToggleEnabled="true">
+
+                <EditText
+                    android:id="@+id/password_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/password"
+                    android:inputType="textPassword" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/forgot_btn"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/password"
+                android:onClick="forgotPassword"
+                android:text="@string/forgot_password"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/text_xsmall" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/spacing_normal"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/login_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_ripple"
+                    android:onClick="login"
+                    android:text="@string/login"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/text_xmedium" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+
     </RelativeLayout>
-
-    <ProgressBar
-        android:id="@+id/progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone" />
-
-</RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>
