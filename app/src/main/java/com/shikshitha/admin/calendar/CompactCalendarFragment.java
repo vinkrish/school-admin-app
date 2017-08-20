@@ -19,11 +19,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+import com.github.sundeepk.compactcalendarview.domain.Event;
 import com.shikshitha.admin.R;
 import com.shikshitha.admin.model.Evnt;
 import com.shikshitha.admin.util.DividerItemDecoration;
-import com.github.sundeepk.compactcalendarview.CompactCalendarView;
-import com.github.sundeepk.compactcalendarview.domain.Event;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

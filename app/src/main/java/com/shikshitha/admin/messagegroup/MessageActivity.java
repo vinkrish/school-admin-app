@@ -24,6 +24,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.webkit.URLUtil;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -59,6 +60,8 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
     SwipeRefreshLayout refreshLayout;
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
+    @BindView(R.id.noMessage)
+    LinearLayout noMessage;
     @BindView(R.id.new_msg_layout)
     RelativeLayout newMsgLayout;
     @BindView(R.id.new_msg)
@@ -245,6 +248,7 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
         newMsgLayout.setVisibility(View.GONE);
         fabButton.showFloatingActionButton();
         newMsg.setText("");
+        noMessage.setVisibility(View.GONE);
         adapter.insertDataSet(message);
         recyclerView.smoothScrollToPosition(0);
         backupMessages(Collections.singletonList(message));
@@ -259,9 +263,14 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
 
     @Override
     public void showMessages(List<Message> messages) {
-        adapter.setDataSet(messages);
-        recyclerView.smoothScrollToPosition(0);
-        backupMessages(messages);
+        if(messages.size() == 0) {
+            noMessage.setVisibility(View.VISIBLE);
+        } else {
+            noMessage.setVisibility(View.GONE);
+            adapter.setDataSet(messages);
+            recyclerView.smoothScrollToPosition(0);
+            backupMessages(messages);
+        }
     }
 
     @Override

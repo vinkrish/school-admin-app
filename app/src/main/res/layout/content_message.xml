@@ -90,6 +90,31 @@
 
         </RelativeLayout>
 
+        <LinearLayout
+            android:id="@+id/noMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/app_name"
+                app:srcCompat="@drawable/ic_empty_black" />
+
+            <TextView
+                android:id="@+id/notShared"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/nothing_shared"
+                android:textColor="@color/default_tv_color" />
+
+        </LinearLayout>
+
     </RelativeLayout>
 
 </android.support.v4.widget.SwipeRefreshLayout>

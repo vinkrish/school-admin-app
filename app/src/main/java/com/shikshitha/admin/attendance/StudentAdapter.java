@@ -3,6 +3,7 @@ package com.shikshitha.admin.attendance;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.support.annotation.UiThread;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -88,9 +89,9 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
 
         private void updateAttendanceStatus(Boolean b) {
             if(b) {
-                attendanceStatus.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_cancel_black));
+                attendanceStatus.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_cancel_black));
             } else {
-                attendanceStatus.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_check_black));
+                attendanceStatus.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_check_black));
             }
         }
 
