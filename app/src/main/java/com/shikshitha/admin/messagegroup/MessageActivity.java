@@ -340,7 +340,7 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
                 Teacher teacher = TeacherDao.getTeacher();
                 message.setSenderId(teacher.getId());
                 message.setSenderName(teacher.getName());
-                message.setSenderRole("teacher");
+                message.setSenderRole("admin");
                 message.setGroupId(group.getId());
                 message.setRecipientRole("group");
                 message.setMessageType(messageType);

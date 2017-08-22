@@ -90,7 +90,7 @@ class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        if (messages.get(position).getSenderRole().equals("principal")) {
+        if (messages.get(position).getSenderRole().equals("admin")) {
             return ITEM_TYPE_SENDER;
         } else {
             return ITEM_TYPE_RECEIVER;

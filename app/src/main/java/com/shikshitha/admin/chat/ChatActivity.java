@@ -103,9 +103,9 @@ public class ChatActivity extends AppCompatActivity implements ChatView {
         App.activityResumed();
         if(NetworkUtil.isNetworkAvailable(this)){
             if(adapter.getItemCount() == 0) {
-                presenter.getMessages("principal", TeacherDao.getTeacher().getId(), "student", recipientId);
+                presenter.getMessages("admin", TeacherDao.getTeacher().getId(), "student", recipientId);
             } else {
-                presenter.getRecentMessages("principal", TeacherDao.getTeacher().getId(), "student", recipientId,
+                presenter.getRecentMessages("admin", TeacherDao.getTeacher().getId(), "student", recipientId,
                         adapter.getDataSet().get(0).getId());
             }
         }
@@ -143,7 +143,7 @@ public class ChatActivity extends AppCompatActivity implements ChatView {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 if(NetworkUtil.isNetworkAvailable(ChatActivity.this)) {
-                    presenter.getFollowupMessages("principal", TeacherDao.getTeacher().getId(), "student", recipientId,
+                    presenter.getFollowupMessages("admin", TeacherDao.getTeacher().getId(), "student", recipientId,
                             adapter.getDataSet().get(adapter.getDataSet().size()-1).getId());
                 } else {
                     List<Message> messages = MessageDao.getMessagesFromId(TeacherDao.getTeacher().getId(), "principal",
@@ -175,7 +175,7 @@ public class ChatActivity extends AppCompatActivity implements ChatView {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event) {
         if(NetworkUtil.isNetworkAvailable(this) && event.senderId == recipientId){
-            presenter.getRecentMessages("principal", TeacherDao.getTeacher().getId(), "student", recipientId,
+            presenter.getRecentMessages("admin", TeacherDao.getTeacher().getId(), "student", recipientId,
                     adapter.getDataSet().get(0).getId());
         }
     }
@@ -259,7 +259,7 @@ public class ChatActivity extends AppCompatActivity implements ChatView {
                 Message message = new Message();
                 message.setSenderId(TeacherDao.getTeacher().getId());
                 message.setSenderName(TeacherDao.getTeacher().getName());
-                message.setSenderRole("principal");
+                message.setSenderRole("admin");
                 message.setRecipientId(recipientId);
                 message.setRecipientRole("student");
                 message.setGroupId(0);
