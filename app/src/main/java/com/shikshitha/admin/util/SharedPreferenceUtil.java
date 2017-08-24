@@ -11,6 +11,7 @@ public class SharedPreferenceUtil {
     public static void saveTeacher(Context context, TeacherCredentials credentials) {
         SharedPreferences sharedPref = context.getSharedPreferences("credentials", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("mobileNo", credentials.getMobileNo());
         editor.putString("authToken", credentials.getAuthToken());
         editor.putLong("schoolId", credentials.getSchoolId());
         editor.putString("schoolName", credentials.getSchoolName());
@@ -20,6 +21,7 @@ public class SharedPreferenceUtil {
     public static TeacherCredentials getTeacher(Context context){
         SharedPreferences sharedPref = context.getSharedPreferences("credentials", Context.MODE_PRIVATE);
         TeacherCredentials response = new TeacherCredentials();
+        response.setAuthToken(sharedPref.getString("mobileNo", ""));
         response.setAuthToken(sharedPref.getString("authToken", ""));
         response.setSchoolId(sharedPref.getLong("schoolId", 0));
         response.setSchoolName(sharedPref.getString("schoolName", ""));
@@ -29,6 +31,7 @@ public class SharedPreferenceUtil {
     public static void logout(Context context){
         SharedPreferences sharedPref = context.getSharedPreferences("credentials", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("mobileNo", "");
         editor.putString("authToken", "");
         editor.putLong("schoolId", 0);
         editor.apply();

@@ -19,8 +19,8 @@ public class GroupDao {
 
     public static int insertMany(List<Groups> groups) {
         String sql = "insert into groups(Id, Name, IsSchool, SectionId, IsSection, ClassId, IsClass, " +
-                "CreatedBy, CreatorName, CreatorRole, CreatedDate, IsActive) " +
-                "values(?,?,?,?,?,?,?,?,?,?,?,?)";
+                "CreatedBy, CreatorName, CreatorRole, CreatedDate, IsActive, SchoolId) " +
+                "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         SQLiteDatabase db = AppGlobal.getSqlDbHelper().getWritableDatabase();
         db.beginTransactionNonExclusive();
         SQLiteStatement stmt = db.compileStatement(sql);
@@ -38,6 +38,7 @@ public class GroupDao {
                 stmt.bindString(10, group.getCreatorRole());
                 stmt.bindString(11, group.getCreatedDate());
                 stmt.bindString(12, Boolean.toString(group.isActive()));
+                stmt.bindLong(13, group.getSchoolId());
                 stmt.executeInsert();
                 stmt.clearBindings();
             }
@@ -69,6 +70,7 @@ public class GroupDao {
             group.setCreatorRole(c.getString(c.getColumnIndex("CreatorRole")));
             group.setCreatedDate(c.getString(c.getColumnIndex("CreatedDate")));
             group.setActive(Boolean.parseBoolean(c.getString(c.getColumnIndex("IsActive"))));
+            group.setSchoolId(c.getLong(c.getColumnIndex("SchoolId")));
             groups.add(group);
             c.moveToNext();
         }

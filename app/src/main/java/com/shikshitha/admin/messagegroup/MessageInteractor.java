@@ -17,8 +17,6 @@ interface MessageInteractor {
         void onRecentMessagesReceived(List<Message> messages);
 
         void onMessageReceived(List<Message> messages);
-
-        void onFollowupMessagesReceived(List<Message> messages);
     }
 
     void saveMessage(Message message, MessageInteractor.OnFinishedListener listener);
@@ -26,6 +24,4 @@ interface MessageInteractor {
     void getRecentMessages(long groupId, long messageId, MessageInteractor.OnFinishedListener listener);
 
     void getMessages(long groupId, MessageInteractor.OnFinishedListener listener);
-
-    void getFollowupMessages(long groupId, long messageId, MessageInteractor.OnFinishedListener listener);
 }

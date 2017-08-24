@@ -164,6 +164,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".messagegroup.MessageActivity" />
         </activity>
+
+        <service
+            android:name=".service.FCMIntentService"
+            android:exported="false"></service>
     </application>
 
 </manifest>

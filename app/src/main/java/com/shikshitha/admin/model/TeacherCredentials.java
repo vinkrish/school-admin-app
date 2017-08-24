@@ -5,11 +5,20 @@ package com.shikshitha.admin.model;
  */
 
 public class TeacherCredentials {
+    private String mobileNo;
     private String authToken;
     private long schoolId;
     private String schoolName;
     private Teacher teacher;
     private Service service;
+
+    public String getMobileNo() {
+        return mobileNo;
+    }
+
+    public void setMobileNo(String mobileNo) {
+        this.mobileNo = mobileNo;
+    }
 
     public String getAuthToken() {
         return authToken;

@@ -3,12 +3,12 @@ package com.shikshitha.admin.login;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -20,6 +20,7 @@ import com.shikshitha.admin.dao.TeacherDao;
 import com.shikshitha.admin.group.GroupActivity;
 import com.shikshitha.admin.model.Credentials;
 import com.shikshitha.admin.model.TeacherCredentials;
+import com.shikshitha.admin.service.FCMIntentService;
 import com.shikshitha.admin.util.SharedPreferenceUtil;
 
 import butterknife.BindView;
@@ -113,7 +114,9 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
         TeacherDao.insert(teacherCredentials.getTeacher());
         ServiceDao.clear();
         ServiceDao.insert(teacherCredentials.getService());
+        teacherCredentials.setMobileNo(loginId.getText().toString());
         SharedPreferenceUtil.saveTeacher(this, teacherCredentials);
+        startService(new Intent(this, FCMIntentService.class));
     }
 
     @Override

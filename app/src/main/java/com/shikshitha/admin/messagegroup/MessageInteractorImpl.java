@@ -83,25 +83,4 @@ class MessageInteractorImpl implements MessageInteractor {
         });
     }
 
-    @Override
-    public void getFollowupMessages(long groupId, long messageId, final OnFinishedListener listener) {
-        AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
-
-        Call<ArrayList<Message>> msgList = api.getGroupMessagesFromId(groupId, messageId);
-        msgList.enqueue(new Callback<ArrayList<Message>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Message>> call, Response<ArrayList<Message>> response) {
-                if(response.isSuccessful()) {
-                    listener.onFollowupMessagesReceived(response.body());
-                } else {
-                    listener.onError(App.getInstance().getString(R.string.request_error));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<Message>> call, Throwable t) {
-                listener.onError(App.getInstance().getString(R.string.network_error));
-            }
-        });
-    }
 }

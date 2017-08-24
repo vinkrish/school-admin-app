@@ -9,7 +9,5 @@ import com.shikshitha.admin.model.Authorization;
 interface GroupPresenter {
     void getGroups(long teacherId);
 
-    void updateFcmToken(Authorization authorization);
-
     void onDestroy();
 }

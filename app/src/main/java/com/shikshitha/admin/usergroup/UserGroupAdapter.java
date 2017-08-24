@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
  * Created by Vinay on 03-04-2017.
  */
 
-public class UserGroupAdapter extends RecyclerView.Adapter<UserGroupAdapter.ViewHolder> {
+class UserGroupAdapter extends RecyclerView.Adapter<UserGroupAdapter.ViewHolder> {
     private Context mContext;
     private List<UserGroup> users;
     private List<UserGroup> selected_users;

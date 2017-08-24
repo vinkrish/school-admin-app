@@ -270,7 +270,6 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
             backupGroups(groups);
         }
         refreshLayout.setRefreshing(false);
-        updateFcmToken();
     }
 
     private void backupGroups(final List<Groups> groups) {
@@ -281,17 +280,6 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
                 GroupDao.insertMany(groups);
             }
         }).start();
-    }
-
-    private void updateFcmToken() {
-        if(!SharedPreferenceUtil.isFcmTokenSaved(GroupActivity.this)) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    presenter.updateFcmToken(SharedPreferenceUtil.getAuthorization(GroupActivity.this));
-                }
-            }).start();
-        }
     }
 
     private void setupDrawerContent(NavigationView navigationView) {

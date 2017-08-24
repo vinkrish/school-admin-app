@@ -27,11 +27,6 @@ class GroupPresenterImpl implements GroupPresenter, GroupInteractor.OnFinishedLi
     }
 
     @Override
-    public void updateFcmToken(Authorization authorization) {
-        mInteractor.updateFcmToken(authorization);
-    }
-
-    @Override
     public void onDestroy() {
         mView = null;
     }
