@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:padding="@dimen/spacing_small">
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/app_name" />
+
+    <TextView
+        android:id="@+id/student_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/image_view"
+        android:lineSpacingExtra="2dp"
+        android:maxLines="2"
+        android:paddingLeft="@dimen/spacing_normal"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="@dimen/text_medium" />
+
+    <TextView
+        android:id="@+id/read_at"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/student_name"
+        android:layout_toRightOf="@+id/image_view"
+        android:paddingLeft="@dimen/spacing_normal"
+        android:textColor="@color/default_tv_color"
+        android:textSize="@dimen/text_xsmall" />
+
+</RelativeLayout>

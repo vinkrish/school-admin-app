@@ -21,7 +21,7 @@ public class SharedPreferenceUtil {
     public static TeacherCredentials getTeacher(Context context){
         SharedPreferences sharedPref = context.getSharedPreferences("credentials", Context.MODE_PRIVATE);
         TeacherCredentials response = new TeacherCredentials();
-        response.setAuthToken(sharedPref.getString("mobileNo", ""));
+        response.setMobileNo(sharedPref.getString("mobileNo", ""));
         response.setAuthToken(sharedPref.getString("authToken", ""));
         response.setSchoolId(sharedPref.getLong("schoolId", 0));
         response.setSchoolName(sharedPref.getString("schoolName", ""));

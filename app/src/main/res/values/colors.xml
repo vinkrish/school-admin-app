@@ -15,6 +15,10 @@
     <color name="divider_light">#D2D2D2</color>
     <color name="divider_lightest">#EEEEEE</color>
 
+    <color name="recycler_background">#EEEEEE</color>
+    <color name="recycler_card_1">#FCFCFC</color>
+    <color name="recycler_card_2">#FDFDFD</color>
+
     <color name="list_divider">#979797</color>
     <color name="list_item_selected_state">#EEEEEE</color>
     <color name="list_item_normal_state">#FAFAFA</color>

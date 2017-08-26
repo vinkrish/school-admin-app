@@ -288,8 +288,10 @@ public class UserGroupActivity extends AppCompatActivity implements
 
             if (multiselect_list.size() > 0)
                 mActionMode.setTitle("" + multiselect_list.size());
-            else
+            else {
                 mActionMode.setTitle("");
+                mActionMode.finish();
+            }
             refreshAdapter();
         }
     }

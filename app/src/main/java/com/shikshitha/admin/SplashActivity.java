@@ -8,7 +8,7 @@ import com.shikshitha.admin.dao.TeacherDao;
 import com.shikshitha.admin.group.GroupActivity;
 import com.shikshitha.admin.login.LoginActivity;
 import com.shikshitha.admin.model.TeacherCredentials;
-import com.shikshitha.admin.service.FCMIntentService;
+import com.shikshitha.admin.fcm.FCMIntentService;
 import com.shikshitha.admin.util.AppGlobal;
 import com.shikshitha.admin.util.SharedPreferenceUtil;
 

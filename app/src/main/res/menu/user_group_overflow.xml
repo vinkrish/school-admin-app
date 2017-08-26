@@ -2,9 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/action_save"
-        android:title="@string/save"
+    <item
+        android:id="@+id/action_save"
         android:onClick="saveUsers"
+        android:title="@string/save"
+        android:visible="false"
         app:showAsAction="always" />
 
 </menu>

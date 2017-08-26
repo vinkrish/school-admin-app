@@ -33,6 +33,7 @@
     <string name="select_period">Select Period</string>
     <string name="for_school">This group is for school</string>
     <string name="for_class">This group is for class</string>
+    <string name="msg_recipient">Message Recipients</string>
     <string name="save">Save</string>
 
     <string name="edit">Edit</string>
@@ -64,6 +65,9 @@
     <string name="select_image">Click here to choose image</string>
     <string name="send">Send</string>
     <string name="video">Video</string>
+    <string name="read_by">Read by</string>
+    <string name="delivered_to">Delivered to</string>
+    <string name="dash">-</string>
 
     <!-- Attendance View & Homework View-->
     <string name="attendance">Attendance</string>
@@ -88,4 +92,5 @@
     <string name="title_activity_chats">Chats</string>
     <string name="title_activity_new_chat">New Chat</string>
     <string name="title_activity_chat">Chat</string>
+    <string name="title_activity_message_recipient">Message Info</string>
 </resources>

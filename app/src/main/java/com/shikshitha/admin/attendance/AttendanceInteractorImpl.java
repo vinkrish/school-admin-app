@@ -25,8 +25,8 @@ class AttendanceInteractorImpl implements AttendanceInteractor {
     public void getClassList(long schoolId, final OnFinishedListener listener) {
         AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
 
-        Call<List<Clas>> classList = api.getClassList(schoolId);
-        classList.enqueue(new Callback<List<Clas>>() {
+        Call<List<Clas>> queue = api.getClassList(schoolId);
+        queue.enqueue(new Callback<List<Clas>>() {
             @Override
             public void onResponse(Call<List<Clas>> call, Response<List<Clas>> response) {
                 if(response.isSuccessful()) {
@@ -48,8 +48,8 @@ class AttendanceInteractorImpl implements AttendanceInteractor {
     public void getSectionList(long classId, final OnFinishedListener listener) {
         AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
 
-        Call<List<Section>> classList = api.getSectionList(classId);
-        classList.enqueue(new Callback<List<Section>>() {
+        Call<List<Section>> queue = api.getSectionList(classId);
+        queue.enqueue(new Callback<List<Section>>() {
             @Override
             public void onResponse(Call<List<Section>> call, Response<List<Section>> response) {
                 if(response.isSuccessful()) {
@@ -71,8 +71,8 @@ class AttendanceInteractorImpl implements AttendanceInteractor {
     public void getTimetable(long sectionId, String dayOfWeek, final OnFinishedListener listener) {
         AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
 
-        Call<List<Timetable>> classList = api.getTimetable(sectionId, dayOfWeek);
-        classList.enqueue(new Callback<List<Timetable>>() {
+        Call<List<Timetable>> queue = api.getTimetable(sectionId, dayOfWeek);
+        queue.enqueue(new Callback<List<Timetable>>() {
             @Override
             public void onResponse(Call<List<Timetable>> call, Response<List<Timetable>> response) {
                 if(response.isSuccessful()) {
@@ -94,8 +94,8 @@ class AttendanceInteractorImpl implements AttendanceInteractor {
     public void getAttendance(long sectionId, String date, int session, final OnFinishedListener listener) {
         AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
 
-        Call<AttendanceSet> classList = api.getAttendanceSet(sectionId, date, session);
-        classList.enqueue(new Callback<AttendanceSet>() {
+        Call<AttendanceSet> queue = api.getAttendanceSet(sectionId, date, session);
+        queue.enqueue(new Callback<AttendanceSet>() {
             @Override
             public void onResponse(Call<AttendanceSet> call, Response<AttendanceSet> response) {
                 if(response.isSuccessful()) {
@@ -117,8 +117,8 @@ class AttendanceInteractorImpl implements AttendanceInteractor {
     public void saveAttendance(ArrayList<Attendance> attendances, final OnFinishedListener listener) {
         AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
 
-        Call<Void> saveAtt = api.saveAttendance(attendances);
-        saveAtt.enqueue(new Callback<Void>() {
+        Call<Void> queue = api.saveAttendance(attendances);
+        queue.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.isSuccessful()) {
@@ -138,8 +138,8 @@ class AttendanceInteractorImpl implements AttendanceInteractor {
     public void deleteAttendance(ArrayList<Attendance> attendances, final OnFinishedListener listener) {
         AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
 
-        Call<Void> deleteAtt = api.deleteAttendance(attendances);
-        deleteAtt.enqueue(new Callback<Void>() {
+        Call<Void> queue = api.deleteAttendance(attendances);
+        queue.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.isSuccessful()) {

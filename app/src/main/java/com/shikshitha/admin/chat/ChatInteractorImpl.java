@@ -21,8 +21,8 @@ class ChatInteractorImpl implements ChatInteractor {
     public void saveMessage(Message message, final OnFinishedListener listener) {
         AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
 
-        Call<Message> msg = api.saveMessage(message);
-        msg.enqueue(new Callback<Message>() {
+        Call<Message> queue = api.saveMessage(message);
+        queue.enqueue(new Callback<Message>() {
             @Override
             public void onResponse(Call<Message> call, Response<Message> response) {
                 if(response.isSuccessful()) {
@@ -44,8 +44,8 @@ class ChatInteractorImpl implements ChatInteractor {
                                   long messageId, final OnFinishedListener listener) {
         AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
 
-        Call<ArrayList<Message>> msgList = api.getChatMessagesAboveId(senderRole, senderId, recipientRole, recipientId, messageId);
-        msgList.enqueue(new Callback<ArrayList<Message>>() {
+        Call<ArrayList<Message>> queue = api.getChatMessagesAboveId(senderRole, senderId, recipientRole, recipientId, messageId);
+        queue.enqueue(new Callback<ArrayList<Message>>() {
             @Override
             public void onResponse(Call<ArrayList<Message>> call, Response<ArrayList<Message>> response) {
                 if(response.isSuccessful()) {
@@ -67,8 +67,8 @@ class ChatInteractorImpl implements ChatInteractor {
                             final OnFinishedListener listener) {
         AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
 
-        Call<ArrayList<Message>> msgList = api.getChatMessages(senderRole, senderId, recipientRole, recipientId);
-        msgList.enqueue(new Callback<ArrayList<Message>>() {
+        Call<ArrayList<Message>> queue = api.getChatMessages(senderRole, senderId, recipientRole, recipientId);
+        queue.enqueue(new Callback<ArrayList<Message>>() {
             @Override
             public void onResponse(Call<ArrayList<Message>> call, Response<ArrayList<Message>> response) {
                 if(response.isSuccessful()) {
@@ -90,8 +90,8 @@ class ChatInteractorImpl implements ChatInteractor {
                                     long messageId, final OnFinishedListener listener) {
         AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
 
-        Call<ArrayList<Message>> msgList = api.getChatMessagesFromId(senderRole, senderId, recipientRole, recipientId, messageId);
-        msgList.enqueue(new Callback<ArrayList<Message>>() {
+        Call<ArrayList<Message>> queue = api.getChatMessagesFromId(senderRole, senderId, recipientRole, recipientId, messageId);
+        queue.enqueue(new Callback<ArrayList<Message>>() {
             @Override
             public void onResponse(Call<ArrayList<Message>> call, Response<ArrayList<Message>> response) {
                 if(response.isSuccessful()) {

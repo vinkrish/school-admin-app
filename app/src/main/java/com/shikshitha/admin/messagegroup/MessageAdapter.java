@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Environment;
 import android.support.annotation.UiThread;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,8 +36,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,8 +47,8 @@ import butterknife.ButterKnife;
 class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
     private Context mContext;
     private List<Message> messages;
+    private Message selected_message;
     private long schoolId;
-    private final OnItemClickListener listener;
     private final ThumbnailListener thumbnailListener;
 
     private static final int ITEM_TYPE_TEXT = 0;
@@ -65,11 +65,10 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
             .endConfig()
             .roundRect(10);
 
-    MessageAdapter(Context context, List<Message> messages, long schoolId, OnItemClickListener listener) {
+    MessageAdapter(Context context, List<Message> messages, long schoolId) {
         this.mContext = context;
         this.messages = messages;
         this.schoolId = schoolId;
-        this.listener = listener;
         thumbnailListener = new ThumbnailListener();
         thumbnailViewToLoaderMap = new HashMap<>();
     }
@@ -80,17 +79,14 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
         }
     }
 
-    interface OnItemClickListener {
-        void onItemClick(Message message);
-    }
-
     List<Message> getDataSet() {
         return messages;
     }
 
     @UiThread
-    void setDataSet(List<Message> messages) {
+    void setDataSet(List<Message> messages, Message selected_message) {
         this.messages = messages;
+        this.selected_message = selected_message;
         notifyDataSetChanged();
     }
 
@@ -111,6 +107,12 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
     void insertDataSet(List<Message> messages) {
         this.messages.addAll(0, messages);
         notifyItemRangeInserted(0, messages.size());
+    }
+
+    @UiThread
+    void selectedItemChanged(int newPosition, Message selected_message) {
+        this.selected_message = selected_message;
+        notifyItemChanged(newPosition);
     }
 
     @Override
@@ -135,7 +137,7 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
         final int itemType = getItemViewType(position);
 
         if (itemType == ITEM_TYPE_TEXT) {
-            ((TextHolder)holder).bind(messages.get(position));
+            ((TextHolder) holder).bind(messages.get(position));
         } else if (itemType == ITEM_TYPE_IMAGE) {
             ((ImageHolder) holder).bind(messages.get(position));
         } else if (itemType == ITEM_TYPE_VIDEO) {
@@ -174,6 +176,7 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
         @BindView(R.id.sender_name) TextView senderName;
         @BindView(R.id.created_date) TextView createdDate;
         @BindView(R.id.message) TextView messageTV;
+        @BindView(R.id.card_view) CardView cardView;
 
         TextHolder(View view) {
             super(view);
@@ -188,12 +191,12 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
             DateTime dateTime = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.S").parseDateTime(message.getCreatedAt());
             createdDate.setText(DateTimeFormat.forPattern("dd-MMM, HH:mm").print(dateTime));
             messageTV.setText(message.getMessageBody());
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onItemClick(message);
-                }
-            });
+
+            if (message.getId() == selected_message.getId()) {
+                cardView.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.list_item_selected_state));
+            } else {
+                cardView.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.default_white));
+            }
         }
 
     }
@@ -204,6 +207,7 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
         @BindView(R.id.created_date) TextView createdDate;
         @BindView(R.id.shared_image) ImageView sharedImage;
         @BindView(R.id.message) TextView messageTV;
+        @BindView(R.id.card_view) CardView cardView;
 
         ImageHolder(View view) {
             super(view);
@@ -224,12 +228,11 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
                 messageTV.setText(message.getMessageBody());
             }
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onItemClick(message);
-                }
-            });
+            if (message.getId() == selected_message.getId()) {
+                cardView.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.list_item_selected_state));
+            } else {
+                cardView.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.default_white));
+            }
 
             File dir = new File(Environment.getExternalStorageDirectory().getPath(), "Shikshitha/Admin/" + schoolId);
             if (!dir.exists()) {
@@ -266,16 +269,12 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
     }
 
     class VideoHolder extends ViewHolder {
-        @BindView(R.id.image_view)
-        ImageView senderImage;
-        @BindView(R.id.sender_name)
-        TextView senderName;
-        @BindView(R.id.created_date)
-        TextView createdDate;
-        @BindView(R.id.message)
-        TextView messageTV;
-        @BindView(R.id.thumbnail)
-        YouTubeThumbnailView thumbnail;
+        @BindView(R.id.image_view) ImageView senderImage;
+        @BindView(R.id.sender_name) TextView senderName;
+        @BindView(R.id.created_date) TextView createdDate;
+        @BindView(R.id.message) TextView messageTV;
+        @BindView(R.id.thumbnail) YouTubeThumbnailView thumbnail;
+        @BindView(R.id.card_view) CardView cardView;
 
         VideoHolder(View view) {
             super(view);
@@ -297,6 +296,12 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
                 messageTV.setText(message.getMessageBody());
             }
 
+            if (message.getId() == selected_message.getId()) {
+                cardView.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.list_item_selected_state));
+            } else {
+                cardView.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.default_white));
+            }
+
             if(message.getVideoUrl() != null && !message.getVideoUrl().equals("")) {
                 YouTubeHelper youTubeHelper = new YouTubeHelper();
                 videoId = youTubeHelper.extractVideoIdFromUrl(message.getVideoUrl());
@@ -304,30 +309,18 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
                 thumbnail.setTag(videoId);
                 thumbnail.initialize(YoutubeDeveloperKey.DEVELOPER_KEY, thumbnailListener);
             }
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onItemClick(message);
-                }
-            });
         }
 
     }
 
     class VideoImageHolder extends ViewHolder {
-        @BindView(R.id.image_view)
-        ImageView senderImage;
-        @BindView(R.id.sender_name)
-        TextView senderName;
-        @BindView(R.id.created_date)
-        TextView createdDate;
-        @BindView(R.id.thumbnail)
-        YouTubeThumbnailView thumbnail;
-        @BindView(R.id.shared_image)
-        ImageView sharedImage;
-        @BindView(R.id.message)
-        TextView messageTV;
+        @BindView(R.id.image_view) ImageView senderImage;
+        @BindView(R.id.sender_name) TextView senderName;
+        @BindView(R.id.created_date) TextView createdDate;
+        @BindView(R.id.thumbnail) YouTubeThumbnailView thumbnail;
+        @BindView(R.id.shared_image) ImageView sharedImage;
+        @BindView(R.id.message) TextView messageTV;
+        @BindView(R.id.card_view) CardView cardView;
 
         VideoImageHolder(View view) {
             super(view);
@@ -349,6 +342,12 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
                 messageTV.setText(message.getMessageBody());
             }
 
+            if (message.getId() == selected_message.getId()) {
+                cardView.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.list_item_selected_state));
+            }else {
+                cardView.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.default_white));
+            }
+
             if(message.getVideoUrl() != null && !message.getVideoUrl().equals("")) {
                 YouTubeHelper youTubeHelper = new YouTubeHelper();
                 videoId = youTubeHelper.extractVideoIdFromUrl(message.getVideoUrl());
@@ -356,14 +355,6 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
                 thumbnail.setTag(videoId);
                 thumbnail.initialize(YoutubeDeveloperKey.DEVELOPER_KEY, thumbnailListener);
             }
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //displayImageDialog(message);
-                    listener.onItemClick(message);
-                }
-            });
 
             //sharedImage.setImageResource(R.drawable.books);
             File dir = new File(Environment.getExternalStorageDirectory().getPath(), "Shikshitha/Admin/" + schoolId);

@@ -1,4 +1,4 @@
-package com.shikshitha.admin.service;
+package com.shikshitha.admin.fcm;
 
 import android.app.IntentService;
 import android.content.Intent;

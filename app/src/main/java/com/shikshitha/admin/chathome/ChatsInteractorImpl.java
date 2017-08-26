@@ -21,8 +21,8 @@ class ChatsInteractorImpl implements ChatsInteractor {
     public void getChats(long teacherId, final OnFinishedListener listener) {
         AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
 
-        Call<List<Chat>> classList = api.getChats(teacherId);
-        classList.enqueue(new Callback<List<Chat>>() {
+        Call<List<Chat>> queue = api.getChats(teacherId);
+        queue.enqueue(new Callback<List<Chat>>() {
             @Override
             public void onResponse(Call<List<Chat>> call, Response<List<Chat>> response) {
                 if(response.isSuccessful()) {

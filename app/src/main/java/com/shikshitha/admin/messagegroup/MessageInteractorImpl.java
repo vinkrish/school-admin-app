@@ -21,8 +21,8 @@ class MessageInteractorImpl implements MessageInteractor {
     public void saveMessage(Message message, final OnFinishedListener listener) {
         AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
 
-        Call<Message> msg = api.saveMessage(message);
-        msg.enqueue(new Callback<Message>() {
+        Call<Message> queue = api.saveMessage(message);
+        queue.enqueue(new Callback<Message>() {
             @Override
             public void onResponse(Call<Message> call, Response<Message> response) {
                 if(response.isSuccessful()) {
@@ -43,8 +43,8 @@ class MessageInteractorImpl implements MessageInteractor {
     public void getRecentMessages(long groupId, long messageId, final OnFinishedListener listener) {
         AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
 
-        Call<ArrayList<Message>> msgList = api.getGroupMessagesAboveId(groupId, messageId);
-        msgList.enqueue(new Callback<ArrayList<Message>>() {
+        Call<ArrayList<Message>> queue = api.getGroupMessagesAboveId(groupId, messageId);
+        queue.enqueue(new Callback<ArrayList<Message>>() {
             @Override
             public void onResponse(Call<ArrayList<Message>> call, Response<ArrayList<Message>> response) {
                 if(response.isSuccessful()) {
@@ -65,8 +65,8 @@ class MessageInteractorImpl implements MessageInteractor {
     public void getMessages(long groupId, final OnFinishedListener listener) {
         AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
 
-        Call<ArrayList<Message>> msgList = api.getGroupMessages(groupId);
-        msgList.enqueue(new Callback<ArrayList<Message>>() {
+        Call<ArrayList<Message>> queue = api.getGroupMessages(groupId);
+        queue.enqueue(new Callback<ArrayList<Message>>() {
             @Override
             public void onResponse(Call<ArrayList<Message>> call, Response<ArrayList<Message>> response) {
                 if(response.isSuccessful()) {

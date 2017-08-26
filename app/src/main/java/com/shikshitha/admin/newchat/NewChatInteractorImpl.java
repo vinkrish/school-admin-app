@@ -24,8 +24,8 @@ class NewChatInteractorImpl implements NewChatInteractor {
     public void getClassList(long schoolId, final OnFinishedListener listener) {
         AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
 
-        Call<List<Clas>> classList = api.getClassList(schoolId);
-        classList.enqueue(new Callback<List<Clas>>() {
+        Call<List<Clas>> queue = api.getClassList(schoolId);
+        queue.enqueue(new Callback<List<Clas>>() {
             @Override
             public void onResponse(Call<List<Clas>> call, Response<List<Clas>> response) {
                 if(response.isSuccessful()) {
@@ -46,8 +46,8 @@ class NewChatInteractorImpl implements NewChatInteractor {
     public void getSectionList(long classId, final OnFinishedListener listener) {
         AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
 
-        Call<List<Section>> classList = api.getSectionList(classId);
-        classList.enqueue(new Callback<List<Section>>() {
+        Call<List<Section>> queue = api.getSectionList(classId);
+        queue.enqueue(new Callback<List<Section>>() {
             @Override
             public void onResponse(Call<List<Section>> call, Response<List<Section>> response) {
                 if(response.isSuccessful()) {
@@ -68,8 +68,8 @@ class NewChatInteractorImpl implements NewChatInteractor {
     public void getStudentList(long sectionId, final OnFinishedListener listener) {
         AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
 
-        Call<List<Student>> students = api.getStudents(sectionId);
-        students.enqueue(new Callback<List<Student>>() {
+        Call<List<Student>> queue = api.getStudents(sectionId);
+        queue.enqueue(new Callback<List<Student>>() {
             @Override
             public void onResponse(Call<List<Student>> call, Response<List<Student>> response) {
                 if(response.isSuccessful()) {
@@ -90,8 +90,8 @@ class NewChatInteractorImpl implements NewChatInteractor {
     public void saveChat(Chat chat, final OnFinishedListener listener) {
         AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
 
-        Call<Chat> classList = api.saveChat(chat);
-        classList.enqueue(new Callback<Chat>() {
+        Call<Chat> queue = api.saveChat(chat);
+        queue.enqueue(new Callback<Chat>() {
             @Override
             public void onResponse(Call<Chat> call, Response<Chat> response) {
                 if(response.isSuccessful()) {

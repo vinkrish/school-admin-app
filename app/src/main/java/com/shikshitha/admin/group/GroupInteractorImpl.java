@@ -23,8 +23,8 @@ class GroupInteractorImpl implements GroupInteractor {
     public void getGroups(long userId, final OnFinishedListener listener) {
         AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
 
-        Call<List<Groups>> classList = api.getGroups(userId);
-        classList.enqueue(new Callback<List<Groups>>() {
+        Call<List<Groups>> queue = api.getGroups(userId);
+        queue.enqueue(new Callback<List<Groups>>() {
             @Override
             public void onResponse(Call<List<Groups>> call, Response<List<Groups>> response) {
                 if(response.isSuccessful()) {

@@ -48,7 +48,7 @@
             android:label="@string/title_activity_message"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar">
+            android:theme="@style/AppTheme.ContextToolbarTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".group.GroupActivity" />
@@ -166,8 +166,17 @@
         </activity>
 
         <service
-            android:name=".service.FCMIntentService"
-            android:exported="false"></service>
+            android:name=".fcm.FCMIntentService"
+            android:exported="false" />
+
+        <activity
+            android:name=".messagerecipient.MessageRecipientActivity"
+            android:label="@string/title_activity_message_recipient"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".messagegroup.MessageActivity" />
+        </activity>
     </application>
 
 </manifest>

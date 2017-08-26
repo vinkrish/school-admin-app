@@ -21,8 +21,8 @@ class EventInteractorImpl implements EventInteractor {
     public void getEvents(long schoolId, final OnFinishedListener listener) {
         AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
 
-        Call<List<Evnt>> classList = api.getEvents(schoolId);
-        classList.enqueue(new Callback<List<Evnt>>() {
+        Call<List<Evnt>> queue = api.getEvents(schoolId);
+        queue.enqueue(new Callback<List<Evnt>>() {
             @Override
             public void onResponse(Call<List<Evnt>> call, Response<List<Evnt>> response) {
                 if(response.isSuccessful()) {

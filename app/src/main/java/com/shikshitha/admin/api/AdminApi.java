@@ -11,6 +11,7 @@ import com.shikshitha.admin.model.GroupUsers;
 import com.shikshitha.admin.model.Groups;
 import com.shikshitha.admin.model.Homework;
 import com.shikshitha.admin.model.Message;
+import com.shikshitha.admin.model.MessageRecipient;
 import com.shikshitha.admin.model.Section;
 import com.shikshitha.admin.model.Student;
 import com.shikshitha.admin.model.TeacherCredentials;
@@ -82,6 +83,10 @@ public interface AdminApi {
     @GET("message/group/{groupId}/message/{messageId}")
     Call<ArrayList<Message>> getGroupMessagesFromId(@Path("groupId") long groupId,
                                                     @Path("messageId") long messageId);
+
+    @GET("messagerecipient/{groupId}/{groupMessageId}")
+    Call<ArrayList<MessageRecipient>> getMessageRecipients(@Path("groupId") long groupId,
+                                                      @Path("groupMessageId") long groupMessageId);
 
     //UserGroup API
 

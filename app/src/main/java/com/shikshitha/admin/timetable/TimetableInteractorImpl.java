@@ -24,8 +24,8 @@ class TimetableInteractorImpl implements TimetableInteractor {
     public void getClassList(long schoolId, final OnFinishedListener listener) {
         AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
 
-        Call<List<Clas>> classList = api.getClassList(schoolId);
-        classList.enqueue(new Callback<List<Clas>>() {
+        Call<List<Clas>> queue = api.getClassList(schoolId);
+        queue.enqueue(new Callback<List<Clas>>() {
             @Override
             public void onResponse(Call<List<Clas>> call, Response<List<Clas>> response) {
                 if(response.isSuccessful()) {
@@ -47,8 +47,8 @@ class TimetableInteractorImpl implements TimetableInteractor {
     public void getSectionList(long classId, final OnFinishedListener listener) {
         AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
 
-        Call<List<Section>> classList = api.getSectionList(classId);
-        classList.enqueue(new Callback<List<Section>>() {
+        Call<List<Section>> queue = api.getSectionList(classId);
+        queue.enqueue(new Callback<List<Section>>() {
             @Override
             public void onResponse(Call<List<Section>> call, Response<List<Section>> response) {
                 if(response.isSuccessful()) {
@@ -70,8 +70,8 @@ class TimetableInteractorImpl implements TimetableInteractor {
     public void getTimetable(long sectionId, final OnFinishedListener listener) {
         AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
 
-        Call<List<Timetable>> attendanceList = api.getTimetable(sectionId);
-        attendanceList.enqueue(new Callback<List<Timetable>>() {
+        Call<List<Timetable>> queue = api.getTimetable(sectionId);
+        queue.enqueue(new Callback<List<Timetable>>() {
             @Override
             public void onResponse(Call<List<Timetable>> call, Response<List<Timetable>> response) {
                 if(response.isSuccessful()) {
