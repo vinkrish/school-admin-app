@@ -53,6 +53,7 @@
                 android:id="@+id/shared_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_tiny"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/app_name"
                 android:visibility="gone" />

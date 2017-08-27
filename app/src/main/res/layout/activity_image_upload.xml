@@ -80,7 +80,7 @@
                 android:onClick="newImageSendListener"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
-                android:src="@drawable/ic_chat_send_active" />
+                app:srcCompat="@drawable/ic_send_white" />
 
             <TextView
                 android:id="@+id/youtube_url"

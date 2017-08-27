@@ -20,4 +20,7 @@
     <dimen name="spacing_small">10dp</dimen>
     <dimen name="spacing_tiny">4dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="image_corner_radius">4dp</dimen>
+    <dimen name="image_elevation">5dp</dimen>
 </resources>

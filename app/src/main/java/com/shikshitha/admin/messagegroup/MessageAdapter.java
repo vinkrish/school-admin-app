@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
@@ -176,7 +177,8 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
         @BindView(R.id.sender_name) TextView senderName;
         @BindView(R.id.created_date) TextView createdDate;
         @BindView(R.id.message) TextView messageTV;
-        @BindView(R.id.card_view) CardView cardView;
+        @BindView(R.id.card_view)
+        RelativeLayout cardView;
 
         TextHolder(View view) {
             super(view);
@@ -193,9 +195,9 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
             messageTV.setText(message.getMessageBody());
 
             if (message.getId() == selected_message.getId()) {
-                cardView.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.list_item_selected_state));
+                cardView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.list_item_selected_state));
             } else {
-                cardView.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.default_white));
+                cardView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.default_white));
             }
         }
 
@@ -207,7 +209,7 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
         @BindView(R.id.created_date) TextView createdDate;
         @BindView(R.id.shared_image) ImageView sharedImage;
         @BindView(R.id.message) TextView messageTV;
-        @BindView(R.id.card_view) CardView cardView;
+        @BindView(R.id.card_view) RelativeLayout cardView;
 
         ImageHolder(View view) {
             super(view);
@@ -229,9 +231,9 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
             }
 
             if (message.getId() == selected_message.getId()) {
-                cardView.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.list_item_selected_state));
+                cardView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.list_item_selected_state));
             } else {
-                cardView.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.default_white));
+                cardView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.default_white));
             }
 
             File dir = new File(Environment.getExternalStorageDirectory().getPath(), "Shikshitha/Admin/" + schoolId);
@@ -274,7 +276,7 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
         @BindView(R.id.created_date) TextView createdDate;
         @BindView(R.id.message) TextView messageTV;
         @BindView(R.id.thumbnail) YouTubeThumbnailView thumbnail;
-        @BindView(R.id.card_view) CardView cardView;
+        @BindView(R.id.card_view) RelativeLayout cardView;
 
         VideoHolder(View view) {
             super(view);
@@ -297,9 +299,9 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
             }
 
             if (message.getId() == selected_message.getId()) {
-                cardView.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.list_item_selected_state));
+                cardView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.list_item_selected_state));
             } else {
-                cardView.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.default_white));
+                cardView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.default_white));
             }
 
             if(message.getVideoUrl() != null && !message.getVideoUrl().equals("")) {
@@ -320,7 +322,7 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
         @BindView(R.id.thumbnail) YouTubeThumbnailView thumbnail;
         @BindView(R.id.shared_image) ImageView sharedImage;
         @BindView(R.id.message) TextView messageTV;
-        @BindView(R.id.card_view) CardView cardView;
+        @BindView(R.id.card_view) RelativeLayout cardView;
 
         VideoImageHolder(View view) {
             super(view);
@@ -343,9 +345,9 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
             }
 
             if (message.getId() == selected_message.getId()) {
-                cardView.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.list_item_selected_state));
+                cardView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.list_item_selected_state));
             }else {
-                cardView.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.default_white));
+                cardView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.default_white));
             }
 
             if(message.getVideoUrl() != null && !message.getVideoUrl().equals("")) {

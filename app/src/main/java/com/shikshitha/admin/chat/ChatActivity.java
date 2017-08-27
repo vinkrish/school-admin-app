@@ -284,16 +284,16 @@ public class ChatActivity extends AppCompatActivity implements ChatView {
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
             if (newMsg.getText().toString().equals("")) {
             } else {
-                enterMsg.setImageResource(R.drawable.ic_chat_send);
+                enterMsg.setImageResource(R.drawable.ic_send_black);
             }
         }
 
         @Override
         public void afterTextChanged(Editable editable) {
             if(editable.length()==0){
-                enterMsg.setImageResource(R.drawable.ic_chat_send);
+                enterMsg.setImageResource(R.drawable.ic_send_black);
             }else{
-                enterMsg.setImageResource(R.drawable.ic_chat_send_active);
+                enterMsg.setImageResource(R.drawable.ic_send_white);
             }
         }
     };

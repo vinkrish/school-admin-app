@@ -8,6 +8,7 @@
     <color name="default_white">#FAFAFA</color>
     <color name="black">#000000</color>
     <color name="black_light">#0D0D0D</color>
+    <color name="activity_background">#FCFCFC </color>
     <color name="primaryTextColor">#212121</color>
     <color name="secondaryTextColor">#757575</color>
     <color name="default_tv_color">#515151</color>
@@ -20,7 +21,7 @@
     <color name="recycler_card_2">#FDFDFD</color>
 
     <color name="list_divider">#979797</color>
-    <color name="list_item_selected_state">#EEEEEE</color>
+    <color name="list_item_selected_state">#B2DFDB</color>
     <color name="list_item_normal_state">#FAFAFA</color>
 
     <color name="multiple_image_select_primary">#009688</color>

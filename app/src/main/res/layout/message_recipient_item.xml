@@ -23,7 +23,7 @@
         android:maxLines="2"
         android:paddingLeft="@dimen/spacing_normal"
         android:textColor="@color/primaryTextColor"
-        android:textSize="@dimen/text_medium" />
+        android:textSize="@dimen/text_xsmall" />
 
     <TextView
         android:id="@+id/read_at"
@@ -33,6 +33,6 @@
         android:layout_toRightOf="@+id/image_view"
         android:paddingLeft="@dimen/spacing_normal"
         android:textColor="@color/default_tv_color"
-        android:textSize="@dimen/text_xsmall" />
+        android:textSize="@dimen/text_small" />
 
 </RelativeLayout>
