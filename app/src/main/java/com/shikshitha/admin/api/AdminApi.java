@@ -1,6 +1,7 @@
 package com.shikshitha.admin.api;
 
 import com.shikshitha.admin.attendance.AttendanceSet;
+import com.shikshitha.admin.model.AppVersion;
 import com.shikshitha.admin.model.Attendance;
 import com.shikshitha.admin.model.Authorization;
 import com.shikshitha.admin.model.Chat;
@@ -34,6 +35,9 @@ import retrofit2.http.Path;
  */
 
 public interface AdminApi {
+    @GET("appversion/{versionId}/{appName}")
+    Call<AppVersion> getAppVersion(@Path("versionId") int versionId,
+                                   @Path("appName") String appName);
 
     @Headers("content-type: application/json")
     @POST("teacher/login")

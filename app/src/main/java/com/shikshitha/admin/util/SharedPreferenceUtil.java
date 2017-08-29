@@ -3,6 +3,7 @@ package com.shikshitha.admin.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.shikshitha.admin.model.AppVersion;
 import com.shikshitha.admin.model.Authorization;
 import com.shikshitha.admin.model.TeacherCredentials;
 
@@ -69,6 +70,36 @@ public class SharedPreferenceUtil {
         SharedPreferences sharedPref = context.getSharedPreferences("fcm", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putBoolean("isSaved", true);
+        editor.apply();
+    }
+
+    public static AppVersion getAppVersion(Context context){
+        SharedPreferences sharedPref = context.getSharedPreferences("ver", Context.MODE_PRIVATE);
+        AppVersion appVersion = new AppVersion();
+        appVersion.setVersionId(sharedPref.getInt("version_id", 0));
+        appVersion.setVersionName(sharedPref.getString("version_name", ""));
+        appVersion.setStatus(sharedPref.getString("version_status", ""));
+        return appVersion;
+    }
+
+    public static void saveAppVersion(Context context, AppVersion appVersion) {
+        SharedPreferences sharedPref = context.getSharedPreferences("ver", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt("version_id", appVersion.getId());
+        editor.putString("version_name", appVersion.getVersionName());
+        editor.putString("version_status", appVersion.getStatus());
+        editor.apply();
+    }
+
+    public static boolean isUpdatePrompted(Context context){
+        SharedPreferences sharedPref = context.getSharedPreferences("ver", Context.MODE_PRIVATE);
+        return sharedPref.getBoolean("is_prompted", false);
+    }
+
+    public static void updatePrompted(Context context, boolean isPrompted) {
+        SharedPreferences sharedPref = context.getSharedPreferences("ver", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean("is_prompted", isPrompted);
         editor.apply();
     }
 

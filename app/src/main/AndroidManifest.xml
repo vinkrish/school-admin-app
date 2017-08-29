@@ -178,6 +178,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".messagegroup.MessageActivity" />
         </activity>
+
+        <service
+            android:name=".util.VersionIntentService"
+            android:exported="false"></service>
     </application>
 
 </manifest>
