@@ -8,14 +8,15 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 
+import com.google.firebase.messaging.FirebaseMessagingService;
+import com.google.firebase.messaging.RemoteMessage;
 import com.shikshitha.admin.App;
 import com.shikshitha.admin.R;
 import com.shikshitha.admin.chat.ChatActivity;
 import com.shikshitha.admin.chathome.ChatsActivity;
 import com.shikshitha.admin.model.MessageEvent;
 import com.shikshitha.admin.util.AppGlobal;
-import com.google.firebase.messaging.FirebaseMessagingService;
-import com.google.firebase.messaging.RemoteMessage;
+import com.shikshitha.admin.util.SharedPreferenceUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -24,7 +25,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         AppGlobal.setSqlDbHelper(getApplicationContext());
 
-        if (remoteMessage.getData().size() > 0) {
+        if (remoteMessage.getData().size() > 0 &&
+                !SharedPreferenceUtil.getTeacher(getApplicationContext()).getAuthToken().equals("")) {
             if(App.isActivityVisible()) {
                 EventBus.getDefault().post(new MessageEvent(remoteMessage.getData().get("message"),
                         Long.valueOf(remoteMessage.getData().get("sender_id"))));

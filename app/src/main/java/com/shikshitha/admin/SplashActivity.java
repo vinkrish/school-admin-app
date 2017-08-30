@@ -39,7 +39,8 @@ public class SplashActivity extends AppCompatActivity {
         }
 
         AppVersion appVersion = SharedPreferenceUtil.getAppVersion(getApplicationContext());
-        if(appVersion.getStatus().equals("obsolete")){
+        if(BuildConfig.VERSION_CODE == appVersion.getVersionId() &&
+                appVersion.getStatus().equals("obsolete")){
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             alertDialog.setTitle("Update Alert");
             alertDialog.setMessage("The version of the app running on this device is marked obsolete, please update to continue.");
@@ -49,8 +50,10 @@ public class SplashActivity extends AppCompatActivity {
                     openPlayStore(getApplicationContext());
                 }
             });
+            alertDialog.setCancelable(false);
             alertDialog.show();
-        } else if(appVersion.getStatus().equals("update") &&
+        } else if(BuildConfig.VERSION_CODE == appVersion.getVersionId() &&
+                appVersion.getStatus().equals("update") &&
                 !SharedPreferenceUtil.isUpdatePrompted(getApplicationContext())) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             alertDialog.setTitle("Update Alert");
@@ -70,6 +73,7 @@ public class SplashActivity extends AppCompatActivity {
                     openPlayStore(getApplicationContext());
                 }
             });
+            alertDialog.setCancelable(false);
             alertDialog.show();
         } else {
             startService(new Intent(this, VersionIntentService.class));
