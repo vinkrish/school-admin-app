@@ -12,6 +12,7 @@ import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
@@ -33,6 +34,7 @@ import com.shikshitha.admin.dao.TimetableDao;
 import com.shikshitha.admin.model.Clas;
 import com.shikshitha.admin.model.Section;
 import com.shikshitha.admin.model.Timetable;
+import com.shikshitha.admin.util.Conversion;
 import com.shikshitha.admin.util.NetworkUtil;
 
 import java.util.ArrayList;
@@ -53,6 +55,7 @@ public class TimetableActivity extends AppCompatActivity implements TimetableVie
     @BindView(R.id.spinner_class)
     Spinner classSpinner;
     @BindView(R.id.spinner_section) Spinner sectionSpinner;
+    @BindView(R.id.section_layout) LinearLayout sectionLayout;
     @BindView(R.id.tableLayout)
     FrameLayout tableLayout;
     @BindView(R.id.noTimetable)
@@ -159,11 +162,7 @@ public class TimetableActivity extends AppCompatActivity implements TimetableVie
 
     @Override
     public void showSection(List<Section> sectionList) {
-        ArrayAdapter<Section> adapter = new
-                ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sectionList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sectionSpinner.setAdapter(adapter);
-        sectionSpinner.setOnItemSelectedListener(this);
+        setSectionAdapter(sectionList);
         backupSection(sectionList);
     }
 
@@ -179,11 +178,26 @@ public class TimetableActivity extends AppCompatActivity implements TimetableVie
 
     private void showOfflineSection() {
         List<Section> sectionList = SectionDao.getSectionList(((Clas) classSpinner.getSelectedItem()).getId());
+        setSectionAdapter(sectionList);
+    }
+
+    private void setSectionAdapter(List<Section> sectionList) {
         ArrayAdapter<Section> adapter = new
                 ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sectionList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sectionSpinner.setAdapter(adapter);
         sectionSpinner.setOnItemSelectedListener(this);
+        if(sectionList.size() == 1 && sectionList.get(0).getSectionName().equals("none")) {
+            sectionLayout.setVisibility(View.INVISIBLE);
+            sectionLayout.setLayoutParams(new LinearLayout.LayoutParams(0,0));
+        } else {
+            sectionLayout.setVisibility(View.VISIBLE);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            int px = Conversion.dpToPx(10, getApplicationContext());
+            sectionLayout.setPadding(px, px, px, px);
+            sectionLayout.setLayoutParams(params);
+        }
     }
 
     @Override

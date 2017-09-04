@@ -9,6 +9,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -24,6 +25,7 @@ import com.shikshitha.admin.model.Clas;
 import com.shikshitha.admin.model.Groups;
 import com.shikshitha.admin.model.Section;
 import com.shikshitha.admin.model.Teacher;
+import com.shikshitha.admin.util.Conversion;
 import com.shikshitha.admin.util.EditTextWatcher;
 import com.shikshitha.admin.util.SharedPreferenceUtil;
 
@@ -172,6 +174,17 @@ public class NewGroupActivity extends AppCompatActivity implements NewGroupView,
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sectionSpinner.setAdapter(adapter);
         sectionSpinner.setOnItemSelectedListener(this);
+        if(sectionList.size() == 1 && sectionList.get(0).getSectionName().equals("none")) {
+            sectionLayout.setVisibility(View.INVISIBLE);
+            sectionLayout.setLayoutParams(new LinearLayout.LayoutParams(0,0));
+        } else {
+            sectionLayout.setVisibility(View.VISIBLE);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            int px = Conversion.dpToPx(20, getApplicationContext());
+            sectionLayout.setPadding(0, px, 0, 0);
+            sectionLayout.setLayoutParams(params);
+        }
     }
 
     @Override

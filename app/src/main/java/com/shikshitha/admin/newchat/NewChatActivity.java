@@ -7,8 +7,10 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 
@@ -20,6 +22,7 @@ import com.shikshitha.admin.model.Clas;
 import com.shikshitha.admin.model.Section;
 import com.shikshitha.admin.model.Student;
 import com.shikshitha.admin.model.Teacher;
+import com.shikshitha.admin.util.Conversion;
 
 import java.util.List;
 
@@ -36,6 +39,7 @@ public class NewChatActivity extends AppCompatActivity implements NewChatView,
     @BindView(R.id.class_spinner) Spinner classSpinner;
     @BindView(R.id.section_spinner) Spinner sectionSpinner;
     @BindView(R.id.student_spinner) Spinner studentSpinner;
+    @BindView(R.id.section_layout) LinearLayout sectionLayout;
 
     private NewChatPresenter presenter;
 
@@ -99,6 +103,17 @@ public class NewChatActivity extends AppCompatActivity implements NewChatView,
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sectionSpinner.setAdapter(adapter);
         sectionSpinner.setOnItemSelectedListener(this);
+        if(sectionList.size() == 1 && sectionList.get(0).getSectionName().equals("none")) {
+            sectionLayout.setVisibility(View.INVISIBLE);
+            sectionLayout.setLayoutParams(new LinearLayout.LayoutParams(0,0));
+        } else {
+            sectionLayout.setVisibility(View.VISIBLE);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            int px = Conversion.dpToPx(24, getApplicationContext());
+            sectionLayout.setPadding(0, px, 0, 0);
+            sectionLayout.setLayoutParams(params);
+        }
     }
 
     @Override

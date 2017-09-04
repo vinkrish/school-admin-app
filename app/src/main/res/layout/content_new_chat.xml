@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.aanglearning.principalapp.newchat.NewChatActivity"
+    tools:context="com.shikshitha.admin.newchat.NewChatActivity"
     tools:showIn="@layout/activity_new_chat">
 
     <LinearLayout
@@ -30,21 +30,29 @@
             android:layout_marginTop="@dimen/spacing_tiny"
             android:paddingBottom="@dimen/spacing_small" />
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/section_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_large"
-            android:text="@string/select_section"
-            android:textColor="@color/colorPrimaryDark"
-            android:textStyle="bold" />
+            android:orientation="vertical">
 
-        <Spinner
-            android:id="@+id/section_spinner"
-            style="@style/Widget.AppCompat.Spinner.Underlined"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_tiny"
-            android:paddingBottom="@dimen/spacing_small" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/select_section"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/section_spinner"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_tiny"
+                android:paddingBottom="@dimen/spacing_small" />
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"

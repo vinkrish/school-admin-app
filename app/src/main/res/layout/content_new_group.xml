@@ -18,7 +18,7 @@
             android:id="@+id/group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="@dimen/spacing_tiny">
 
             <EditText
                 android:id="@+id/group_et"
@@ -58,7 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacing_tiny"
-                android:layout_marginTop="@dimen/spacing_small"
+                android:layout_marginTop="@dimen/spacing_tiny"
                 android:paddingBottom="@dimen/spacing_small" />
 
             <CheckBox
@@ -73,12 +73,12 @@
             android:id="@+id/section_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:text="@string/select_section"
                 android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold" />
@@ -88,7 +88,7 @@
                 style="@style/Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/spacing_tiny"
                 android:paddingBottom="@dimen/spacing_small" />
 
         </LinearLayout>
