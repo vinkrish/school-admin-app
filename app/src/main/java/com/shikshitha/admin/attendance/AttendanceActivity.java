@@ -611,6 +611,8 @@ public class AttendanceActivity extends AppCompatActivity implements AttendanceV
         String attendanceType = ((Clas)classSpinner.getSelectedItem()).getAttendanceType();
         switch (attendanceType){
             case "Daily":
+                sessionLayout.setVisibility(View.GONE);
+                periodLayout.setVisibility(View.GONE);
                 if(NetworkUtil.isNetworkAvailable(this)) {
                     presenter.getAttendance(((Section) sectionSpinner.getSelectedItem()).getId(), attendanceDate, 0);
                 } else {
