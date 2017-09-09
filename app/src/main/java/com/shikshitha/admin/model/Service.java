@@ -11,6 +11,7 @@ public class Service {
     private boolean isAttendanceSms;
     private boolean isHomeworkSms;
     private boolean isTimetable;
+    private boolean isReport;
 
     public long getId() {
         return id;
@@ -28,66 +29,75 @@ public class Service {
         this.schoolId = schoolId;
     }
 
-    public boolean getIsMessage() {
+    public boolean isMessage() {
         return isMessage;
     }
 
-    public void setIsMessage(boolean isMessage) {
-        this.isMessage = isMessage;
+    public void setMessage(boolean message) {
+        isMessage = message;
     }
 
-    public boolean getIsSms() {
+    public boolean isSms() {
         return isSms;
     }
 
-    public void setIsSms(boolean isSms) {
-        this.isSms = isSms;
+    public void setSms(boolean sms) {
+        isSms = sms;
     }
 
-    public boolean getIsChat() {
+    public boolean isChat() {
         return isChat;
     }
-    public void setIsChat(boolean isChat) {
-        this.isChat = isChat;
+
+    public void setChat(boolean chat) {
+        isChat = chat;
     }
 
-    public boolean getIsAttendance() {
+    public boolean isAttendance() {
         return isAttendance;
     }
 
-    public void setIsAttendance(boolean isAttendance) {
-        this.isAttendance = isAttendance;
+    public void setAttendance(boolean attendance) {
+        isAttendance = attendance;
     }
 
-    public boolean getIsHomework() {
+    public boolean isHomework() {
         return isHomework;
     }
 
-    public void setIsHomework(boolean isHomework) {
-        this.isHomework = isHomework;
+    public void setHomework(boolean homework) {
+        isHomework = homework;
     }
 
-    public boolean getIsAttendanceSms() {
+    public boolean isAttendanceSms() {
         return isAttendanceSms;
     }
 
-    public void setIsAttendanceSms(boolean isAttendanceSms) {
-        this.isAttendanceSms = isAttendanceSms;
+    public void setAttendanceSms(boolean attendanceSms) {
+        isAttendanceSms = attendanceSms;
     }
 
-    public boolean getIsHomeworkSms() {
+    public boolean isHomeworkSms() {
         return isHomeworkSms;
     }
 
-    public void setIsHomeworkSms(boolean isHomeworkSms) {
-        this.isHomeworkSms = isHomeworkSms;
+    public void setHomeworkSms(boolean homeworkSms) {
+        isHomeworkSms = homeworkSms;
     }
 
-    public boolean getIsTimetable() {
+    public boolean isTimetable() {
         return isTimetable;
     }
 
-    public void setIsTimetable(boolean isTimetable) {
-        this.isTimetable = isTimetable;
+    public void setTimetable(boolean timetable) {
+        isTimetable = timetable;
+    }
+
+    public boolean isReport() {
+        return isReport;
+    }
+
+    public void setReport(boolean report) {
+        isReport = report;
     }
 }

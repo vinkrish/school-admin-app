@@ -15,23 +15,24 @@ import com.shikshitha.admin.util.AppGlobal;
 public class ServiceDao {
     public static int insert(Service service) {
         String sql = "insert into service(Id, SchoolId, IsMessage, IsSms, IsChat, " +
-                "IsAttendance, IsAttendanceSms, IsHomework, IsHomeworkSms, isTimetable) " +
-                "values(?,?,?,?,?,?,?,?,?,?)";
+                "IsAttendance, IsAttendanceSms, IsHomework, IsHomeworkSms, IsTimetable, IsReport) " +
+                "values(?,?,?,?,?,?,?,?,?,?,?)";
         SQLiteDatabase db = AppGlobal.getSqlDbHelper().getWritableDatabase();
         db.beginTransactionNonExclusive();
         SQLiteStatement stmt = db.compileStatement(sql);
         try {
             stmt.bindLong(1, service.getId());
             stmt.bindLong(2, service.getSchoolId());
-            stmt.bindString(3, Boolean.toString(service.getIsMessage()));
-            stmt.bindString(4, Boolean.toString(service.getIsSms()));
-            stmt.bindString(5, Boolean.toString(service.getIsChat()));
-            stmt.bindString(6, Boolean.toString(service.getIsAttendance()));
-            stmt.bindString(7, Boolean.toString(service.getIsAttendanceSms()));
-            stmt.bindString(8, Boolean.toString(service.getIsHomework()));
-            stmt.bindString(9, Boolean.toString(service.getIsHomeworkSms()));
-            stmt.bindString(10, Boolean.toString(service.getIsTimetable()));
-            stmt.executeInsert();
+            stmt.bindString(3, Boolean.toString(service.isMessage()));
+            stmt.bindString(4, Boolean.toString(service.isSms()));
+            stmt.bindString(5, Boolean.toString(service.isChat()));
+            stmt.bindString(6, Boolean.toString(service.isAttendance()));
+            stmt.bindString(7, Boolean.toString(service.isAttendanceSms()));
+            stmt.bindString(8, Boolean.toString(service.isHomework()));
+            stmt.bindString(9, Boolean.toString(service.isHomeworkSms()));
+            stmt.bindString(10, Boolean.toString(service.isTimetable()));
+            stmt.bindString(11, Boolean.toString(service.isReport()));
+            stmt.execute();
             stmt.clearBindings();
         } catch (Exception e) {
             db.endTransaction();
@@ -50,14 +51,15 @@ public class ServiceDao {
         while (!c.isAfterLast()) {
             service.setId(c.getLong(c.getColumnIndex("Id")));
             service.setSchoolId(c.getLong(c.getColumnIndex("SchoolId")));
-            service.setIsMessage(Boolean.parseBoolean(c.getString(c.getColumnIndex("IsMessage"))));
-            service.setIsSms(Boolean.parseBoolean(c.getString(c.getColumnIndex("IsSms"))));
-            service.setIsChat(Boolean.parseBoolean(c.getString(c.getColumnIndex("IsChat"))));
-            service.setIsAttendance(Boolean.parseBoolean(c.getString(c.getColumnIndex("IsAttendance"))));
-            service.setIsAttendanceSms(Boolean.parseBoolean(c.getString(c.getColumnIndex("IsAttendanceSms"))));
-            service.setIsHomework(Boolean.parseBoolean(c.getString(c.getColumnIndex("IsHomework"))));
-            service.setIsHomeworkSms(Boolean.parseBoolean(c.getString(c.getColumnIndex("IsHomeworkSms"))));
-            service.setIsTimetable(Boolean.parseBoolean(c.getString(c.getColumnIndex("IsTimetable"))));
+            service.setMessage(Boolean.parseBoolean(c.getString(c.getColumnIndex("IsMessage"))));
+            service.setSms(Boolean.parseBoolean(c.getString(c.getColumnIndex("IsSms"))));
+            service.setChat(Boolean.parseBoolean(c.getString(c.getColumnIndex("IsChat"))));
+            service.setAttendance(Boolean.parseBoolean(c.getString(c.getColumnIndex("IsAttendance"))));
+            service.setAttendanceSms(Boolean.parseBoolean(c.getString(c.getColumnIndex("IsAttendanceSms"))));
+            service.setHomework(Boolean.parseBoolean(c.getString(c.getColumnIndex("IsHomework"))));
+            service.setHomeworkSms(Boolean.parseBoolean(c.getString(c.getColumnIndex("IsHomeworkSms"))));
+            service.setTimetable(Boolean.parseBoolean(c.getString(c.getColumnIndex("IsTimetable"))));
+            service.setReport(Boolean.parseBoolean(c.getString(c.getColumnIndex("IsReport"))));
             c.moveToNext();
         }
         c.close();

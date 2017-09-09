@@ -6,7 +6,7 @@ package com.shikshitha.admin.sqlite;
 interface SqlConstant {
 
     String DATABASE_NAME = "admin.db";
-    int DATABASE_VERSION = 3;
+    int DATABASE_VERSION = 4;
 
     String CREATE_ATTENDANCE = "CREATE TABLE attendance (" +
             "  Id INTEGER PRIMARY KEY," +
@@ -28,13 +28,6 @@ interface SqlConstant {
             "  AttendanceType TEXT" +
             ")";
 
-    String CREATE_CLASS_SUBJECT_GROUP = "CREATE TABLE class_subject_group (" +
-            "  Id INTEGER," +
-            "  ClassId INTEGER," +
-            "  SubjectGroupId INTEGER," +
-            "  SubjectGroupName TEXT" +
-            ")";
-
     String CREATE_HOMEWORK = "CREATE TABLE homework (" +
             "  Id INTEGER," +
             "  SectionId INTEGER," +
@@ -48,6 +41,7 @@ interface SqlConstant {
             "  Id INTEGER," +
             "  SchoolName TEXT," +
             "  Website TEXT," +
+            "  Logo TEXT," +
             "  ShortenedSchoolName TEXT," +
             "  ContactPersonName TEXT," +
             "  AdminUsername TEXT," +
@@ -62,7 +56,8 @@ interface SqlConstant {
             "  State TEXT," +
             "  Pincode TEXT," +
             "  PrincipalId INTEGER," +
-            "  NumberOfStudents INTEGER" +
+            "  NumberOfStudents INTEGER," +
+            "  NumberOfSms INTEGER" +
             ")";
 
     String CREATE_SECTION = "CREATE TABLE section (" +
@@ -95,44 +90,6 @@ interface SqlConstant {
             "  District TEXT," +
             "  State TEXT," +
             "  Pincode TEXT" +
-            ")";
-
-    String CREATE_SUBJECT = "CREATE TABLE subject (" +
-            "  Id INTEGER," +
-            "  SchoolId INTEGER," +
-            "  SubjectName TEXT," +
-            "  PartitionType INTEGER," +
-            "  TheorySubjectId INTEGER," +
-            "  PracticalSubjectId INTEGER" +
-            ")";
-
-    String CREATE_SUBJECT_GROUP = "CREATE TABLE subject_group (" +
-            "  Id INTEGER," +
-            "  SchoolId INTEGER," +
-            "  SubjectGroupName TEXT" +
-            ")";
-
-    String CREATE_SUBJECT_GROUP_SUBJECT = "CREATE TABLE subject_group_subject (" +
-            "  Id INTEGER," +
-            "  SubjectGroupId INTEGER," +
-            "  SubjectId INTEGER," +
-            "  SubjectName TEXT" +
-            ")";
-
-    String CREATE_SUBJECT_STUDENT = "CREATE TABLE subject_student (" +
-            "  Id INTEGER," +
-            "  SectionId INTEGER," +
-            "  SubjectId INTEGER," +
-            "  StudentIds TEXT" +
-            ")";
-
-    String CREATE_SUBJECT_TEACHER = "CREATE TABLE subject_teacher (" +
-            "  Id INTEGER," +
-            "  SectionId INTEGER," +
-            "  SubjectId INTEGER," +
-            "  SubjectName TEXT," +
-            "  TeacherId INTEGER," +
-            "  TeacherName TEXT" +
             ")";
 
     String CREATE_TEACHER = "CREATE TABLE teacher (" +
@@ -215,7 +172,8 @@ interface SqlConstant {
             " IsAttendanceSms TEXT," +
             " IsHomework TEXT, " +
             " IsHomeworkSms TEXT," +
-            " IsTimetable TEXT" +
+            " IsTimetable TEXT," +
+            " IsReport TEXT" +
             ")";
 
     String CREATE_USER_GROUP = "CREATE TABLE user_group (" +

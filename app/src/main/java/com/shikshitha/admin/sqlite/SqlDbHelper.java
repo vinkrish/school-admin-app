@@ -26,16 +26,10 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_ATTENDANCE);
         db.execSQL(CREATE_CLASS);
-        db.execSQL(CREATE_CLASS_SUBJECT_GROUP);
         db.execSQL(CREATE_HOMEWORK);
         db.execSQL(CREATE_SCHOOL);
         db.execSQL(CREATE_SECTION);
         db.execSQL(CREATE_STUDENT);
-        db.execSQL(CREATE_SUBJECT);
-        db.execSQL(CREATE_SUBJECT_GROUP);
-        db.execSQL(CREATE_SUBJECT_GROUP_SUBJECT);
-        db.execSQL(CREATE_SUBJECT_STUDENT);
-        db.execSQL(CREATE_SUBJECT_TEACHER);
         db.execSQL(CREATE_TEACHER);
         db.execSQL(CREATE_TIMETABLE);
         db.execSQL(CREATE_GROUPS);
@@ -53,16 +47,10 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS attendance");
         db.execSQL("DROP TABLE IF EXISTS class");
-        db.execSQL("DROP TABLE IF EXISTS class_subject_group");
         db.execSQL("DROP TABLE IF EXISTS homework");
         db.execSQL("DROP TABLE IF EXISTS school");
         db.execSQL("DROP TABLE IF EXISTS section");
         db.execSQL("DROP TABLE IF EXISTS student");
-        db.execSQL("DROP TABLE IF EXISTS subject");
-        db.execSQL("DROP TABLE IF EXISTS subject_group");
-        db.execSQL("DROP TABLE IF EXISTS subject_group_subject");
-        db.execSQL("DROP TABLE IF EXISTS subject_student");
-        db.execSQL("DROP TABLE IF EXISTS subject_teacher");
         db.execSQL("DROP TABLE IF EXISTS teacher");
         db.execSQL("DROP TABLE IF EXISTS timetable");
         db.execSQL("DROP TABLE IF EXISTS groups");
@@ -81,16 +69,10 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
         sqliteDatabase = dbHelper.getWritableDatabase();
         sqliteDatabase.delete("attendance", null, null);
         sqliteDatabase.delete("class", null, null);
-        sqliteDatabase.delete("class_subject_group", null, null);
         sqliteDatabase.delete("homework", null, null);
         sqliteDatabase.delete("school", null, null);
         sqliteDatabase.delete("section", null, null);
         sqliteDatabase.delete("student", null, null);
-        sqliteDatabase.delete("subject", null, null);
-        sqliteDatabase.delete("subject_group", null, null);
-        sqliteDatabase.delete("subject_group_subject", null, null);
-        sqliteDatabase.delete("subject_student", null, null);
-        sqliteDatabase.delete("subject_teacher", null, null);
         sqliteDatabase.delete("teacher", null, null);
         sqliteDatabase.delete("timetable", null, null);
         sqliteDatabase.delete("groups", null, null);

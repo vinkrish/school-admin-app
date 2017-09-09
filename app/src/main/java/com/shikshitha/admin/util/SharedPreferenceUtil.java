@@ -85,7 +85,7 @@ public class SharedPreferenceUtil {
     public static void saveAppVersion(Context context, AppVersion appVersion) {
         SharedPreferences sharedPref = context.getSharedPreferences("ver", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt("version_id", appVersion.getId());
+        editor.putInt("version_id", appVersion.getVersionId());
         editor.putString("version_name", appVersion.getVersionName());
         editor.putString("version_status", appVersion.getStatus());
         editor.apply();

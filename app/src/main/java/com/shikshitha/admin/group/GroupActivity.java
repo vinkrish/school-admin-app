@@ -223,10 +223,10 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
     private void hideDrawerItem() {
         Menu menu = navigationView.getMenu();
         Service service = ServiceDao.getServices();
-        if(!service.getIsAttendance()) menu.findItem(R.id.attendance_item).setVisible(false);
-        if(!service.getIsHomework()) menu.findItem(R.id.homework_item).setVisible(false);
-        if(!service.getIsChat()) menu.findItem(R.id.chat_item).setVisible(false);
-        if (!service.getIsTimetable()) menu.findItem(R.id.timetable_item).setVisible(false);
+        if(!service.isAttendance()) menu.findItem(R.id.attendance_item).setVisible(false);
+        if(!service.isHomework()) menu.findItem(R.id.homework_item).setVisible(false);
+        if(!service.isChat()) menu.findItem(R.id.chat_item).setVisible(false);
+        if (!service.isTimetable()) menu.findItem(R.id.timetable_item).setVisible(false);
     }
 
     public void addGroup(View view) {
