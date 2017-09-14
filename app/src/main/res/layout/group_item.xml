@@ -16,12 +16,12 @@
         android:id="@+id/group_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/spacing_normal"
+        android:paddingLeft="@dimen/spacing_small"
         android:layout_weight="1"
         android:lineSpacingExtra="3dp"
         android:layout_gravity="center_vertical"
         android:maxLines="2"
-        android:textColor="@color/primaryTextColor"
+        android:textColor="@color/default_tv_color"
         android:textSize="@dimen/text_medium" />
 
 </LinearLayout>

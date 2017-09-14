@@ -3,26 +3,25 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp">
+    android:padding="@dimen/spacing_small">
 
     <ImageView
         android:id="@+id/image_view"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
-        android:contentDescription="@string/app_name"
-        android:padding="5dp" />
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="@string/app_name" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_marginLeft="@dimen/spacing_small"
         android:layout_toRightOf="@+id/image_view">
 
         <TextView
             android:id="@+id/sender_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_alignParentLeft="true"
             android:layout_toLeftOf="@+id/created_date"
             android:ellipsize="end"
             android:maxLines="1"

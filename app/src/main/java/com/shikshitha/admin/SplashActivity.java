@@ -42,9 +42,9 @@ public class SplashActivity extends AppCompatActivity {
         if(BuildConfig.VERSION_CODE == appVersion.getVersionId() &&
                 appVersion.getStatus().equals("obsolete")){
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-            alertDialog.setTitle("Update Alert");
-            alertDialog.setMessage("The version of the app running on this device is marked obsolete, please update to continue.");
-            alertDialog.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+            alertDialog.setTitle("New Version Available");
+            alertDialog.setMessage("This version is no more supported, please update to continue.");
+            alertDialog.setPositiveButton("Update", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     openPlayStore(getApplicationContext());

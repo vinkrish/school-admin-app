@@ -271,7 +271,7 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
     }
 
     private void showSnackbar(String message) {
-        Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override

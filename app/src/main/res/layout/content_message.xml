@@ -27,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@android:color/white"
+            android:clickable="true"
             android:gravity="center_vertical"
             android:paddingBottom="8dp"
             android:paddingTop="8dp"
@@ -37,10 +38,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
                 android:contentDescription="@string/app_name"
                 android:onClick="uploadImage"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
                 app:srcCompat="@drawable/ic_image_black" />
 
             <ImageView
@@ -48,11 +49,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
                 android:layout_toRightOf="@+id/img_button"
                 android:contentDescription="@string/app_name"
                 android:onClick="pasteYoutubeUrl"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
                 app:srcCompat="@drawable/ic_youtube_black" />
 
             <EditText
@@ -78,7 +79,6 @@
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 app:srcCompat="@drawable/ic_send_black" />
-
 
             <TextView
                 android:id="@+id/youtube_url"

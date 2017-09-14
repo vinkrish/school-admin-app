@@ -22,6 +22,7 @@ public class Evnt implements Serializable {
     private String createdBy;
     private String createdDate;
     private int parentEventId;
+    private boolean isSchool;
 
     public int getId() {
         return id;
@@ -141,5 +142,13 @@ public class Evnt implements Serializable {
 
     public void setParentEventId(int parentEventId) {
         this.parentEventId = parentEventId;
+    }
+
+    public boolean isSchool() {
+        return isSchool;
+    }
+
+    public void setSchool(boolean school) {
+        isSchool = school;
     }
 }

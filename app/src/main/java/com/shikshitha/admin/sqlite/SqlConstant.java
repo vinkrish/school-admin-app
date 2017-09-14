@@ -6,7 +6,7 @@ package com.shikshitha.admin.sqlite;
 interface SqlConstant {
 
     String DATABASE_NAME = "admin.db";
-    int DATABASE_VERSION = 4;
+    int DATABASE_VERSION = 5;
 
     String CREATE_ATTENDANCE = "CREATE TABLE attendance (" +
             "  Id INTEGER PRIMARY KEY," +
@@ -187,6 +187,7 @@ interface SqlConstant {
 
     String CREATE_EVENT = "CREATE TABLE event (" +
             " Id INTEGER, " +
+            " SchoolId INTEGER, " +
             " EventTitle TEXT, " +
             " EventDescription TEXT, " +
             " StartDate TEXT, " +
@@ -198,7 +199,9 @@ interface SqlConstant {
             " IsFullDayEvent TEXT, " +
             " IsRecurring TEXT, " +
             " CreatedBy TEXT, " +
-            " CreatedDate TEXT" +
+            " CreatedDate TEXT, " +
+            " ParentEventId INTEGER, " +
+            " IsSchool TEXT" +
             ")";
 
     String CREATE_RECURRING_PATTERN = "CREATE TABLE event_recurring_pattern (" +
