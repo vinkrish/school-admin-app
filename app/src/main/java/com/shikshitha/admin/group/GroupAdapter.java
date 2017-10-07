@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
  * Created by Vinay on 02-04-2017.
  */
 
-public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.ViewHolder> {
+class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.ViewHolder> {
     private List<Groups> items;
     private final OnItemClickListener listener;
 

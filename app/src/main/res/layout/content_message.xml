@@ -60,7 +60,6 @@
                 android:id="@+id/new_msg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
                 android:layout_toLeftOf="@+id/enter_msg"
                 android:layout_toRightOf="@+id/youtube_button"
                 android:hint="@string/type_your_message"

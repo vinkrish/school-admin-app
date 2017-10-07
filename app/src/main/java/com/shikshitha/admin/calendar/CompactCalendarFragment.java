@@ -88,9 +88,9 @@ public class CompactCalendarFragment extends Fragment {
         adapter = new EventsAdapter(getActivity(), new ArrayList<Evnt>(0));
         recyclerView.setAdapter(adapter);
 
-        final ImageView showPreviousMonthBut = (ImageView) v.findViewById(R.id.prev_button);
-        final ImageView showNextMonthBut = (ImageView) v.findViewById(R.id.next_button);
-        final Button showCalendarWithAnimationBut = (Button) v.findViewById(R.id.show_with_animation_calendar);
+        final ImageView showPreviousMonthBut = v.findViewById(R.id.prev_button);
+        final ImageView showNextMonthBut = v.findViewById(R.id.next_button);
+        final Button showCalendarWithAnimationBut = v.findViewById(R.id.show_with_animation_calendar);
 
         compactCalendarView = (CompactCalendarView) v.findViewById(R.id.compactcalendar_view);
 

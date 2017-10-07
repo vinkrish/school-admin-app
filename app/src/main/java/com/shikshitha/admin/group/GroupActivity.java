@@ -157,8 +157,8 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
 
     private void setProfile() {
         View hView = navigationView.inflateHeaderView(R.layout.header);
-        final ImageView imageView = (ImageView) hView.findViewById(R.id.user_image);
-        TextView tv = (TextView) hView.findViewById(R.id.name);
+        final ImageView imageView = hView.findViewById(R.id.user_image);
+        TextView tv = hView.findViewById(R.id.name);
         tv.setText(teacher.getName());
 
         if(PermissionUtil.getStoragePermissionStatus(this)) {
