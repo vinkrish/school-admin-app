@@ -6,7 +6,7 @@ package com.shikshitha.admin.sqlite;
 interface SqlConstant {
 
     String DATABASE_NAME = "admin.db";
-    int DATABASE_VERSION = 6;
+    int DATABASE_VERSION = 7;
 
     String CREATE_ATTENDANCE = "CREATE TABLE attendance (" +
             "  Id INTEGER PRIMARY KEY," +
@@ -160,6 +160,15 @@ interface SqlConstant {
             " ImageUrl TEXT, " +
             " VideoUrl TEXT, " +
             " CreatedAt TEXT" +
+            ")";
+
+    String CREATE_DELETED_MESSAGE = "CREATE TABLE deleted_message (" +
+            " Id INTEGER, " +
+            " MessageId INTEGER, " +
+            " SenderId INTEGER, " +
+            " RecipientId INTEGER, " +
+            " GroupId INTEGER, " +
+            " DeletedAt INTEGER" +
             ")";
 
     String CREATE_SERVICE = "CREATE TABLE service (" +
