@@ -8,7 +8,8 @@ import java.util.List;
  * Created by Vinay on 25-08-2017.
  */
 
-public class MessageRecipientPresenterImpl implements MessageRecipientPresenter, MessageRecipientInteractor.OnFinishedListener {
+class MessageRecipientPresenterImpl implements MessageRecipientPresenter,
+        MessageRecipientInteractor.OnFinishedListener {
     private MessageRecipientView mView;
     private MessageRecipientInteractor mInteractor;
 
@@ -22,6 +23,22 @@ public class MessageRecipientPresenterImpl implements MessageRecipientPresenter,
         if(mView != null) {
             mView.showProgress();
             mInteractor.getMessageRecipient(groupId, groupMessageId, this);
+        }
+    }
+
+    @Override
+    public void getSchoolRecipient(long groupId, long groupMessageId) {
+        if(mView != null) {
+            mView.showProgress();
+            mInteractor.getSchoolRecipient(groupId, groupMessageId, this);
+        }
+    }
+
+    @Override
+    public void getSchoolRecipientFromId(long groupId, long groupMessageId, long id) {
+        if(mView != null) {
+            mView.showProgress();
+            mInteractor.getSchoolRecipientFromId(groupId, groupMessageId, id, this);
         }
     }
 
@@ -42,6 +59,22 @@ public class MessageRecipientPresenterImpl implements MessageRecipientPresenter,
     public void onMessageRecipientReceived(List<MessageRecipient> messageRecipient) {
         if(mView != null) {
             mView.showMessageRecipient(messageRecipient);
+            mView.hideProgress();
+        }
+    }
+
+    @Override
+    public void onSchoolRecipientReceived(List<MessageRecipient> messageRecipient) {
+        if(mView != null) {
+            mView.showSchoolRecipient(messageRecipient);
+            mView.hideProgress();
+        }
+    }
+
+    @Override
+    public void onFollowUpRecipientReceived(List<MessageRecipient> messageRecipient) {
+        if(mView != null) {
+            mView.showFollowUpRecipient(messageRecipient);
             mView.hideProgress();
         }
     }

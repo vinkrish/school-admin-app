@@ -38,4 +38,48 @@ class MessageRecipientInteractorImpl implements MessageRecipientInteractor {
             }
         });
     }
+
+    @Override
+    public void getSchoolRecipient(long groupId, long groupMessageId, final OnFinishedListener listener) {
+        AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
+
+        Call<ArrayList<MessageRecipient>> queue = api.getSchoolRecipients(groupId, groupMessageId);
+        queue.enqueue(new Callback<ArrayList<MessageRecipient>>() {
+            @Override
+            public void onResponse(Call<ArrayList<MessageRecipient>> call, Response<ArrayList<MessageRecipient>> response) {
+                if(response.isSuccessful()) {
+                    listener.onSchoolRecipientReceived(response.body());
+                } else {
+                    listener.onError(App.getInstance().getString(R.string.request_error));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<MessageRecipient>> call, Throwable t) {
+                listener.onError(App.getInstance().getString(R.string.network_error));
+            }
+        });
+    }
+
+    @Override
+    public void getSchoolRecipientFromId(long groupId, long groupMessageId, long id, final OnFinishedListener listener) {
+        AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
+
+        Call<ArrayList<MessageRecipient>> queue = api.getSchoolRecipientsFromId(groupId, groupMessageId, id);
+        queue.enqueue(new Callback<ArrayList<MessageRecipient>>() {
+            @Override
+            public void onResponse(Call<ArrayList<MessageRecipient>> call, Response<ArrayList<MessageRecipient>> response) {
+                if(response.isSuccessful()) {
+                    listener.onFollowUpRecipientReceived(response.body());
+                } else {
+                    listener.onError(App.getInstance().getString(R.string.request_error));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<MessageRecipient>> call, Throwable t) {
+                listener.onError(App.getInstance().getString(R.string.network_error));
+            }
+        });
+    }
 }

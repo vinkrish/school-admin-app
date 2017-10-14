@@ -16,4 +16,8 @@ interface MessageRecipientView {
     void showError(String message);
 
     void showMessageRecipient(List<MessageRecipient> messageRecipient);
+
+    void showSchoolRecipient(List<MessageRecipient> messageRecipient);
+
+    void showFollowUpRecipient(List<MessageRecipient> messageRecipient);
 }

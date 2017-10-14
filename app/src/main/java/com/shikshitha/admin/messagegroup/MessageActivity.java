@@ -208,7 +208,7 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
 
             @Override
             public void onItemLongClick(View view, int position) {
-                if (!isMessageSelect && !group.isSchool()) {
+                if (!isMessageSelect) {
                     selectedMessage = new Message();
                     isMessageSelect = true;
 
@@ -295,6 +295,7 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
     @Override
     public void onMessageSaved(Message message) {
         newMsgLayout.setVisibility(View.GONE);
+        fabButton.setVisibility(View.VISIBLE);
         fabButton.showFloatingActionButton();
         newMsg.setText("");
         youtubeURL.setText("");

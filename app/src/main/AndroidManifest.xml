@@ -25,8 +25,10 @@
         </activity>
         <activity
             android:name=".login.LoginActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar" />
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".group.GroupActivity"
             android:label="@string/title_activity_group"

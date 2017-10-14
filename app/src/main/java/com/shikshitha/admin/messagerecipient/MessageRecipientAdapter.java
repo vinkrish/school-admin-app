@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.shikshitha.admin.R;
-import com.shikshitha.admin.model.MessageRecipient;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
+import com.shikshitha.admin.R;
+import com.shikshitha.admin.model.MessageRecipient;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -43,6 +43,17 @@ class MessageRecipientAdapter extends RecyclerView.Adapter<MessageRecipientAdapt
     void setDataSet(List<MessageRecipient> items) {
         this.items = items;
         notifyDataSetChanged();
+    }
+
+    @UiThread
+    void updateDataSet(List<MessageRecipient> messageRecipients) {
+        int pos = items.size();
+        this.items.addAll(messageRecipients);
+        notifyItemRangeInserted(pos, items.size() - 1);
+    }
+
+    List<MessageRecipient> getDataSet() {
+        return items;
     }
 
     @Override

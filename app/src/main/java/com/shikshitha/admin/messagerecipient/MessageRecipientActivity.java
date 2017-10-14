@@ -6,12 +6,14 @@ import android.os.Environment;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -24,9 +26,11 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubeThumbnailLoader;
 import com.google.android.youtube.player.YouTubeThumbnailView;
 import com.shikshitha.admin.R;
+import com.shikshitha.admin.dao.GroupDao;
 import com.shikshitha.admin.model.Message;
 import com.shikshitha.admin.model.MessageRecipient;
 import com.shikshitha.admin.util.DividerItemDecoration;
+import com.shikshitha.admin.util.EndlessRecyclerViewScrollListener;
 import com.shikshitha.admin.util.SharedPreferenceUtil;
 import com.shikshitha.admin.util.YouTubeHelper;
 import com.shikshitha.admin.util.YoutubeDeveloperKey;
@@ -44,40 +48,25 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MessageRecipientActivity extends AppCompatActivity implements MessageRecipientView{
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.coordinatorLayout)
-    CoordinatorLayout coordinatorLayout;
-    @BindView(R.id.refreshLayout)
-    SwipeRefreshLayout refreshLayout;
-    @BindView(R.id.read_recycler_view)
-    RecyclerView readRecyclerView;
-    @BindView(R.id.delivered_recycler_view)
-    RecyclerView deliveredRecyclerView;
-    @BindView(R.id.empty_read)
-    TextView emptyRead;
-    @BindView(R.id.empty_delivered)
-    TextView emptyDelivered;
-    @BindView(R.id.image_view)
-    ImageView senderImage;
-    @BindView(R.id.sender_name)
-    TextView senderName;
-    @BindView(R.id.created_date)
-    TextView createdDate;
-    @BindView(R.id.message)
-    TextView messageTV;
-    @BindView(R.id.shared_image_1)
-    ImageView sharedImage1;
-    @BindView(R.id.shared_image_2)
-    ImageView sharedImage2;
-    @BindView(R.id.video_thumbnail_1)
-    YouTubeThumbnailView thumbnail1;
-    @BindView(R.id.video_thumbnail_2)
-    YouTubeThumbnailView thumbnail2;
-    @BindView(R.id.video_layout)
-    FrameLayout videoLayout;
-    @BindView(R.id.img_video_layout)
-    LinearLayout imageVideoLayout;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.refreshLayout) SwipeRefreshLayout refreshLayout;
+    @BindView(R.id.read_recycler_view) RecyclerView readRecyclerView;
+    @BindView(R.id.delivered_recycler_view) RecyclerView deliveredRecyclerView;
+    @BindView(R.id.empty_read) TextView emptyRead;
+    @BindView(R.id.empty_delivered) TextView emptyDelivered;
+    @BindView(R.id.image_view) ImageView senderImage;
+    @BindView(R.id.sender_name) TextView senderName;
+    @BindView(R.id.created_date) TextView createdDate;
+    @BindView(R.id.message) TextView messageTV;
+    @BindView(R.id.shared_image_1) ImageView sharedImage1;
+    @BindView(R.id.shared_image_2) ImageView sharedImage2;
+    @BindView(R.id.video_thumbnail_1) YouTubeThumbnailView thumbnail1;
+    @BindView(R.id.video_thumbnail_2) YouTubeThumbnailView thumbnail2;
+    @BindView(R.id.video_layout) FrameLayout videoLayout;
+    @BindView(R.id.img_video_layout) LinearLayout imageVideoLayout;
+    @BindView(R.id.nestedScrollView) NestedScrollView nestedScrollView;
+    @BindView(R.id.delivered_layout) LinearLayout deliveredLayout;
 
     MessageRecipientAdapter readAdapter;
     MessageRecipientAdapter deliveredAdapter;
@@ -99,6 +88,8 @@ public class MessageRecipientActivity extends AppCompatActivity implements Messa
 
     private MessageRecipientPresenter presenter;
 
+    private EndlessRecyclerViewScrollListener scrollListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,7 +108,11 @@ public class MessageRecipientActivity extends AppCompatActivity implements Messa
         }
 
         presenter = new MessageRecipientPresenterImpl(this, new MessageRecipientInteractorImpl());
-        presenter.getMessageRecipient(message.getGroupId(), message.getId());
+        if(GroupDao.getGroup(message.getGroupId()).isSchool()) {
+            presenter.getSchoolRecipient(message.getGroupId(), message.getId());
+        } else {
+            presenter.getMessageRecipient(message.getGroupId(), message.getId());
+        }
 
         showMessage();
 
@@ -206,9 +201,31 @@ public class MessageRecipientActivity extends AppCompatActivity implements Messa
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.getMessageRecipient(message.getGroupId(), message.getId());
+                if(GroupDao.getGroup(message.getGroupId()).isSchool()) {
+                    presenter.getSchoolRecipient(message.getGroupId(), message.getId());
+                } else {
+                    presenter.getMessageRecipient(message.getGroupId(), message.getId());
+                }
+
             }
         });
+
+        if(GroupDao.getGroup(message.getGroupId()).isSchool()) {
+            deliveredLayout.setVisibility(View.GONE);
+            nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                    if(v.getChildAt(v.getChildCount() - 1) != null) {
+                        if ((scrollY >= (v.getChildAt(v.getChildCount() - 1).getMeasuredHeight() - v.getMeasuredHeight())) &&
+                                scrollY > oldScrollY) {
+                            presenter.getSchoolRecipientFromId(message.getGroupId(), message.getId(),
+                                    readAdapter.getDataSet().get(readAdapter.getDataSet().size() - 1).getId());
+                        }
+                    }
+                }
+            });
+        }
+
     }
 
     @Override
@@ -256,6 +273,24 @@ public class MessageRecipientActivity extends AppCompatActivity implements Messa
         } else {
             emptyDelivered.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void showSchoolRecipient(List<MessageRecipient> messageRecipient) {
+        readAdapter.setDataSet(messageRecipient);
+
+        if(messageRecipient.size() == 0){
+            emptyRead.setVisibility(View.VISIBLE);
+        } else {
+            emptyRead.setVisibility(View.GONE);
+        }
+
+        emptyDelivered.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showFollowUpRecipient(List<MessageRecipient> messageRecipient) {
+        readAdapter.updateDataSet(messageRecipient);
     }
 
     private final class ThumbnailListener implements
