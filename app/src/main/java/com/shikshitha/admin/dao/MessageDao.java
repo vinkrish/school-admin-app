@@ -207,17 +207,4 @@ public class MessageDao {
         return 1;
     }
 
-    public static int clearChatMessages(long senderId, String senderRole, long recipientId, String recipientRole) {
-        SQLiteDatabase sqliteDb = AppGlobal.getSqlDbHelper().getWritableDatabase();
-        try {
-            String query = "delete from message where " +
-                    "((SenderId=" + senderId + " and SenderRole= '" + senderRole + "' and RecipientId=" + recipientId + " and RecipientRole='" + recipientRole + "') or " +
-                    "(SenderId=" + recipientId + " and SenderRole='" + recipientRole + "' and RecipientId=" + senderId + " and RecipientRole='" + senderRole + "')) ";
-            sqliteDb.execSQL(query);
-        } catch(SQLException e) {
-            return 0;
-        }
-        return 1;
-    }
-
 }

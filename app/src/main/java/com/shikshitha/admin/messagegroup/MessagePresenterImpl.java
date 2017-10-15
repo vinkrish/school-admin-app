@@ -1,5 +1,7 @@
 package com.shikshitha.admin.messagegroup;
 
+import com.shikshitha.admin.dao.DeletedMessageDao;
+import com.shikshitha.admin.model.DeletedMessage;
 import com.shikshitha.admin.model.Message;
 
 import java.util.List;
@@ -42,6 +44,28 @@ class MessagePresenterImpl implements MessagePresenter, MessageInteractor.OnFini
     }
 
     @Override
+    public void deleteMessage(DeletedMessage deletedMessage) {
+        if(mView != null) {
+            mView.showProgress();
+            mInteractor.deleteMessage(deletedMessage, this);
+        }
+    }
+
+    @Override
+    public void getRecentDeletedMessages(long groupId, long id) {
+        if(mView != null) {
+            mInteractor.getRecentDeletedMessages(groupId, id, this);
+        }
+    }
+
+    @Override
+    public void getDeletedMessages(long groupId) {
+        if(mView != null) {
+            mInteractor.getDeletedMessages(groupId, this);
+        }
+    }
+
+    @Override
     public void onDestroy() {
         mView = null;
     }
@@ -75,6 +99,21 @@ class MessagePresenterImpl implements MessagePresenter, MessageInteractor.OnFini
         if(mView != null) {
             mView.showMessages(messages);
             mView.hideProgress();
+        }
+    }
+
+    @Override
+    public void onMessageDeleted(DeletedMessage deletedMessage) {
+        if(mView != null) {
+            mView.onMessageDeleted(deletedMessage);
+            mView.hideProgress();
+        }
+    }
+
+    @Override
+    public void onDeletedMessagesReceived(List<DeletedMessage> messages) {
+        if(mView != null) {
+            DeletedMessageDao.insertDeletedMessages(messages);
         }
     }
 }

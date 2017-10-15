@@ -7,8 +7,8 @@ android {
         applicationId "com.shikshitha.admin"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 24
-        versionName "2.4"
+        versionCode 25
+        versionName "2.5"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

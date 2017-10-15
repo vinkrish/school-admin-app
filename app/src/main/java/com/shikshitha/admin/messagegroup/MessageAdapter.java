@@ -110,6 +110,12 @@ class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
     }
 
     @UiThread
+    void deleteDataSet(int pos) {
+        this.messages.remove(pos);
+        notifyItemRemoved(pos);
+    }
+
+    @UiThread
     void selectedItemChanged(int newPosition, Message selected_message) {
         this.selected_message = selected_message;
         notifyItemChanged(newPosition);
