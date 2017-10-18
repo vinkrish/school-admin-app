@@ -317,7 +317,7 @@ public class ImageUploadActivity extends AppCompatActivity
 
             // here i override the original image file
             File dir = new File(Environment.getExternalStorageDirectory().getPath(),
-                    "Shikshitha/Teacher/" + SharedPreferenceUtil.getTeacher(this).getSchoolId());
+                    "Shikshitha/Admin/" + SharedPreferenceUtil.getTeacher(this).getSchoolId());
             if (!dir.exists()) {
                 dir.mkdirs();
             }

@@ -15,5 +15,7 @@ interface GroupView {
 
     void showError(String message);
 
+    void setRecentGroups(List<Groups> groups);
+
     void setGroups(List<Groups> groups);
 }

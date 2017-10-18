@@ -134,14 +134,22 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.getGroups(teacher.getSchoolId());
+                if(adapter.getDataSet().size() == 0) {
+                    presenter.getGroups(teacher.getSchoolId());
+                } else {
+                    presenter.getGroupsAboveId(teacher.getSchoolId(), adapter.getDataSet().get(adapter.getItemCount() - 1).getId());
+                }
             }
         });
 
+        loadOfflineData();
+
         if(NetworkUtil.isNetworkAvailable(this)) {
-            presenter.getGroups(teacher.getSchoolId());
-        } else {
-            loadOfflineData();
+            if(adapter.getDataSet().size() == 0) {
+                presenter.getGroups(teacher.getSchoolId());
+            } else {
+                presenter.getGroupsAboveId(teacher.getSchoolId(), adapter.getDataSet().get(adapter.getItemCount() - 1).getId());
+            }
         }
     }
 
@@ -259,10 +267,15 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
     }
 
     @Override
+    public void setRecentGroups(List<Groups> groups) {
+        adapter.updateDataSet(groups);
+        backupGroups(groups);
+    }
+
+    @Override
     public void setGroups(List<Groups> groups) {
         if(groups.size() == 0) {
             recyclerView.invalidate();
-            GroupDao.clear();
             noGroups.setVisibility(View.VISIBLE);
         } else {
             noGroups.setVisibility(View.INVISIBLE);
@@ -276,7 +289,6 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
         new Thread(new Runnable() {
             @Override
             public void run() {
-                GroupDao.clear();
                 GroupDao.insertMany(groups);
             }
         }).start();

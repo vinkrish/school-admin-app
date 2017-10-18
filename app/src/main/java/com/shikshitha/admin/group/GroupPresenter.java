@@ -7,6 +7,8 @@ import com.shikshitha.admin.model.Authorization;
  */
 
 interface GroupPresenter {
+    void getGroupsAboveId(long teacherId, long id);
+
     void getGroups(long teacherId);
 
     void onDestroy();

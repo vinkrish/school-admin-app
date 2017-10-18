@@ -79,7 +79,7 @@ public class GroupDao {
     public static List<Groups> getGroups() {
         List<Groups> groups = new ArrayList<>();
         SQLiteDatabase sqliteDatabase = AppGlobal.getSqlDbHelper().getReadableDatabase();
-        Cursor c = sqliteDatabase.rawQuery("select * from groups", null);
+        Cursor c = sqliteDatabase.rawQuery("select * from groups where CreatorRole != 'principal' order by Id asc", null);
         c.moveToFirst();
         while (!c.isAfterLast()) {
             Groups group = new Groups();
