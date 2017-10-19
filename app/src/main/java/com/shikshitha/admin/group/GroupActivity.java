@@ -63,18 +63,12 @@ import butterknife.ButterKnife;
 
 public class GroupActivity extends AppCompatActivity implements GroupView{
     @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(R.id.coordinatorLayout)
-    CoordinatorLayout coordinatorLayout;
-    @BindView(R.id.navigation_view)
-    NavigationView navigationView;
-    @BindView(R.id.drawer)
-    DrawerLayout drawerLayout;
-    @BindView(R.id.refreshLayout)
-    SwipeRefreshLayout refreshLayout;
-    @BindView(R.id.noGroups)
-    LinearLayout noGroups;
-    @BindView(R.id.recycler_view)
-    RecyclerView recyclerView;
+    @BindView(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.navigation_view) NavigationView navigationView;
+    @BindView(R.id.drawer) DrawerLayout drawerLayout;
+    @BindView(R.id.refreshLayout) SwipeRefreshLayout refreshLayout;
+    @BindView(R.id.noGroups) LinearLayout noGroups;
+    @BindView(R.id.recycler_view) RecyclerView recyclerView;
 
     private GroupPresenter presenter;
     private GroupAdapter adapter;
@@ -87,7 +81,10 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group);
         ButterKnife.bind(this);
+        init();
+    }
 
+    private void init() {
         setupDrawerContent(navigationView);
 
         teacher = TeacherDao.getTeacher();
@@ -97,14 +94,6 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
         setSupportActionBar(toolbar);
 
         presenter = new GroupPresenterImpl(this, new GroupInteractorImpl());
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new DividerItemDecoration(this));
-
-        adapter = new GroupAdapter(new ArrayList<Groups>(0), mItemListener);
-        recyclerView.setAdapter(adapter);
 
         ActionBarDrawerToggle actionBarDrawerToggle = new
                 ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.app_name, R.string.app_name) {
@@ -125,6 +114,28 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
 
         hideDrawerItem();
 
+        setupRecyclerView();
+
+        loadOfflineData();
+
+        if(NetworkUtil.isNetworkAvailable(this)) {
+            if(adapter.getDataSet().size() == 0) {
+                presenter.getGroups(teacher.getSchoolId());
+            } else {
+                presenter.getGroupsAboveId(teacher.getSchoolId(), adapter.getDataSet().get(adapter.getItemCount() - 1).getId());
+            }
+        }
+    }
+
+    private void setupRecyclerView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new DividerItemDecoration(this));
+
+        adapter = new GroupAdapter(new ArrayList<Groups>(0), mItemListener);
+        recyclerView.setAdapter(adapter);
+
         refreshLayout.setColorSchemeColors(
                 ContextCompat.getColor(this, R.color.colorPrimary),
                 ContextCompat.getColor(this, R.color.colorAccent),
@@ -141,16 +152,6 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
                 }
             }
         });
-
-        loadOfflineData();
-
-        if(NetworkUtil.isNetworkAvailable(this)) {
-            if(adapter.getDataSet().size() == 0) {
-                presenter.getGroups(teacher.getSchoolId());
-            } else {
-                presenter.getGroupsAboveId(teacher.getSchoolId(), adapter.getDataSet().get(adapter.getItemCount() - 1).getId());
-            }
-        }
     }
 
     private void loadOfflineData() {
@@ -256,7 +257,7 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
     }
 
     @Override
-    public void hideProgess() {
+    public void hideProgress() {
         refreshLayout.setRefreshing(false);
     }
 

@@ -94,9 +94,11 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
-
         ButterKnife.bind(this);
+        init();
+    }
 
+    private void init() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -137,7 +139,6 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
         if (PermissionUtil.isStoragePermissionGranted(this, WRITE_STORAGE_PERMISSION)) {
             getBackupMessages();
         }
-
     }
 
     private void getBackupMessages() {
@@ -254,21 +255,6 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
                 imm.showSoftInput(newMsg, InputMethodManager.SHOW_IMPLICIT);
             }
         });
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (newMsgLayout.getVisibility() == View.VISIBLE) {
-            newMsgLayout.setVisibility(View.GONE);
-            fabButton.setVisibility(View.VISIBLE);
-            fabButton.showFloatingActionButton();
-            newMsg.setText("");
-            youtubeURL.setText("");
-            youtubeURL.setVisibility(View.GONE);
-            enterMsg.setImageResource(R.drawable.ic_send_black);
-        } else {
-            super.onBackPressed();
-        }
     }
 
     private void showSnackbar(String message) {
@@ -567,4 +553,18 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
         adapter.releaseLoaders();
     }
 
+    @Override
+    public void onBackPressed() {
+        if (newMsgLayout.getVisibility() == View.VISIBLE) {
+            newMsgLayout.setVisibility(View.GONE);
+            fabButton.setVisibility(View.VISIBLE);
+            fabButton.showFloatingActionButton();
+            newMsg.setText("");
+            youtubeURL.setText("");
+            youtubeURL.setVisibility(View.GONE);
+            enterMsg.setImageResource(R.drawable.ic_send_black);
+        } else {
+            super.onBackPressed();
+        }
+    }
 }

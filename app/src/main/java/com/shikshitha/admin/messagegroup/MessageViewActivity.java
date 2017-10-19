@@ -32,12 +32,9 @@ import butterknife.ButterKnife;
 
 public class MessageViewActivity extends AppCompatActivity
         implements YouTubePlayer.OnInitializedListener{
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.shared_image)
-    PhotoView sharedImage;
-    @BindView(R.id.message)
-    TextView messageTV;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.shared_image) PhotoView sharedImage;
+    @BindView(R.id.message) TextView messageTV;
 
     private Message message;
     private String videoId;
@@ -46,9 +43,11 @@ public class MessageViewActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_view);
-
         ButterKnife.bind(this);
+        init();
+    }
 
+    private void init() {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             message = (Message) extras.getSerializable("message");

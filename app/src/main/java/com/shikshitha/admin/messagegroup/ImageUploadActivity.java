@@ -69,7 +69,6 @@ public class ImageUploadActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_upload);
         ButterKnife.bind(this);
-
         transferUtility = Util.getTransferUtility(this);
     }
 
@@ -326,7 +325,7 @@ public class ImageUploadActivity extends AppCompatActivity
             newFile.createNewFile();
             FileOutputStream outputStream = new FileOutputStream(newFile);
 
-            selectedBitmap.compress(Bitmap.CompressFormat.JPEG, 65, outputStream);
+            selectedBitmap.compress(Bitmap.CompressFormat.JPEG, 30, outputStream);
 
             return newFile;
         } catch (Exception e) {

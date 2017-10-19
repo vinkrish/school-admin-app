@@ -48,18 +48,13 @@ import butterknife.ButterKnife;
 public class TimetableActivity extends AppCompatActivity implements TimetableView,
         AdapterView.OnItemSelectedListener {
     @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(R.id.coordinatorLayout)
-    CoordinatorLayout coordinatorLayout;
-    @BindView(R.id.progress_bar)
-    ProgressBar progressBar;
-    @BindView(R.id.spinner_class)
-    Spinner classSpinner;
+    @BindView(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.progress_bar) ProgressBar progressBar;
+    @BindView(R.id.spinner_class) Spinner classSpinner;
     @BindView(R.id.spinner_section) Spinner sectionSpinner;
     @BindView(R.id.section_layout) LinearLayout sectionLayout;
-    @BindView(R.id.tableLayout)
-    FrameLayout tableLayout;
-    @BindView(R.id.noTimetable)
-    LinearLayout noTimetable;
+    @BindView(R.id.tableLayout) FrameLayout tableLayout;
+    @BindView(R.id.noTimetable) LinearLayout noTimetable;
 
     LinkedHashMap<String, List<Timetable>> timetableMap = new LinkedHashMap<>();
     private String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
@@ -83,16 +78,6 @@ public class TimetableActivity extends AppCompatActivity implements TimetableVie
         } else {
             showOfflineClass();
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        presenter.onDestroy();
-    }
-
-    public void loadData(MenuItem item) {
-        presenter.getClassList(TeacherDao.getTeacher().getSchoolId());
     }
 
     private void showSnackbar(String message) {
@@ -630,4 +615,9 @@ public class TimetableActivity extends AppCompatActivity implements TimetableVie
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
+    }
 }

@@ -44,19 +44,16 @@ public class ChatsActivity extends AppCompatActivity implements ChatsView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chats);
         ButterKnife.bind(this);
+        init();
+    }
 
+    private void init() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         presenter = new ChatsPresenterImpl(this, new ChatsInteractorImpl());
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new DividerItemDecoration(this));
-
-        adapter = new ChatsAdapter(new ArrayList<Chat>(0), mItemListener);
-        recyclerView.setAdapter(adapter);
+        setupRecyclerView();
 
         refreshLayout.setColorSchemeColors(
                 ContextCompat.getColor(this, R.color.colorPrimary),
@@ -78,6 +75,16 @@ public class ChatsActivity extends AppCompatActivity implements ChatsView {
         }
     }
 
+    private void setupRecyclerView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new DividerItemDecoration(this));
+
+        adapter = new ChatsAdapter(new ArrayList<Chat>(0), mItemListener);
+        recyclerView.setAdapter(adapter);
+    }
+
     private void showOfflineData() {
         List<Chat> chats = ChatDao.getChats();
         if(chats.size() == 0) {
@@ -86,18 +93,6 @@ public class ChatsActivity extends AppCompatActivity implements ChatsView {
             noChats.setVisibility(View.INVISIBLE);
             adapter.setDataSet(chats);
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        presenter.getChats(TeacherDao.getTeacher().getId());
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        presenter.onDestroy();
     }
 
     public void newChat(View view) {
@@ -160,5 +155,11 @@ public class ChatsActivity extends AppCompatActivity implements ChatsView {
             startActivity(intent);
         }
     };
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
+    }
 
 }

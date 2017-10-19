@@ -27,16 +27,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class LoginActivity extends AppCompatActivity implements LoginView{
-    @BindView(R.id.login_id_et)
-    EditText loginId;
+    @BindView(R.id.login_id_et) EditText loginId;
     @BindView(R.id.password_et) EditText password;
-    @BindView(R.id.login_id)
-    TextInputLayout loginLayout;
+    @BindView(R.id.login_id) TextInputLayout loginLayout;
     @BindView(R.id.password) TextInputLayout passwordLayout;
-    @BindView(R.id.progress)
-    ProgressBar progressBar;
-    @BindView(R.id.coordinatorLayout)
-    CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.progress) ProgressBar progressBar;
+    @BindView(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
 
     private LoginPresenter presenter;
 
@@ -45,7 +41,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-
         presenter = new LoginPresenterImpl(this);
     }
 

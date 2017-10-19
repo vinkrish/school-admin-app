@@ -11,7 +11,7 @@ import java.util.List;
 interface GroupView {
     void showProgress();
 
-    void hideProgess();
+    void hideProgress();
 
     void showError(String message);
 

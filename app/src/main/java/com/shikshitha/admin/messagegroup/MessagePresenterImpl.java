@@ -30,7 +30,6 @@ class MessagePresenterImpl implements MessagePresenter, MessageInteractor.OnFini
     @Override
     public void getRecentMessages(long groupId, long messageId) {
         if(mView != null) {
-            mView.showProgress();
             mInteractor.getRecentMessages(groupId, messageId, this);
         }
     }
@@ -90,7 +89,6 @@ class MessagePresenterImpl implements MessagePresenter, MessageInteractor.OnFini
     public void onRecentMessagesReceived(List<Message> messages) {
         if(mView != null) {
             mView.showRecentMessages(messages);
-            mView.hideProgress();
         }
     }
 

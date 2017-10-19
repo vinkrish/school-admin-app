@@ -41,7 +41,7 @@ class GroupPresenterImpl implements GroupPresenter, GroupInteractor.OnFinishedLi
     @Override
     public void onError(String message) {
         if (mView != null) {
-            mView.hideProgess();
+            mView.hideProgress();
             mView.showError(message);
         }
     }
@@ -50,6 +50,7 @@ class GroupPresenterImpl implements GroupPresenter, GroupInteractor.OnFinishedLi
     public void onRecentGroupsReceived(List<Groups> groupsList) {
         if (mView != null) {
             mView.setRecentGroups(groupsList);
+            mView.hideProgress();
         }
     }
 
@@ -57,7 +58,7 @@ class GroupPresenterImpl implements GroupPresenter, GroupInteractor.OnFinishedLi
     public void onGroupsReceived(List<Groups> groupsList) {
         if (mView != null) {
             mView.setGroups(groupsList);
-            mView.hideProgess();
+            mView.hideProgress();
         }
     }
 

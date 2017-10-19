@@ -60,7 +60,6 @@ import butterknife.ButterKnife;
 
 public class AttendanceActivity extends AppCompatActivity implements AttendanceView,
         AdapterView.OnItemSelectedListener, AlertDialogHelper.AlertDialogListener {
-
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
     @BindView(R.id.refreshLayout) SwipeRefreshLayout refreshLayout;
@@ -98,7 +97,10 @@ public class AttendanceActivity extends AppCompatActivity implements AttendanceV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendance);
         ButterKnife.bind(this);
+        init();
+    }
 
+    private void init() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -107,7 +109,7 @@ public class AttendanceActivity extends AppCompatActivity implements AttendanceV
 
         alertDialogHelper = new AlertDialogHelper(this);
 
-        initRecyclerView();
+        setupRecyclerView();
 
         showSession();
 
@@ -116,19 +118,6 @@ public class AttendanceActivity extends AppCompatActivity implements AttendanceV
         } else {
             showOfflineClass();
         }
-
-        refreshLayout.setColorSchemeColors(
-                ContextCompat.getColor(this, R.color.colorPrimary),
-                ContextCompat.getColor(this, R.color.colorAccent),
-                ContextCompat.getColor(this, R.color.colorPrimaryDark)
-        );
-
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                presenter.getClassList(TeacherDao.getTeacher().getSchoolId());
-            }
-        });
     }
 
     @Override
@@ -138,13 +127,7 @@ public class AttendanceActivity extends AppCompatActivity implements AttendanceV
         return true;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        presenter.onDestroy();
-    }
-
-    private void initRecyclerView() {
+    private void setupRecyclerView() {
         absenteesRecycler.setLayoutManager(new LinearLayoutManager(this));
         absenteesRecycler.setNestedScrollingEnabled(false);
         absenteesRecycler.setItemAnimator(new DefaultItemAnimator());
@@ -179,6 +162,19 @@ public class AttendanceActivity extends AppCompatActivity implements AttendanceV
         studentRecycler.addItemDecoration(new DividerItemDecoration(this));
         studentAdapter = new StudentAdapter(new ArrayList<StudentSet>(0), getApplicationContext());
         studentRecycler.setAdapter(studentAdapter);
+
+        refreshLayout.setColorSchemeColors(
+                ContextCompat.getColor(this, R.color.colorPrimary),
+                ContextCompat.getColor(this, R.color.colorAccent),
+                ContextCompat.getColor(this, R.color.colorPrimaryDark)
+        );
+
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.getClassList(TeacherDao.getTeacher().getSchoolId());
+            }
+        });
     }
 
     public void multi_select(int position) {
@@ -669,5 +665,11 @@ public class AttendanceActivity extends AppCompatActivity implements AttendanceV
     @Override
     public void onNeutralClick(int from) {
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 }

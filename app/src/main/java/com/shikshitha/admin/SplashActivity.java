@@ -30,9 +30,11 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         AppGlobal.setSqlDbHelper(getApplicationContext());
+        init();
+    }
 
+    private void init() {
         credentials = SharedPreferenceUtil.getTeacher(this);
         if(!credentials.getMobileNo().equals("") && !SharedPreferenceUtil.isFcmTokenSaved(this)) {
             startService(new Intent(this, FCMIntentService.class));
@@ -79,7 +81,6 @@ public class SplashActivity extends AppCompatActivity {
             startService(new Intent(this, VersionIntentService.class));
             launchNextActivity();
         }
-
     }
 
     private void launchNextActivity() {
