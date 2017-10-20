@@ -11,5 +11,9 @@ interface GroupPresenter {
 
     void getGroups(long teacherId);
 
+    void getRecentDeletedGroups(long schoolId, long id);
+
+    void getDeletedGroups(long schoolId);
+
     void onDestroy();
 }

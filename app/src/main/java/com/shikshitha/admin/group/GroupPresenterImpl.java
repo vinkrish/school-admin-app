@@ -1,6 +1,8 @@
 package com.shikshitha.admin.group;
 
+import com.shikshitha.admin.dao.DeletedGroupDao;
 import com.shikshitha.admin.model.Authorization;
+import com.shikshitha.admin.model.DeletedGroup;
 import com.shikshitha.admin.model.Groups;
 
 import java.util.List;
@@ -34,6 +36,20 @@ class GroupPresenterImpl implements GroupPresenter, GroupInteractor.OnFinishedLi
     }
 
     @Override
+    public void getRecentDeletedGroups(long schoolId, long id) {
+        if (mView != null) {
+            mInteractor.getRecentDeletedGroups(schoolId, id, this);
+        }
+    }
+
+    @Override
+    public void getDeletedGroups(long schoolId) {
+        if (mView != null) {
+            mInteractor.getDeletedGroups(schoolId, this);
+        }
+    }
+
+    @Override
     public void onDestroy() {
         mView = null;
     }
@@ -59,6 +75,13 @@ class GroupPresenterImpl implements GroupPresenter, GroupInteractor.OnFinishedLi
         if (mView != null) {
             mView.setGroups(groupsList);
             mView.hideProgress();
+        }
+    }
+
+    @Override
+    public void onDeletedGroupsReceived(List<DeletedGroup> deletedGroups) {
+        if (mView != null) {
+            DeletedGroupDao.insertDeletedGroups(deletedGroups);
         }
     }
 

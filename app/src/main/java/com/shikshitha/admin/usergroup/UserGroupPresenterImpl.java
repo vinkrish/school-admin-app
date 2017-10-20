@@ -1,5 +1,6 @@
 package com.shikshitha.admin.usergroup;
 
+import com.shikshitha.admin.model.DeletedGroup;
 import com.shikshitha.admin.model.GroupUsers;
 import com.shikshitha.admin.model.UserGroup;
 
@@ -45,6 +46,14 @@ public class UserGroupPresenterImpl implements UserGroupPresenter,
     }
 
     @Override
+    public void deleteGroup(DeletedGroup deletedGroup) {
+        if (mView != null) {
+            mView.showProgress();
+            mInteractor.deleteGroup(deletedGroup, this);
+        }
+    }
+
+    @Override
     public void onDestroy() {
         mView = null;
     }
@@ -78,6 +87,14 @@ public class UserGroupPresenterImpl implements UserGroupPresenter,
         if(mView != null) {
             mView.hideProgress();
             mView.userGroupDeleted();
+        }
+    }
+
+    @Override
+    public void onGroupDeleted(DeletedGroup deletedGroup) {
+        if(mView != null) {
+            mView.hideProgress();
+            mView.groupDeleted(deletedGroup);
         }
     }
 

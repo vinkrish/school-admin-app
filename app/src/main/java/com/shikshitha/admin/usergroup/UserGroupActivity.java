@@ -1,11 +1,13 @@
 package com.shikshitha.admin.usergroup;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,12 +18,17 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.shikshitha.admin.R;
+import com.shikshitha.admin.dao.DeletedGroupDao;
+import com.shikshitha.admin.dao.TeacherDao;
 import com.shikshitha.admin.dao.UserGroupDao;
+import com.shikshitha.admin.group.GroupActivity;
+import com.shikshitha.admin.model.DeletedGroup;
 import com.shikshitha.admin.model.GroupUsers;
 import com.shikshitha.admin.model.Groups;
 import com.shikshitha.admin.model.Student;
@@ -35,6 +42,7 @@ import com.shikshitha.admin.util.NetworkUtil;
 import com.shikshitha.admin.util.RecyclerItemClickListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -44,24 +52,20 @@ public class UserGroupActivity extends AppCompatActivity implements
         UserGroupView, AlertDialogHelper.AlertDialogListener {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(R.id.coordinatorLayout)
-    CoordinatorLayout coordinatorLayout;
-    @BindView(R.id.refreshLayout)
-    SwipeRefreshLayout refreshLayout;
-    @BindView(R.id.group_name_tv)
-    TextView groupName;
-    @BindView(R.id.add_students_layout)
-    RelativeLayout addStudentsLayout;
+    @BindView(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.refreshLayout) SwipeRefreshLayout refreshLayout;
+    @BindView(R.id.group_name_tv) TextView groupName;
+    @BindView(R.id.add_students_layout) RelativeLayout addStudentsLayout;
     @BindView(R.id.add_teacher_layout) TextView addTeacherLayout;
-    @BindView(R.id.no_members)
-    LinearLayout noMembers;
-    @BindView(R.id.member_recycler_view)
-    RecyclerView memberView;
+    @BindView(R.id.no_members) LinearLayout noMembers;
+    @BindView(R.id.member_recycler_view) RecyclerView memberView;
     @BindView(R.id.student_recycler_view) RecyclerView studentView;
     @BindView(R.id.teacher_recycler_view) RecyclerView teacherView;
+    @BindView(R.id.delete_btn) Button deleteBtn;
 
     private UserGroupPresenter presenter;
     private Groups group;
+    private Teacher teacher;
     private UserGroupAdapter adapter;
     private StudentMemberAdapter studentAdapter;
     private TeacherMemberAdapter teacherAdapter;
@@ -78,9 +82,11 @@ public class UserGroupActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_group);
-
         ButterKnife.bind(this);
+        init();
+    }
 
+    private void init() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -90,11 +96,13 @@ public class UserGroupActivity extends AppCompatActivity implements
             groupName.setText(group.getName());
         }
 
+        teacher = TeacherDao.getTeacher();
+
         presenter = new UserGroupPresenterImpl(this, new UserGroupInteractorImpl());
 
         alertDialogHelper = new AlertDialogHelper(this);
 
-        initRecyclerView();
+        setupRecyclerView();
 
         refreshLayout.setColorSchemeColors(
                 ContextCompat.getColor(this, R.color.colorPrimary),
@@ -122,10 +130,9 @@ public class UserGroupActivity extends AppCompatActivity implements
             addStudentsLayout.setVisibility(View.GONE);
             addTeacherLayout.setVisibility(View.GONE);
         }
-
     }
 
-    private void initRecyclerView() {
+    private void setupRecyclerView() {
         memberView.setLayoutManager(new LinearLayoutManager(this));
         memberView.setNestedScrollingEnabled(false);
         memberView.setItemAnimator(new DefaultItemAnimator());
@@ -172,12 +179,6 @@ public class UserGroupActivity extends AppCompatActivity implements
         getMenuInflater().inflate(R.menu.user_group_overflow, menu);
         this.menu = menu;
         return true;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        presenter.onDestroy();
     }
 
     public void selectAllStudents(View view) {
@@ -311,6 +312,15 @@ public class UserGroupActivity extends AppCompatActivity implements
         recreate();
     }
 
+    @Override
+    public void groupDeleted(DeletedGroup deletedGroup) {
+        DeletedGroupDao.insertDeletedGroups(Collections.singletonList(deletedGroup));
+        Intent intent = new Intent(this, GroupActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+    }
+
     private void showSnackbar(String message) {
         Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_LONG).show();
     }
@@ -368,6 +378,36 @@ public class UserGroupActivity extends AppCompatActivity implements
     @Override
     public void onNeutralClick(int from) {
 
+    }
+
+    public void deleteGroup(View view) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserGroupActivity.this);
+        alertDialog.setTitle("Warning");
+        alertDialog.setMessage("Are you sure you want to delete?");
+        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                DeletedGroup deletedGroup = new DeletedGroup();
+                deletedGroup.setSenderId(teacher.getId());
+                deletedGroup.setGroupId(group.getId());
+                deletedGroup.setSchoolId(teacher.getSchoolId());
+                deletedGroup.setDeletedAt(System.currentTimeMillis());
+                presenter.deleteGroup(deletedGroup);
+            }
+        });
+        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        alertDialog.show();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 
 }

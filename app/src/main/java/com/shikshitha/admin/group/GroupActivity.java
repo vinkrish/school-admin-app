@@ -33,12 +33,14 @@ import com.shikshitha.admin.R;
 import com.shikshitha.admin.attendance.AttendanceActivity;
 import com.shikshitha.admin.calendar.CalendarActivity;
 import com.shikshitha.admin.chathome.ChatsActivity;
+import com.shikshitha.admin.dao.DeletedGroupDao;
 import com.shikshitha.admin.dao.GroupDao;
 import com.shikshitha.admin.dao.ServiceDao;
 import com.shikshitha.admin.dao.TeacherDao;
 import com.shikshitha.admin.homework.HomeworkActivity;
 import com.shikshitha.admin.login.LoginActivity;
 import com.shikshitha.admin.messagegroup.MessageActivity;
+import com.shikshitha.admin.model.DeletedGroup;
 import com.shikshitha.admin.model.Groups;
 import com.shikshitha.admin.model.Service;
 import com.shikshitha.admin.model.Teacher;
@@ -73,8 +75,6 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
     private GroupPresenter presenter;
     private GroupAdapter adapter;
     private Teacher teacher;
-
-    final static int REQ_CODE = 111;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -204,21 +204,6 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
         }
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        presenter.onDestroy();
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (isNavDrawerOpen()) {
-            closeNavDrawer();
-        } else {
-            super.onBackPressed();
-        }
-    }
-
     protected boolean isNavDrawerOpen() {
         return drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START);
     }
@@ -240,8 +225,7 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
 
     public void addGroup(View view) {
         if (NetworkUtil.isNetworkAvailable(this)) {
-            Intent intent = new Intent(this, NewGroupActivity.class);
-            startActivityForResult(intent, REQ_CODE);
+            startActivity(new Intent(this, NewGroupActivity.class));
         } else {
             showSnackbar("You are offline,check your internet.");
         }
@@ -271,6 +255,7 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
     public void setRecentGroups(List<Groups> groups) {
         adapter.updateDataSet(groups);
         backupGroups(groups);
+        syncDeletedGroups();
     }
 
     @Override
@@ -283,7 +268,7 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
             adapter.replaceData(groups);
             backupGroups(groups);
         }
-        refreshLayout.setRefreshing(false);
+        syncDeletedGroups();
     }
 
     private void backupGroups(final List<Groups> groups) {
@@ -293,6 +278,15 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
                 GroupDao.insertMany(groups);
             }
         }).start();
+    }
+
+    private void syncDeletedGroups() {
+        DeletedGroup deletedGroup = DeletedGroupDao.getNewestDeletedGroup();
+        if(deletedGroup.getId() == 0) {
+            presenter.getDeletedGroups(teacher.getSchoolId());
+        } else {
+            presenter.getRecentDeletedGroups(teacher.getSchoolId(), deletedGroup.getId());
+        }
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
@@ -333,7 +327,6 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
 
     private void logout() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(GroupActivity.this);
-        //alertDialog.setTitle("Confirm");
         alertDialog.setMessage("Are you sure you want to logout?");
         alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
@@ -367,11 +360,17 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
     };
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK) {
-            if(NetworkUtil.isNetworkAvailable(this)) {
-                presenter.getGroups(teacher.getSchoolId());
-            }
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isNavDrawerOpen()) {
+            closeNavDrawer();
+        } else {
+            super.onBackPressed();
         }
     }
 

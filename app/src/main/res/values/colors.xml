@@ -16,6 +16,9 @@
     <color name="divider_light">#D2D2D2</color>
     <color name="divider_lightest">#EEEEEE</color>
 
+    <color name="red_light">#F44336</color>
+    <color name="red_dark">#B71C1C</color>
+
     <color name="recycler_background">#EEEEEE</color>
     <color name="recycler_card_1">#FCFCFC</color>
     <color name="recycler_card_2">#FDFDFD</color>

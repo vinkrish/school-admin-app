@@ -1,6 +1,5 @@
 package com.shikshitha.admin.newgroup;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -13,14 +12,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import com.shikshitha.admin.R;
+import com.shikshitha.admin.dao.GroupDao;
 import com.shikshitha.admin.dao.TeacherDao;
+import com.shikshitha.admin.group.GroupActivity;
 import com.shikshitha.admin.model.Clas;
 import com.shikshitha.admin.model.Groups;
 import com.shikshitha.admin.model.Section;
@@ -31,6 +31,7 @@ import com.shikshitha.admin.util.SharedPreferenceUtil;
 
 import org.joda.time.LocalDate;
 
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -40,23 +41,16 @@ public class NewGroupActivity extends AppCompatActivity implements NewGroupView,
         AdapterView.OnItemSelectedListener {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(R.id.progress)
-    ProgressBar progressBar;
-    @BindView(R.id.coordinatorLayout)
-    CoordinatorLayout coordinatorLayout;
-    @BindView(R.id.group_et)
-    EditText groupName;
-    @BindView(R.id.group)
-    TextInputLayout groupLayout;
+    @BindView(R.id.progress) ProgressBar progressBar;
+    @BindView(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.group_et) EditText groupName;
+    @BindView(R.id.group) TextInputLayout groupLayout;
     @BindView(R.id.class_layout) LinearLayout classLayout;
-    @BindView(R.id.spinner_class)
-    Spinner classSpinner;
+    @BindView(R.id.spinner_class) Spinner classSpinner;
     @BindView(R.id.spinner_section) Spinner sectionSpinner;
-    @BindView(R.id.section_layout)
-    LinearLayout sectionLayout;
+    @BindView(R.id.section_layout) LinearLayout sectionLayout;
     @BindView(R.id.schoolCheckBox) CheckBox isForSchool;
-    @BindView(R.id.checkBox)
-    CheckBox isForClass;
+    @BindView(R.id.checkBox) CheckBox isForClass;
 
     private NewGroupPresenter presenter;
 
@@ -64,9 +58,11 @@ public class NewGroupActivity extends AppCompatActivity implements NewGroupView,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_group);
-
         ButterKnife.bind(this);
+        init();
+    }
 
+    private void init() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -97,7 +93,6 @@ public class NewGroupActivity extends AppCompatActivity implements NewGroupView,
                 }
             }
         });
-
     }
 
     @Override
@@ -189,8 +184,10 @@ public class NewGroupActivity extends AppCompatActivity implements NewGroupView,
 
     @Override
     public void groupSaved(Groups groups) {
-        Intent intent = new Intent();
-        setResult(Activity.RESULT_OK, intent);
+        GroupDao.insertMany(Collections.singletonList(groups));
+        Intent intent = new Intent(this, GroupActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
         finish();
     }
 
@@ -211,6 +208,12 @@ public class NewGroupActivity extends AppCompatActivity implements NewGroupView,
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 
 }
