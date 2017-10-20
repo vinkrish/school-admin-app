@@ -37,7 +37,8 @@
                 android:layout_marginLeft="@dimen/spacing_small"
                 android:layout_marginRight="@dimen/spacing_small"
                 android:layout_marginTop="@dimen/spacing_tiny"
-                android:paddingBottom="@dimen/spacing_small" />
+                android:paddingBottom="@dimen/spacing_small"
+                android:popupBackground="@color/default_white" />
 
             <LinearLayout
                 android:id="@+id/section_layout"
@@ -58,7 +59,8 @@
                     style="@style/Widget.AppCompat.Spinner.Underlined"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_tiny" />
+                    android:layout_marginTop="@dimen/spacing_tiny"
+                    android:popupBackground="@color/default_white" />
 
             </LinearLayout>
 
