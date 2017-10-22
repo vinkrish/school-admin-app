@@ -1,16 +1,18 @@
 package com.shikshitha.admin.usergroup;
 
+import com.shikshitha.admin.dao.DeletedGroupDao;
 import com.shikshitha.admin.model.DeletedGroup;
 import com.shikshitha.admin.model.GroupUsers;
 import com.shikshitha.admin.model.UserGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Vinay on 01-04-2017.
  */
 
-public class UserGroupPresenterImpl implements UserGroupPresenter,
+class UserGroupPresenterImpl implements UserGroupPresenter,
         UserGroupInteractor.OnFinishedListener {
 
     private UserGroupView mView;
@@ -50,6 +52,22 @@ public class UserGroupPresenterImpl implements UserGroupPresenter,
         if (mView != null) {
             mView.showProgress();
             mInteractor.deleteGroup(deletedGroup, this);
+        }
+    }
+
+    @Override
+    public void getRecentDeletedGroups(long schoolId, long id) {
+        if (mView != null) {
+            mView.showProgress();
+            mInteractor.getRecentDeletedGroups(schoolId, id, this);
+        }
+    }
+
+    @Override
+    public void getDeletedGroups(long schoolId) {
+        if (mView != null) {
+            mView.showProgress();
+            mInteractor.getDeletedGroups(schoolId, this);
         }
     }
 
@@ -94,7 +112,16 @@ public class UserGroupPresenterImpl implements UserGroupPresenter,
     public void onGroupDeleted(DeletedGroup deletedGroup) {
         if(mView != null) {
             mView.hideProgress();
-            mView.groupDeleted(deletedGroup);
+            mView.groupDeleted();
+        }
+    }
+
+    @Override
+    public void onDeletedGroupsReceived(List<DeletedGroup> deletedGroups) {
+        if(mView != null) {
+            DeletedGroupDao.insertDeletedGroups(deletedGroups);
+            mView.hideProgress();
+            mView.onDeletedGroupSync();
         }
     }
 

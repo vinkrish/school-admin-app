@@ -76,6 +76,8 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
     private GroupAdapter adapter;
     private Teacher teacher;
 
+    final static int REQ_CODE = 111;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -225,9 +227,21 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
 
     public void addGroup(View view) {
         if (NetworkUtil.isNetworkAvailable(this)) {
-            startActivity(new Intent(this, NewGroupActivity.class));
+            Intent intent = new Intent(this, NewGroupActivity.class);
+            startActivityForResult(intent, REQ_CODE);
         } else {
             showSnackbar("You are offline,check your internet.");
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            if(adapter.getDataSet().size() == 0) {
+                presenter.getGroups(teacher.getId());
+            } else {
+                presenter.getGroupsAboveId(teacher.getId(), adapter.getDataSet().get(adapter.getItemCount() - 1).getId());
+            }
         }
     }
 

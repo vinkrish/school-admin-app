@@ -18,5 +18,9 @@ interface UserGroupPresenter {
 
     void deleteGroup(DeletedGroup deletedGroup);
 
+    void getRecentDeletedGroups(long schoolId, long id);
+
+    void getDeletedGroups(long schoolId);
+
     void onDestroy();
 }

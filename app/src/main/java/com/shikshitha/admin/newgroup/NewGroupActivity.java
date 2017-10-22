@@ -1,5 +1,6 @@
 package com.shikshitha.admin.newgroup;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -184,10 +185,8 @@ public class NewGroupActivity extends AppCompatActivity implements NewGroupView,
 
     @Override
     public void groupSaved(Groups groups) {
-        GroupDao.insertMany(Collections.singletonList(groups));
-        Intent intent = new Intent(this, GroupActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+        Intent intent = new Intent();
+        setResult(Activity.RESULT_OK, intent);
         finish();
     }
 

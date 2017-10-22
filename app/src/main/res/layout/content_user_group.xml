@@ -148,7 +148,8 @@
                 android:text="@string/delete_group"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
-                android:textSize="@dimen/text_medium" />
+                android:textSize="@dimen/text_medium"
+                android:visibility="gone" />
 
         </LinearLayout>
 

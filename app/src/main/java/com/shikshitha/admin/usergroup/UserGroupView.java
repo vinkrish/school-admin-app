@@ -1,6 +1,5 @@
 package com.shikshitha.admin.usergroup;
 
-import com.shikshitha.admin.model.DeletedGroup;
 import com.shikshitha.admin.model.GroupUsers;
 
 /**
@@ -20,5 +19,7 @@ interface UserGroupView {
 
     void userGroupDeleted();
 
-    void groupDeleted(DeletedGroup deletedGroup);
+    void groupDeleted();
+
+    void onDeletedGroupSync();
 }
