@@ -13,7 +13,11 @@ interface ChatsInteractor {
         void onError(String message);
 
         void onChatsReceived(List<Chat> chats);
+
+        void onChatDeleted();
     }
 
     void getChats(long teacherId, ChatsInteractor.OnFinishedListener listener);
+
+    void deleteChat(long id, ChatsInteractor.OnFinishedListener listener);
 }

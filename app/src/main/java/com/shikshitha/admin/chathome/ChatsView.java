@@ -11,9 +11,11 @@ import java.util.List;
 interface ChatsView {
     void showProgress();
 
-    void hideProgess();
+    void hideProgress();
 
     void showError(String message);
 
     void setChats(List<Chat> chats);
+
+    void onChatDeleted();
 }

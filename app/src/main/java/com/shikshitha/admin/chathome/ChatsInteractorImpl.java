@@ -38,4 +38,26 @@ class ChatsInteractorImpl implements ChatsInteractor {
             }
         });
     }
+
+    @Override
+    public void deleteChat(long id, final OnFinishedListener listener) {
+        AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
+
+        Call<Void> queue = api.deleteChat(id);
+        queue.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.isSuccessful()) {
+                    listener.onChatDeleted();
+                } else {
+                    listener.onError(App.getInstance().getString(R.string.request_error));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                listener.onError(App.getInstance().getString(R.string.network_error));
+            }
+        });
+    }
 }

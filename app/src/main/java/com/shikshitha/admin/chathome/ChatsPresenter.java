@@ -7,5 +7,7 @@ package com.shikshitha.admin.chathome;
 interface ChatsPresenter {
     void getChats(long teacherId);
 
+    void deleteChat(long id);
+
     void onDestroy();
 }

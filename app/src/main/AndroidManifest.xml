@@ -116,7 +116,7 @@
             android:label="@string/title_activity_chats"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar">
+            android:theme="@style/AppTheme.ContextToolbarTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".group.GroupActivity" />
@@ -129,7 +129,7 @@
             android:theme="@style/NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".group.GroupActivity" />
+                android:value=".chathome.ChatsActivity" />
         </activity>
         <activity
             android:name=".chat.ChatActivity"

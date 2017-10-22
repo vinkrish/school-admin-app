@@ -26,6 +26,14 @@ class ChatsPresenterImpl implements ChatsPresenter, ChatsInteractor.OnFinishedLi
     }
 
     @Override
+    public void deleteChat(long id) {
+        if (mView != null) {
+            mView.showProgress();
+            mInteractor.deleteChat(id, this);
+        }
+    }
+
+    @Override
     public void onDestroy() {
         mView = null;
     }
@@ -33,7 +41,7 @@ class ChatsPresenterImpl implements ChatsPresenter, ChatsInteractor.OnFinishedLi
     @Override
     public void onError(String message) {
         if (mView != null) {
-            mView.hideProgess();
+            mView.hideProgress();
             mView.showError(message);
         }
     }
@@ -42,7 +50,15 @@ class ChatsPresenterImpl implements ChatsPresenter, ChatsInteractor.OnFinishedLi
     public void onChatsReceived(List<Chat> chats) {
         if (mView != null) {
             mView.setChats(chats);
-            mView.hideProgess();
+            mView.hideProgress();
+        }
+    }
+
+    @Override
+    public void onChatDeleted() {
+        if (mView != null) {
+            mView.hideProgress();
+            mView.onChatDeleted();
         }
     }
 }
