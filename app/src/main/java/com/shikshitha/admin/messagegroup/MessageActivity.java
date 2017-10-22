@@ -245,7 +245,7 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
                 .withDrawable(getResources().getDrawable(R.drawable.ic_add))
                 .withButtonColor(ContextCompat.getColor(this, R.color.colorAccent))
                 .withGravity(Gravity.BOTTOM | Gravity.RIGHT)
-                .withMargins(0, 0, 16, 16)
+                .withMargins(0, 0, 8, 8)
                 .create();
 
         fabButton.setOnClickListener(new View.OnClickListener() {
@@ -359,12 +359,12 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
             } else {
                 youtubeURL.setText("");
                 youtubeURL.setVisibility(View.GONE);
-                showSnackbar("URL is not valid");
+                showSnackbar("Copy valid YouTube url");
             }
         } else {
             youtubeURL.setText("");
             youtubeURL.setVisibility(View.GONE);
-            showSnackbar("copy YouTube url before pasting");
+            showSnackbar("Copy YouTube url");
         }
     }
 

@@ -29,14 +29,20 @@
             android:background="@android:color/white"
             android:clickable="true"
             android:gravity="center_vertical"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
+            android:paddingBottom="5dp"
             android:visibility="gone">
+
+            <View
+                android:id="@+id/border"
+                android:layout_width="match_parent"
+                android:layout_height="0.5px"
+                android:background="@color/dividerColor" />
 
             <ImageView
                 android:id="@+id/img_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/border"
                 android:layout_centerVertical="true"
                 android:contentDescription="@string/app_name"
                 android:onClick="uploadImage"
