@@ -43,7 +43,7 @@ public interface AdminApi {
                                    @Path("appName") String appName);
 
     @Headers("content-type: application/json")
-    @POST("teacher/login")
+    @POST("teacher/admin/login")
     Call<TeacherCredentials> login(@Body Credentials credentials);
 
     @Headers("content-type: application/json")
