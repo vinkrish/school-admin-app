@@ -6,7 +6,7 @@ package com.shikshitha.admin.sqlite;
 interface SqlConstant {
 
     String DATABASE_NAME = "admin.db";
-    int DATABASE_VERSION = 8;
+    int DATABASE_VERSION = 9;
 
     String CREATE_ATTENDANCE = "CREATE TABLE attendance (" +
             "  Id INTEGER PRIMARY KEY," +
@@ -221,29 +221,76 @@ interface SqlConstant {
             " IsSchool TEXT" +
             ")";
 
-    String CREATE_RECURRING_PATTERN = "CREATE TABLE event_recurring_pattern (" +
+    String CREATE_ALBUM = "CREATE TABLE album (" +
             " Id INTEGER, " +
-            " EventId INTEGER, " +
-            " RecurringType TEXT, " +
-            " SeparationCount INTEGER, " +
-            " MaxNumOfOccurrences INTEGER, " +
-            " DayOfWeek INTEGER, " +
-            " WeekOfMonth TEXT, " +
-            " DayOfMonth TEXT" +
+            " Name TEXT, " +
+            " CreatedBy INTEGER, " +
+            " CreatorName TEXT, " +
+            " CreatorRole TEXT, " +
+            " CreatedAt INTEGER, " +
+            " SchoolId INTEGER " +
             ")";
 
-    String CREATE_EVENT_EXCEPTION = "CREATE TABLE event_exception (" +
+    String CREATE_ALBUM_IMAGE = "CREATE TABLE album_image (" +
             " Id INTEGER, " +
-            " EventId INTEGER, " +
-            " IsRescheduled TEXT, " +
-            " IsCancelled TEXT, " +
-            " CreatedBy TEXT, " +
-            " CreatedDate TEXT" +
+            " Name TEXT, " +
+            " AlbumId INTEGER. " +
+            " CreatedBy INTEGER, " +
+            " CreatorName TEXT, " +
+            " CreatorRole TEXT, " +
+            " CreatedAt INTEGER " +
             ")";
 
-    String CREATE_EVENT_DATES = "CREATE TABLE event_dates (" +
+    String CREATE_SUB_ALBUM = "CREATE TABLE sub_album (" +
             " Id INTEGER, " +
-            " EventId INTEGER, " +
-            " EventDate TEXT" +
+            " Name TEXT, " +
+            " AlbumId INTEGER. " +
+            " CreatedBy INTEGER, " +
+            " CreatorName TEXT, " +
+            " CreatorRole TEXT, " +
+            " CreatedAt INTEGER " +
             ")";
+
+    String CREATE_SUBALBUM_IMAGE = "CREATE TABLE subalbum_image (" +
+            " Id INTEGER, " +
+            " Name TEXT, " +
+            " SubAlbumId INTEGER. " +
+            " CreatedBy INTEGER, " +
+            " CreatorName TEXT, " +
+            " CreatorRole TEXT, " +
+            " CreatedAt INTEGER " +
+            ")";
+
+    String CREATE_DELETED_ALBUM = "CREATE TABLE deleted_album (" +
+            " Id INTEGER, " +
+            " SenderId INTEGER, " +
+            " AlbumId INTEGER, " +
+            " SchoolId INTEGER, " +
+            " DeletedAt INTEGER " +
+            ")";
+
+    String CREATE_DELETED_ALBUM_IMAGE = "CREATE TABLE deleted_album_image (" +
+            " Id INTEGER, " +
+            " SenderId INTEGER, " +
+            " AlbumId INTEGER, " +
+            " AlbumImageId INTEGER, " +
+            " DeletedAt INTEGER " +
+            ")";
+
+    String CREATE_DELETED_SUBALBUM = "CREATE TABLE deleted_subalbum (" +
+            " Id INTEGER, " +
+            " SenderId INTEGER, " +
+            " AlbumId INTEGER, " +
+            " SubAlbumId INTEGER, " +
+            " DeletedAt INTEGER " +
+            ")";
+
+    String CREATE_DELETED_SUBALBUM_IMAGE = "CREATE TABLE deleted_subalbum_image (" +
+            " Id INTEGER, " +
+            " SenderId INTEGER, " +
+            " SubAlbumId INTEGER, " +
+            " SubAlbumImageId INTEGER, " +
+            " DeletedAt INTEGER " +
+            ")";
+
 }

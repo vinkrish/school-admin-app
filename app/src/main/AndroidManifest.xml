@@ -23,17 +23,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".login.LoginActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar"
             android:windowSoftInputMode="adjustResize" />
+
         <activity
             android:name=".group.GroupActivity"
             android:label="@string/title_activity_group"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar" />
+
         <activity
             android:name=".newgroup.NewGroupActivity"
             android:label="@string/title_activity_new_group"
@@ -45,6 +48,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".group.GroupActivity" />
         </activity>
+
         <activity
             android:name=".messagegroup.MessageActivity"
             android:label="@string/title_activity_message"
@@ -55,6 +59,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".group.GroupActivity" />
         </activity>
+
         <activity
             android:name=".messagegroup.ImageUploadActivity"
             android:label="@string/upload_image"
@@ -63,6 +68,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".messagegroup.MessageActivity" />
         </activity>
+
         <activity
             android:name=".usergroup.UserGroupActivity"
             android:label="@string/title_activity_user_group"
@@ -73,6 +79,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".messagegroup.MessageActivity" />
         </activity>
+
         <activity
             android:name=".attendance.AttendanceActivity"
             android:label="@string/attendance"
@@ -83,6 +90,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".group.GroupActivity" />
         </activity>
+
         <activity
             android:name=".homework.HomeworkActivity"
             android:label="@string/homework"
@@ -93,6 +101,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".group.GroupActivity" />
         </activity>
+
         <activity
             android:name=".timetable.TimetableActivity"
             android:label="@string/timetable"
@@ -102,6 +111,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".group.GroupActivity" />
         </activity>
+
         <activity
             android:name=".calendar.CalendarActivity"
             android:launchMode="singleTop"
@@ -111,6 +121,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".group.GroupActivity" />
         </activity>
+
         <activity
             android:name=".chathome.ChatsActivity"
             android:label="@string/title_activity_chats"
@@ -121,6 +132,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".group.GroupActivity" />
         </activity>
+
         <activity
             android:name=".newchat.NewChatActivity"
             android:label="@string/title_activity_new_chat"
@@ -131,6 +143,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".chathome.ChatsActivity" />
         </activity>
+
         <activity
             android:name=".chat.ChatActivity"
             android:label="@string/title_activity_chat"
@@ -145,6 +158,7 @@
         <service
             android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
             android:enabled="true" />
+
         <service
             android:name=".fcm.MyFirebaseInstanceIDService"
             android:exported="true">
@@ -152,6 +166,7 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
         <service android:name=".fcm.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -183,7 +198,15 @@
 
         <service
             android:name=".util.VersionIntentService"
-            android:exported="false"></service>
+            android:exported="false"/>
+
+        <activity
+            android:name="com.darsh.multipleimageselect.activities.AlbumSelectActivity"
+            android:theme="@style/MultipleImageSelectTheme">
+            <intent-filter>
+                <category android:name="ANDROID.INTENT.CATEGORY.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

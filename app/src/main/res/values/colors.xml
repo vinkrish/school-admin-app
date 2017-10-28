@@ -30,7 +30,7 @@
     <color name="multiple_image_select_primary">#009688</color>
     <color name="multiple_image_select_primaryDark">#00796B</color>
     <color name="multiple_image_select_primaryLight">#B2DFDB</color>
-    <color name="multiple_image_select_accent">#607D8B</color>
+    <color name="multiple_image_select_accent">#FFC107</color>
     <color name="multiple_image_select_primaryText">#212121</color>
     <color name="multiple_image_select_secondaryText">#727272</color>
     <color name="multiple_image_select_divider">#B6B6B6</color>
