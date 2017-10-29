@@ -17,8 +17,8 @@ import java.util.List;
 public class SubAlbumDao {
 
     public static int insert(List<SubAlbum> subAlbums) {
-        String sql = "insert into sub_album(Id, Name, AlbumId, CreatedBy, CreatorName, CreatorRole, CreatedAt) " +
-                "values(?,?,?,?,?,?,?)";
+        String sql = "insert into sub_album(Id, Name, CoverPic, AlbumId, CreatedBy, CreatorName, CreatorRole, CreatedAt) " +
+                "values(?,?,?,?,?,?,?,?)";
         SQLiteDatabase db = AppGlobal.getSqlDbHelper().getWritableDatabase();
         db.beginTransactionNonExclusive();
         SQLiteStatement stmt = db.compileStatement(sql);
@@ -26,11 +26,12 @@ public class SubAlbumDao {
             for(SubAlbum subAlbum: subAlbums) {
                 stmt.bindLong(1, subAlbum.getId());
                 stmt.bindString(2, subAlbum.getName());
-                stmt.bindLong(3, subAlbum.getAlbumId());
-                stmt.bindLong(4, subAlbum.getCreatedBy());
-                stmt.bindString(5, subAlbum.getCreatorName());
-                stmt.bindString(6, subAlbum.getCreatorRole());
-                stmt.bindLong(7, subAlbum.getCreatedAt());
+                stmt.bindString(3, subAlbum.getCoverPic());
+                stmt.bindLong(4, subAlbum.getAlbumId());
+                stmt.bindLong(5, subAlbum.getCreatedBy());
+                stmt.bindString(6, subAlbum.getCreatorName());
+                stmt.bindString(7, subAlbum.getCreatorRole());
+                stmt.bindLong(8, subAlbum.getCreatedAt());
                 stmt.executeInsert();
                 stmt.clearBindings();
             }
@@ -52,6 +53,7 @@ public class SubAlbumDao {
             SubAlbum subAlbum = new SubAlbum();
             subAlbum.setId(c.getLong(c.getColumnIndex("Id")));
             subAlbum.setName(c.getString(c.getColumnIndex("Name")));
+            subAlbum.setCoverPic(c.getString(c.getColumnIndex("CoverPic")));
             subAlbum.setAlbumId(c.getLong(c.getColumnIndex("AlbumId")));
             subAlbum.setCreatedBy(c.getLong(c.getColumnIndex("CreatedBy")));
             subAlbum.setCreatorName(c.getString(c.getColumnIndex("CreatorName")));

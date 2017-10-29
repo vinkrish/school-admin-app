@@ -17,8 +17,8 @@ import java.util.List;
 public class AlbumDao {
 
     public static int insert(List<Album> albums) {
-        String sql = "insert into album(Id, Name, CreatedBy, CreatorName, CreatorRole, CreatedAt, SchoolId) " +
-                "values(?,?,?,?,?,?,?)";
+        String sql = "insert into album(Id, Name, CoverPic, CreatedBy, CreatorName, CreatorRole, CreatedAt, SchoolId) " +
+                "values(?,?,?,?,?,?,?,?)";
         SQLiteDatabase db = AppGlobal.getSqlDbHelper().getWritableDatabase();
         db.beginTransactionNonExclusive();
         SQLiteStatement stmt = db.compileStatement(sql);
@@ -26,11 +26,12 @@ public class AlbumDao {
             for(Album album: albums) {
                 stmt.bindLong(1, album.getId());
                 stmt.bindString(2, album.getName());
-                stmt.bindLong(3, album.getCreatedBy());
-                stmt.bindString(4, album.getCreatorName());
-                stmt.bindString(5, album.getCreatorRole());
-                stmt.bindLong(6, album.getCreatedAt());
-                stmt.bindLong(7, album.getSchoolId());
+                stmt.bindString(3, album.getCoverPic());
+                stmt.bindLong(4, album.getCreatedBy());
+                stmt.bindString(5, album.getCreatorName());
+                stmt.bindString(6, album.getCreatorRole());
+                stmt.bindLong(7, album.getCreatedAt());
+                stmt.bindLong(8, album.getSchoolId());
                 stmt.executeInsert();
                 stmt.clearBindings();
             }
@@ -52,6 +53,7 @@ public class AlbumDao {
             Album album = new Album();
             album.setId(c.getLong(c.getColumnIndex("Id")));
             album.setName(c.getString(c.getColumnIndex("Name")));
+            album.setCoverPic(c.getString(c.getColumnIndex("CoverPic")));
             album.setCreatedBy(c.getLong(c.getColumnIndex("CreatedBy")));
             album.setCreatorName(c.getString(c.getColumnIndex("CreatorName")));
             album.setCreatorRole(c.getString(c.getColumnIndex("CreatorRole")));

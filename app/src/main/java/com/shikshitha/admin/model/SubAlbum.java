@@ -3,6 +3,7 @@ package com.shikshitha.admin.model;
 public class SubAlbum {
     private long id;
     private String name;
+    private String coverPic;
     private long albumId;
     private long createdBy;
     private String creatorName;
@@ -23,6 +24,14 @@ public class SubAlbum {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCoverPic() {
+        return coverPic;
+    }
+
+    public void setCoverPic(String coverPic) {
+        this.coverPic = coverPic;
     }
 
     public long getAlbumId() {
