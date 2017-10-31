@@ -37,6 +37,7 @@ import com.shikshitha.admin.dao.DeletedGroupDao;
 import com.shikshitha.admin.dao.GroupDao;
 import com.shikshitha.admin.dao.ServiceDao;
 import com.shikshitha.admin.dao.TeacherDao;
+import com.shikshitha.admin.gallery.GalleryActivity;
 import com.shikshitha.admin.homework.HomeworkActivity;
 import com.shikshitha.admin.login.LoginActivity;
 import com.shikshitha.admin.messagegroup.MessageActivity;
@@ -322,6 +323,9 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
                         break;
                     case R.id.event_item:
                         startActivity(new Intent(GroupActivity.this, CalendarActivity.class));
+                        break;
+                    case R.id.gallery_item:
+                        startActivity(new Intent(GroupActivity.this, GalleryActivity.class));
                         break;
                     case R.id.chat_item:
                         startActivity(new Intent(GroupActivity.this, ChatsActivity.class));

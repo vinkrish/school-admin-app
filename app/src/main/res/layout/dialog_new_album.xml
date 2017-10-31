@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/default_white"
+    android:padding="@dimen/spacing_small">
+
+    <EditText
+        android:id="@+id/album_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_small"
+        android:hint="@string/album_name"
+        android:inputType="text"
+        android:maxLength="50"
+        android:textSize="@dimen/text_xsmall" />
+
+    <Button
+        android:id="@+id/cancel_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/album_name"
+        android:background="@drawable/teal_btn_ripple"
+        android:padding="@dimen/spacing_small"
+        android:text="@string/cancel"
+        android:textAllCaps="false"
+        android:textColor="@color/default_white"
+        android:textSize="@dimen/text_xsmall" />
+
+    <Button
+        android:id="@+id/save_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/album_name"
+        android:layout_marginLeft="@dimen/spacing_normal"
+        android:layout_toRightOf="@+id/cancel_btn"
+        android:background="@drawable/teal_btn_ripple"
+        android:padding="@dimen/spacing_small"
+        android:text="@string/save"
+        android:textAllCaps="false"
+        android:textColor="@color/default_white"
+        android:textSize="@dimen/text_xsmall" />
+
+</RelativeLayout>

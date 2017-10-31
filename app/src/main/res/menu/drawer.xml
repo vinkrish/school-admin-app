@@ -27,6 +27,11 @@
             android:icon="@drawable/ic_event_black"
             android:title="@string/events" />
         <item
+            android:id="@+id/gallery_item"
+            android:checked="false"
+            android:icon="@drawable/ic_photo_library_black"
+            android:title="@string/gallery" />
+        <item
             android:id="@+id/chat_item"
             android:checked="false"
             android:icon="@drawable/ic_chat_black"

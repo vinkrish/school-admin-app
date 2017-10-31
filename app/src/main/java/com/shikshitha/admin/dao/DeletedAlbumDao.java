@@ -36,7 +36,7 @@ public class DeletedAlbumDao {
 
     public static int insertDeletedAlbums(List<DeletedAlbum> deletedAlbums) {
         deleteAlbum(deletedAlbums);
-        String sql = "insert into deleted_album(Id, SenderId, GroupId, SchoolId, DeletedAt) " +
+        String sql = "insert into deleted_album(Id, SenderId, AlbumId, SchoolId, DeletedAt) " +
                 "values(?,?,?,?,?)";
         SQLiteDatabase db = AppGlobal.getSqlDbHelper().getWritableDatabase();
         db.beginTransactionNonExclusive();
