@@ -27,6 +27,7 @@ public class DeletedAlbumImageDao {
             deletedAlbumImage.setSenderId(c.getLong(c.getColumnIndex("SenderId")));
             deletedAlbumImage.setAlbumId(c.getLong(c.getColumnIndex("AlbumId")));
             deletedAlbumImage.setAlbumImageId(c.getLong(c.getColumnIndex("AlbumImageId")));
+            deletedAlbumImage.setName(c.getString(c.getColumnIndex("Name")));
             deletedAlbumImage.setDeletedAt(c.getLong(c.getColumnIndex("DeletedAt")));
             c.moveToNext();
         }
@@ -36,8 +37,8 @@ public class DeletedAlbumImageDao {
 
     public static int insertDeletedAlbumImages(List<DeletedAlbumImage> deletedAlbumImages) {
         deleteAlbumImage(deletedAlbumImages);
-        String sql = "insert into deleted_album_image(Id, SenderId, AlbumId, AlbumImageId, DeletedAt) " +
-                "values(?,?,?,?,?)";
+        String sql = "insert into deleted_album_image(Id, SenderId, AlbumId, AlbumImageId, Name, DeletedAt) " +
+                "values(?,?,?,?,?,?)";
         SQLiteDatabase db = AppGlobal.getSqlDbHelper().getWritableDatabase();
         db.beginTransactionNonExclusive();
         SQLiteStatement stmt = db.compileStatement(sql);
@@ -47,7 +48,8 @@ public class DeletedAlbumImageDao {
                 stmt.bindLong(2, deletedAlbumImage.getSenderId());
                 stmt.bindLong(3, deletedAlbumImage.getAlbumId());
                 stmt.bindLong(4, deletedAlbumImage.getAlbumImageId());
-                stmt.bindLong(5, deletedAlbumImage.getDeletedAt());
+                stmt.bindString(5, deletedAlbumImage.getName());
+                stmt.bindLong(6, deletedAlbumImage.getDeletedAt());
                 stmt.executeInsert();
                 stmt.clearBindings();
             }

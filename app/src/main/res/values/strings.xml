@@ -76,6 +76,8 @@
     <string name="album_name">Album Name</string>
     <string name="cancel">Cancel</string>
     <string name="no_album">No Albums!</string>
+    <string name="no_photos">No photos shared!</string>
+    <string name="mark_cover_pic">Mark as CoverPic</string>
 
     <!-- Attendance View & Homework View-->
     <string name="attendance">Attendance</string>

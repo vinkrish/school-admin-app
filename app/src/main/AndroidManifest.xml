@@ -201,8 +201,26 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".group.GroupActivity" />
         </activity>
-        <activity android:name=".album.AlbumActivity">
+        <activity
+            android:name=".album.AlbumActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.ContextToolbarTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".gallery.GalleryActivity" />
+        </activity>
 
+        <service
+            android:name=".album.AlbumUploadService"
+            android:exported="false" />
+
+        <activity android:name=".album.ImageSlideActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BlackActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".album.AlbumActivity" />
         </activity>
     </application>
 

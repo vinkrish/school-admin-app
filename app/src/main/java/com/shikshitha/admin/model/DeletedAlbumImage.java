@@ -5,6 +5,7 @@ public class DeletedAlbumImage {
     private long senderId;
     private long albumId;
     private long albumImageId;
+    private String name;
     private long deletedAt;
 
     public long getId() {
@@ -37,6 +38,14 @@ public class DeletedAlbumImage {
 
     public void setAlbumImageId(long albumImageId) {
         this.albumImageId = albumImageId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public long getDeletedAt() {

@@ -1,4 +1,4 @@
-package com.shikshitha.admin.gallery;
+package com.shikshitha.admin.album;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -6,82 +6,86 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Environment;
 import android.support.annotation.UiThread;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.shikshitha.admin.R;
-import com.shikshitha.admin.model.Album;
+import com.shikshitha.admin.model.AlbumImage;
+import com.shikshitha.admin.util.SquareRelativeLayout;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Vinay on 31-10-2017.
+ * Created by Vinay on 01-11-2017.
  */
 
-class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder>{
+class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> {
     private Context context;
     private long schoolId;
-    private Album selected_album;
-    private List<Album> items;
+    private ArrayList<AlbumImage> selected_items;
+    private ArrayList<AlbumImage> items;
 
-    GalleryAdapter(Context context, long schoolId, List<Album> items) {
+    AlbumAdapter(Context context, long schoolId, ArrayList<AlbumImage> items, ArrayList<AlbumImage> selected_items) {
         this.context = context;
         this.schoolId = schoolId;
         this.items = items;
+        this.selected_items = selected_items;
     }
 
-    List<Album> getDataSet() {
+    ArrayList<AlbumImage> getDataSet() {
         return items;
     }
 
     @UiThread
-    void replaceData(List<Album> items, Album selected_album) {
+    void setDataSet(ArrayList<AlbumImage> items, ArrayList<AlbumImage> selected_items) {
         this.items = items;
-        this.selected_album = selected_album;
+        this.selected_items = selected_items;
         notifyDataSetChanged();
     }
 
     @UiThread
-    void updateDataSet(List<Album> itms) {
+    void updateDataSet(List<AlbumImage> itms) {
         int pos = items.size();
         this.items.addAll(itms);
         notifyItemRangeInserted(pos, items.size() - 1);
     }
 
     @UiThread
-    void selectedItemChanged(int newPosition, Album selected_album) {
-        this.selected_album = selected_album;
-        notifyItemChanged(newPosition);
-    }
+    void deleteDataSet() {
+        for(int i=items.size()-1; i>=0; i--) {
+            for(int j = 0; j < selected_items.size(); j++) {
+                if(items.get(i).getId() == selected_items.get(j).getId()) {
+                    this.selected_items.remove(j);
+                    this.items.remove(i);
+                    notifyItemRemoved(i);
+                    break;
+                }
+            }
+        }
 
-    @UiThread
-    void deleteDataSet(int pos) {
-        this.items.remove(pos);
-        notifyItemRemoved(pos);
-    }
-
-    @Override
-    public GalleryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.gallery_item, parent, false);
-        return new GalleryAdapter.ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(GalleryAdapter.ViewHolder holder, int position) {
+    public AlbumAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.album_item, parent, false);
+        return new AlbumAdapter.ViewHolder(v);
+    }
+
+    @Override
+    public void onBindViewHolder(AlbumAdapter.ViewHolder holder, int position) {
         holder.bind(items.get(position));
     }
 
@@ -91,26 +95,20 @@ class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder>{
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.cover_pic) ImageView coverPic;
-        @BindView(R.id.album_name) TextView albumName;
-        @BindView(R.id.card_view) RelativeLayout cardView;
+        @BindView(R.id.album_img) ImageView albumImage;
+        @BindView(R.id.selected) FrameLayout selected;
 
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
 
-        void bind(final Album album) {
-            albumName.setText(album.getName());
-            if(album.getCoverPic().equals("")) {
-                coverPic.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.placeholder));
+        void bind(final AlbumImage albumImage) {
+            setImage(albumImage.getName());
+            if (selected_items.contains(albumImage)) {
+                selected.setVisibility(View.VISIBLE);
             } else {
-                setImage(album.getCoverPic());
-            }
-            if (album.getId() == selected_album.getId()) {
-                cardView.setBackgroundColor(ContextCompat.getColor(context, R.color.red_light));
-            } else {
-                cardView.setBackgroundColor(ContextCompat.getColor(context, R.color.default_white));
+                selected.setVisibility(View.GONE);
             }
         }
 
@@ -120,16 +118,16 @@ class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder>{
                 dir.mkdirs();
             }
             final File file = new File(dir, coverPhoto);
-            if(file.exists()) {
-                coverPic.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
+            if (file.exists()) {
+                albumImage.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
             } else {
                 Picasso.with(context)
                         .load("https://s3.ap-south-1.amazonaws.com/shikshitha-images/" + schoolId + "/" + coverPhoto)
-                        .placeholder(R.drawable.ic_photo_library_black)
-                        .into(coverPic, new Callback() {
+                        .placeholder(R.drawable.placeholder)
+                        .into(albumImage, new Callback() {
                             @Override
                             public void onSuccess() {
-                                Bitmap bitmap = ((BitmapDrawable)coverPic.getDrawable()).getBitmap();
+                                Bitmap bitmap = ((BitmapDrawable) albumImage.getDrawable()).getBitmap();
                                 try {
                                     FileOutputStream fos = new FileOutputStream(file);
                                     bitmap.compress(Bitmap.CompressFormat.JPEG, 50, fos);
@@ -141,7 +139,7 @@ class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder>{
 
                             @Override
                             public void onError() {
-                                coverPic.setImageResource(R.drawable.ic_photo_library_black);
+                                albumImage.setImageResource(R.drawable.placeholder);
                             }
                         });
             }

@@ -48,6 +48,7 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
         db.execSQL(CREATE_DELETED_ALBUM_IMAGE);
         db.execSQL(CREATE_DELETED_SUBALBUM);
         db.execSQL(CREATE_DELETED_SUBALBUM_IMAGE);
+        db.execSQL(CREATE_IMAGE_STATUS);
     }
 
     @Override
@@ -76,6 +77,7 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
         db.execSQL("DROP TABLE IF EXISTS deleted_album_image");
         db.execSQL("DROP TABLE IF EXISTS deleted_subalbum");
         db.execSQL("DROP TABLE IF EXISTS deleted_subalbum_image");
+        db.execSQL("DROP TABLE IF EXISTS image_status");
         onCreate(db);
     }
 
@@ -105,5 +107,6 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
         sqliteDatabase.delete("deleted_subalbum", null, null);
         sqliteDatabase.delete("deleted_album_image", null, null);
         sqliteDatabase.delete("deleted_subalbum_image", null, null);
+        sqliteDatabase.delete("image_status", null, null);
     }
 }

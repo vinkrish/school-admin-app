@@ -43,8 +43,8 @@ public class AlbumImageDao {
         return 1;
     }
 
-    public static List<AlbumImage> getAlbumImages(long albumId) {
-        List<AlbumImage> albumImages = new ArrayList<>();
+    public static ArrayList<AlbumImage> getAlbumImages(long albumId) {
+        ArrayList<AlbumImage> albumImages = new ArrayList<>();
         SQLiteDatabase sqliteDatabase = AppGlobal.getSqlDbHelper().getReadableDatabase();
         Cursor c = sqliteDatabase.rawQuery("select * from album_image where AlbumId = " + albumId, null);
         c.moveToFirst();

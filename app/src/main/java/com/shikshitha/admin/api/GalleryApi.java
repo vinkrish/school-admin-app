@@ -9,12 +9,14 @@ import com.shikshitha.admin.model.DeletedSubAlbumImage;
 import com.shikshitha.admin.model.SubAlbum;
 import com.shikshitha.admin.model.SubAlbumImage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 /**
@@ -25,6 +27,12 @@ public interface GalleryApi {
 
     @POST("album")
     Call<Album> saveAlbum(@Body Album album);
+
+    @PUT("album")
+    Call<Void> updateAlbum(@Body Album album);
+
+    @GET("album/{albumId}")
+    Call<Album> getAlbum(@Path("albumId") long albumId);
 
     @GET("album/{id}/school/{schoolId}")
     Call<List<Album>> getAlbumAboveId(@Path("schoolId") long schoolId,
@@ -47,11 +55,11 @@ public interface GalleryApi {
     Call<Void> saveAlbumImages(@Body List<AlbumImage> albumImages);
 
     @GET("ai/{id}/album/{albumId}")
-    Call<List<AlbumImage>> getAlbumImagesAboveId(@Path("albumId") long albumId,
+    Call<ArrayList<AlbumImage>> getAlbumImagesAboveId(@Path("albumId") long albumId,
                                                  @Path("id") long id);
 
     @GET("ai/album/{albumId}")
-    Call<List<AlbumImage>> getAlbumImages(@Path("albumId") long albumId);
+    Call<ArrayList<AlbumImage>> getAlbumImages(@Path("albumId") long albumId);
 
     @POST("deletedai")
     Call<Void> deleteAlbumImages(@Body List<DeletedAlbumImage> deletedAlbumImages);
