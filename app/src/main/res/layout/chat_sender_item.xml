@@ -2,10 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="20dp"
+    android:layout_marginLeft="@dimen/spacing_extra_large"
     android:layout_marginRight="@dimen/spacing_small"
-    android:paddingBottom="5dp"
-    android:paddingTop="5dp">
+    android:layout_marginBottom="@dimen/spacing_extra_tiny">
 
     <FrameLayout
         android:layout_width="wrap_content"
@@ -21,7 +20,6 @@
             android:layout_height="wrap_content"
             android:autoLink="web"
             android:paddingRight="@dimen/spacing_normal"
-            android:text="I am a good boy but I do not know what I want."
             android:textColor="@color/primaryTextColor" />
 
     </FrameLayout>

@@ -15,10 +15,12 @@
     <dimen name="text_attendance">45sp</dimen>
 
     <!-- typical spacing between two views -->
+    <dimen name="spacing_extra_large">64dp</dimen>
     <dimen name="spacing_large">24dp</dimen>
     <dimen name="spacing_normal">16dp</dimen>
     <dimen name="spacing_small">10dp</dimen>
     <dimen name="spacing_tiny">4dp</dimen>
+    <dimen name="spacing_extra_tiny">2dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="image_corner_radius">4dp</dimen>

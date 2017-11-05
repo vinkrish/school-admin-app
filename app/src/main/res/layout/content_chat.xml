@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.aanglearning.principalapp.chat.ChatActivity"
+    tools:context="com.shikshitha.admin.chat.ChatActivity"
     tools:showIn="@layout/activity_chat">
 
     <android.support.v7.widget.RecyclerView
@@ -55,11 +55,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:background="@android:color/white"
         android:orientation="horizontal"
-        android:paddingBottom="5dp"
-        android:paddingTop="8dp">
+        android:paddingBottom="@dimen/spacing_tiny"
+        android:paddingTop="@dimen/spacing_tiny">
 
         <View
             android:id="@+id/border"

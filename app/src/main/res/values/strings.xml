@@ -73,7 +73,7 @@
     <string name="_new">New</string>
     <string name="gallery">Gallery</string>
     <string name="new_album">New Album</string>
-    <string name="album_name">Album Name</string>
+    <string name="_name">Name</string>
     <string name="cancel">Cancel</string>
     <string name="no_album">No Albums!</string>
     <string name="no_photos">No photos shared!</string>

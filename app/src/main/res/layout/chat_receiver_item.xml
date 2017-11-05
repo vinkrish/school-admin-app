@@ -2,9 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/spacing_extra_tiny"
     android:layout_marginLeft="@dimen/spacing_small"
-    android:paddingBottom="5dp"
-    android:paddingTop="5dp">
+    android:layout_marginRight="@dimen/spacing_extra_large"
+    android:background="@drawable/incoming_msg">
 
     <TextView
         android:id="@+id/message_text"
@@ -13,10 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:autoLink="web"
-        android:background="@drawable/incoming_msg"
-        android:maxWidth="280dp"
         android:paddingLeft="@dimen/spacing_normal"
-        android:text="I am a good boy but I do not know what I want."
         android:textColor="@color/primaryTextColor" />
 
 </RelativeLayout>

@@ -125,7 +125,7 @@ class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder>{
             } else {
                 Picasso.with(context)
                         .load("https://s3.ap-south-1.amazonaws.com/shikshitha-images/" + schoolId + "/" + coverPhoto)
-                        .placeholder(R.drawable.ic_photo_library_black)
+                        .placeholder(R.drawable.placeholder)
                         .into(coverPic, new Callback() {
                             @Override
                             public void onSuccess() {
@@ -141,7 +141,7 @@ class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder>{
 
                             @Override
                             public void onError() {
-                                coverPic.setImageResource(R.drawable.ic_photo_library_black);
+                                coverPic.setImageResource(R.drawable.placeholder);
                             }
                         });
             }
