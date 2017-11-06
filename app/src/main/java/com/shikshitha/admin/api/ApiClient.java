@@ -26,8 +26,8 @@ public class ApiClient {
     private static Retrofit retrofit = null;
 
     public static Retrofit getAuthorizedClient() {
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        //HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        //logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(new Interceptor() {
                     @Override
@@ -41,10 +41,9 @@ public class ApiClient {
                         return chain.proceed(request);
                     }
                 })
-                .connectTimeout(10, TimeUnit.SECONDS)
+                .connectTimeout(5, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
                 .writeTimeout(10, TimeUnit.SECONDS)
-                .addInterceptor(logging)
                 .build();
 
         if (authRetrofit == null) {
@@ -58,8 +57,8 @@ public class ApiClient {
     }
 
     public static Retrofit getClient() {
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        //HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        //logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(new Interceptor() {
                     @Override
@@ -73,10 +72,9 @@ public class ApiClient {
                         return chain.proceed(request);
                     }
                 })
-                .connectTimeout(10, TimeUnit.SECONDS)
+                .connectTimeout(5, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
                 .writeTimeout(10, TimeUnit.SECONDS)
-                .addInterceptor(logging)
                 .build();
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()

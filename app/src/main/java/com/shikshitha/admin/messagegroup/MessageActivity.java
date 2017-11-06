@@ -173,8 +173,8 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(this));
         recyclerView.setItemViewCacheSize(10);
-        recyclerView.setDrawingCacheEnabled(true);
-        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        /*recyclerView.setDrawingCacheEnabled(true);
+        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);*/
 
         adapter = new MessageAdapter(getApplicationContext(), new ArrayList<Message>(0),
                 SharedPreferenceUtil.getTeacher(this).getSchoolId());

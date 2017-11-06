@@ -3,9 +3,11 @@ package com.shikshitha.admin.gallery;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,6 +36,7 @@ import com.shikshitha.admin.model.Album;
 import com.shikshitha.admin.model.DeletedAlbum;
 import com.shikshitha.admin.model.Teacher;
 import com.shikshitha.admin.util.NetworkUtil;
+import com.shikshitha.admin.util.PermissionUtil;
 import com.shikshitha.admin.util.RecyclerItemClickListener;
 
 import java.util.ArrayList;
@@ -42,7 +45,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class GalleryActivity extends AppCompatActivity implements GalleryView {
+public class GalleryActivity extends AppCompatActivity implements GalleryView,
+        ActivityCompat.OnRequestPermissionsResultCallback{
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
     @BindView(R.id.progress) ProgressBar progressBar;
@@ -57,6 +61,8 @@ public class GalleryActivity extends AppCompatActivity implements GalleryView {
     private int selectedAlbumPosition, oldSelectedAlbumPosition;
     ActionMode mActionMode;
     boolean isAlbumSelect = false;
+
+    private static final int WRITE_STORAGE_PERMISSION = 333;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,12 +84,28 @@ public class GalleryActivity extends AppCompatActivity implements GalleryView {
 
         loadOfflineData();
 
+        if (PermissionUtil.isStoragePermissionGranted(this, WRITE_STORAGE_PERMISSION)) {
+            syncGallery();
+        }
+    }
+
+    private void syncGallery() {
         if(NetworkUtil.isNetworkAvailable(this)) {
             if(adapter.getDataSet().size() == 0) {
                 presenter.getAlbums(teacher.getSchoolId());
             } else {
                 presenter.getAlbumsAboveId(teacher.getSchoolId(), adapter.getDataSet().get(adapter.getItemCount() - 1).getId());
             }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            syncGallery();
+        } else {
+            showSnackbar("Permission has been denied");
         }
     }
 

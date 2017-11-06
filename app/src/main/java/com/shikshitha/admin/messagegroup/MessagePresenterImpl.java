@@ -89,6 +89,7 @@ class MessagePresenterImpl implements MessagePresenter, MessageInteractor.OnFini
     public void onRecentMessagesReceived(List<Message> messages) {
         if(mView != null) {
             mView.showRecentMessages(messages);
+            mView.hideProgress();
         }
     }
 
