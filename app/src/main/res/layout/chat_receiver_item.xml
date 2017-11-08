@@ -4,8 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/spacing_extra_tiny"
     android:layout_marginLeft="@dimen/spacing_small"
-    android:layout_marginRight="@dimen/spacing_extra_large"
-    android:background="@drawable/incoming_msg">
+    android:layout_marginRight="@dimen/spacing_extra_large">
 
     <TextView
         android:id="@+id/message_text"
@@ -14,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:autoLink="web"
+        android:background="@drawable/incoming_msg"
         android:paddingLeft="@dimen/spacing_normal"
         android:textColor="@color/primaryTextColor" />
 

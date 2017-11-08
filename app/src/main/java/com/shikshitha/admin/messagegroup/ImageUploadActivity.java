@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -30,6 +32,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.darsh.multipleimageselect.activities.AlbumSelectActivity;
+import com.darsh.multipleimageselect.models.Image;
 import com.shikshitha.admin.R;
 import com.shikshitha.admin.util.Constants;
 import com.shikshitha.admin.util.NetworkUtil;
@@ -44,6 +48,7 @@ import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,7 +65,6 @@ public class ImageUploadActivity extends AppCompatActivity
 
     private static final String TAG = "ImageUploadActivity";
     private static final int WRITE_STORAGE_PERMISSION = 666;
-    private String imagePath;
     private String imageName;
     private TransferUtility transferUtility;
 
@@ -117,7 +121,7 @@ public class ImageUploadActivity extends AppCompatActivity
     }
 
     public void newImageSendListener (View view) {
-        if (imagePath == null) {
+        if (!hasImage(choseImage)) {
             showSnackbar("Please choose image");
             return;
         }
@@ -128,6 +132,16 @@ public class ImageUploadActivity extends AppCompatActivity
         } else showSnackbar("You are offline,check your internet");
     }
 
+    private boolean hasImage(@NonNull ImageView view) {
+        Drawable drawable = view.getDrawable();
+        boolean hasImage = (drawable != null);
+
+        if (hasImage && (drawable instanceof BitmapDrawable)) {
+            hasImage = ((BitmapDrawable)drawable).getBitmap() != null;
+        }
+        return hasImage;
+    }
+
     public void chooseImage (View view) {
         if(PermissionUtil.isStoragePermissionGranted(this, WRITE_STORAGE_PERMISSION)) {
             imagePicker();
@@ -135,41 +149,22 @@ public class ImageUploadActivity extends AppCompatActivity
     }
 
     private void imagePicker() {
-        Intent intent = new Intent();
-        if (Build.VERSION.SDK_INT >= 19) {
-            intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-            intent.addCategory(Intent.CATEGORY_OPENABLE);
-            intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-            intent.setType("*/*");
-        } else {
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            intent.setType("file/*");
-        }
-        startActivityForResult(intent, 0);
+        Intent intent = new Intent(getApplicationContext(), AlbumSelectActivity.class);
+        intent.putExtra(com.darsh.multipleimageselect.helpers.Constants.INTENT_EXTRA_LIMIT, 1);
+        startActivityForResult(intent, com.darsh.multipleimageselect.helpers.Constants.REQUEST_CODE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK) {
-            Uri uri = data.getData();
-            try {
-                imagePath = getPath(uri);
-
-                Handler handler = new Handler();
-                final Runnable r = new Runnable() {
-                    public void run() {
-                        choseImage.setImageBitmap(new Compressor(ImageUploadActivity.this).compressToBitmap(new File(imagePath)));
-                        //Bitmap myBitmap = BitmapFactory.decodeFile(imagePath);
-                        //choseImage.setImageBitmap(myBitmap);
-                    }
-                };
-                handler.postDelayed(r, 100);
-
-            } catch (URISyntaxException e) {
-                Toast.makeText(this,
-                        "Unable to get the file from the given URI.  See error log for details",
-                        Toast.LENGTH_LONG).show();
-                Log.e(TAG, "Unable to upload file from the given uri", e);
+        if (requestCode == com.darsh.multipleimageselect.helpers.Constants.REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            ArrayList<Image> images = data.getParcelableArrayListExtra(com.darsh.multipleimageselect.helpers.Constants.INTENT_EXTRA_IMAGES);
+            String[] urls = new String[images.size()];
+            for (int i = 0, l = images.size(); i < l; i++) {
+                urls[i] = images.get(i).path;
+                File imgFile = new  File(images.get(i).path);
+                if(imgFile.exists()){
+                    choseImage.setImageBitmap(new Compressor(ImageUploadActivity.this).compressToBitmap(new File(imgFile.getAbsolutePath())));
+                }
             }
         }
     }
@@ -183,87 +178,6 @@ public class ImageUploadActivity extends AppCompatActivity
                 compressedFile);
          observer.setTransferListener(new UploadListener());
     }
-
-    /*
-     * Gets the file path of the given Uri.
-     */
-    @SuppressLint("NewApi")
-    private String getPath(Uri uri) throws URISyntaxException {
-        final boolean needToCheckUri = Build.VERSION.SDK_INT >= 19;
-        String selection = null;
-        String[] selectionArgs = null;
-        // Uri is different in versions after KITKAT (Android 4.4), we need to
-        // deal with different Uris.
-        if (needToCheckUri && DocumentsContract.isDocumentUri(getApplicationContext(), uri)) {
-            if (isExternalStorageDocument(uri)) {
-                final String docId = DocumentsContract.getDocumentId(uri);
-                final String[] split = docId.split(":");
-                return Environment.getExternalStorageDirectory() + "/" + split[1];
-            } else if (isDownloadsDocument(uri)) {
-                final String id = DocumentsContract.getDocumentId(uri);
-                uri = ContentUris.withAppendedId(
-                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
-            } else if (isMediaDocument(uri)) {
-                final String docId = DocumentsContract.getDocumentId(uri);
-                final String[] split = docId.split(":");
-                final String type = split[0];
-                if ("image".equals(type)) {
-                    uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-                } else if ("video".equals(type)) {
-                    uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-                } else if ("audio".equals(type)) {
-                    uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-                }
-                selection = "_id=?";
-                selectionArgs = new String[] {
-                        split[1]
-                };
-            }
-        }
-        if ("content".equalsIgnoreCase(uri.getScheme())) {
-            String[] projection = {
-                    MediaStore.Images.Media.DATA
-            };
-            Cursor cursor = null;
-            try {
-                cursor = getContentResolver()
-                        .query(uri, projection, selection, selectionArgs, null);
-                int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                if (cursor.moveToFirst()) {
-                    return cursor.getString(column_index);
-                }
-            } catch (Exception e) {
-            }
-        } else if ("file".equalsIgnoreCase(uri.getScheme())) {
-            return uri.getPath();
-        }
-        return null;
-    }
-
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is ExternalStorageProvider.
-     */
-    public static boolean isExternalStorageDocument(Uri uri) {
-        return "com.android.externalstorage.documents".equals(uri.getAuthority());
-    }
-
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is DownloadsProvider.
-     */
-    public static boolean isDownloadsDocument(Uri uri) {
-        return "com.android.providers.downloads.documents".equals(uri.getAuthority());
-    }
-
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is MediaProvider.
-     */
-    public static boolean isMediaDocument(Uri uri) {
-        return "com.android.providers.media.documents".equals(uri.getAuthority());
-    }
-
     /*
      * A TransferListener class that can listen to a upload task and be notified
      * when the status changes.
@@ -274,14 +188,12 @@ public class ImageUploadActivity extends AppCompatActivity
         @Override
         public void onError(int id, Exception e) {
             Log.e(TAG, "Error during upload: " + id, e);
-            //updateList();
         }
 
         @Override
         public void onProgressChanged(int id, long bytesCurrent, long bytesTotal) {
             Log.d(TAG, String.format("onProgressChanged: %d, total: %d, current: %d",
                     id, bytesTotal, bytesCurrent));
-            //updateList();
         }
 
         @Override

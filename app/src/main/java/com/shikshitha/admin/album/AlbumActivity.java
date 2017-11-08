@@ -159,6 +159,7 @@ public class AlbumActivity extends AppCompatActivity implements AlbumView {
 
     public void addPhotos(MenuItem item) {
         Intent intent = new Intent(getApplicationContext(), AlbumSelectActivity.class);
+        intent.putExtra(Constants.INTENT_EXTRA_LIMIT, 12);
         startActivityForResult(intent, Constants.REQUEST_CODE);
     }
 
