@@ -4,10 +4,6 @@ import com.shikshitha.admin.model.Album;
 import com.shikshitha.admin.model.AlbumImage;
 import com.shikshitha.admin.model.DeletedAlbum;
 import com.shikshitha.admin.model.DeletedAlbumImage;
-import com.shikshitha.admin.model.DeletedSubAlbum;
-import com.shikshitha.admin.model.DeletedSubAlbumImage;
-import com.shikshitha.admin.model.SubAlbum;
-import com.shikshitha.admin.model.SubAlbumImage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,45 +66,5 @@ public interface GalleryApi {
 
     @GET("deletedai/album/{albumId}")
     Call<List<DeletedAlbumImage>> getDeletedAlbumImages(@Path("albumId") long albumId);
-
-    @POST("subalbum")
-    Call<SubAlbum> saveSubAlbum(@Body Album album);
-
-    @GET("subalbum/{id}/album/{albumId}")
-    Call<List<SubAlbum>> getSubAlbumAboveId(@Path("albumId") long albumId,
-                                            @Path("id") long id);
-
-    @GET("subalbum/album/{albumId}")
-    Call<List<SubAlbum>> getSubAlbums(@Path("albumId") long albumId);
-
-    @POST("deletedsubalbum")
-    Call<DeletedSubAlbum> deleteSubAlbum(@Body DeletedAlbum deletedAlbum);
-
-    @GET("deletedsubalbum/{id}/album/{albumId}")
-    Call<List<DeletedSubAlbum>> getDeletedSubAlbumsAboveId(@Path("albumId") long albumId,
-                                                           @Path("id") long id);
-
-    @GET("deletedsubalbum/album/{albumId}")
-    Call<List<DeletedSubAlbum>> getDeletedSubAlbums(@Path("albumId") long albumId);
-
-    @POST("sai")
-    Call<Void> saveSubAlbumImages(@Body List<SubAlbumImage> albumImages);
-
-    @GET("sai/{id}/subalbum/{subAlbumId}")
-    Call<List<SubAlbumImage>> getSubAlbumImagesAboveId(@Path("subAlbumId") long subAlbumId,
-                                                       @Path("id") long id);
-
-    @GET("sai/subalbum/{subAlbumId}")
-    Call<List<SubAlbumImage>> getSubAlbumImages(@Path("subAlbumId") long subAlbumId);
-
-    @POST("deletedsai")
-    Call<Void> deleteSubAlbumImage(@Body List<DeletedAlbum> deletedAlbum);
-
-    @GET("deletedsai/{id}/subalbum/{subalbumId}")
-    Call<List<DeletedSubAlbumImage>> getDeletedSubAlbumImagesAboveId(@Path("subalbumId") long subalbumId,
-                                                                     @Path("id") long id);
-
-    @GET("deletedsai/subalbum/{subalbumId}")
-    Call<List<DeletedSubAlbumImage>> getDeletedSubAlbumImages(@Path("subalbumId") long subalbumId);
 
 }

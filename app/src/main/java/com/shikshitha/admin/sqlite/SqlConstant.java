@@ -242,27 +242,6 @@ interface SqlConstant {
             " CreatedAt INTEGER " +
             ")";
 
-    String CREATE_SUB_ALBUM = "CREATE TABLE sub_album (" +
-            " Id INTEGER, " +
-            " Name TEXT, " +
-            " CoverPic TEXT, " +
-            " AlbumId INTEGER, " +
-            " CreatedBy INTEGER, " +
-            " CreatorName TEXT, " +
-            " CreatorRole TEXT, " +
-            " CreatedAt INTEGER " +
-            ")";
-
-    String CREATE_SUBALBUM_IMAGE = "CREATE TABLE subalbum_image (" +
-            " Id INTEGER, " +
-            " Name TEXT, " +
-            " SubAlbumId INTEGER, " +
-            " CreatedBy INTEGER, " +
-            " CreatorName TEXT, " +
-            " CreatorRole TEXT, " +
-            " CreatedAt INTEGER " +
-            ")";
-
     String CREATE_DELETED_ALBUM = "CREATE TABLE deleted_album (" +
             " Id INTEGER, " +
             " SenderId INTEGER, " +
@@ -276,23 +255,6 @@ interface SqlConstant {
             " SenderId INTEGER, " +
             " AlbumId INTEGER, " +
             " AlbumImageId INTEGER, " +
-            " Name TEXT, " +
-            " DeletedAt INTEGER " +
-            ")";
-
-    String CREATE_DELETED_SUBALBUM = "CREATE TABLE deleted_subalbum (" +
-            " Id INTEGER, " +
-            " SenderId INTEGER, " +
-            " AlbumId INTEGER, " +
-            " SubAlbumId INTEGER, " +
-            " DeletedAt INTEGER " +
-            ")";
-
-    String CREATE_DELETED_SUBALBUM_IMAGE = "CREATE TABLE deleted_subalbum_image (" +
-            " Id INTEGER, " +
-            " SenderId INTEGER, " +
-            " SubAlbumId INTEGER, " +
-            " SubAlbumImageId INTEGER, " +
             " Name TEXT, " +
             " DeletedAt INTEGER " +
             ")";
