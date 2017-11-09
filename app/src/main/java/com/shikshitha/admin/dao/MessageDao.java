@@ -197,14 +197,4 @@ public class MessageDao {
         return messages;
     }
 
-    public static int clearGroupMessages(long groupId) {
-        SQLiteDatabase sqliteDb = AppGlobal.getSqlDbHelper().getWritableDatabase();
-        try {
-            sqliteDb.execSQL("delete from message where GroupId = " + groupId);
-        } catch(SQLException e) {
-            return 0;
-        }
-        return 1;
-    }
-
 }

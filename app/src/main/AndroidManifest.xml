@@ -215,12 +215,21 @@
             android:name=".album.AlbumUploadService"
             android:exported="false" />
 
-        <activity android:name=".album.ImageSlideActivity"
+        <activity
+            android:name=".album.ImageSlideActivity"
             android:screenOrientation="portrait"
             android:theme="@style/BlackActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".album.AlbumActivity" />
+        </activity>
+        <activity
+            android:name=".chat.ChatImageActivity"
+            android:label="@string/upload_image"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".chat.ChatActivity" />
         </activity>
     </application>
 

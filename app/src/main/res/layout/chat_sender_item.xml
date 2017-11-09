@@ -22,6 +22,16 @@
             android:paddingRight="@dimen/spacing_normal"
             android:textColor="@color/primaryTextColor" />
 
+        <ImageView
+            android:id="@+id/shared_image"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginRight="@dimen/spacing_extra_small"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder"
+            android:visibility="gone" />
+
     </FrameLayout>
 
 </RelativeLayout>

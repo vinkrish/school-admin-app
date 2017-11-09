@@ -355,4 +355,10 @@ public class GalleryActivity extends AppCompatActivity implements GalleryView,
             }
         }
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
+    }
 }
