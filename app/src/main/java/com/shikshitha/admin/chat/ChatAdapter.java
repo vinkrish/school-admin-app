@@ -37,6 +37,7 @@ class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     private static final int ITEM_TYPE_SENDER = 0;
     private static final int ITEM_TYPE_RECEIVER = 1;
+    private static final int ITEM_TYPE_IMAGE_SENDER = 2;
 
     ChatAdapter(Context context, List<Message> messages, long schoolId) {
         this.mContext = context;
@@ -78,9 +79,12 @@ class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         if (viewType == ITEM_TYPE_SENDER) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_sender_item, parent, false);
             return new SenderHolder(view);
-        } else {
+        } else if(viewType == ITEM_TYPE_RECEIVER) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_receiver_item, parent, false);
             return new ReceiverHolder(view);
+        } else {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_sender_image_item, parent, false);
+            return new SenderImageHolder(view);
         }
     }
 
@@ -92,6 +96,8 @@ class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             ((ChatAdapter.SenderHolder)holder).bind(messages.get(position));
         } else if (itemType == ITEM_TYPE_RECEIVER) {
             ((ChatAdapter.ReceiverHolder)holder).bind(messages.get(position));
+        } else {
+            ((ChatAdapter.SenderImageHolder)holder).bind(messages.get(position));
         }
     }
 
@@ -102,7 +108,9 @@ class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        if (messages.get(position).getSenderRole().equals("admin")) {
+        if (messages.get(position).getMessageType().equals("image")) {
+            return ITEM_TYPE_IMAGE_SENDER;
+        } else if (messages.get(position).getSenderRole().equals("admin")) {
             return ITEM_TYPE_SENDER;
         } else {
             return ITEM_TYPE_RECEIVER;
@@ -117,7 +125,6 @@ class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     class SenderHolder extends ChatAdapter.ViewHolder {
         @BindView(R.id.message_text) TextView messageTv;
-        @BindView(R.id.shared_image) ImageView sharedImage;
 
         SenderHolder(View view) {
             super(view);
@@ -125,16 +132,25 @@ class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         }
 
         void bind(final Message message) {
-            if(message.getMessageType().equals("image")) {
-                setSharedImage(message.getImageUrl());
-            } else {
-                messageTv.setText(message.getMessageBody());
-            }
+            messageTv.setText(message.getMessageBody());
+        }
+    }
+
+    class SenderImageHolder extends ChatAdapter.ViewHolder {
+        @BindView(R.id.shared_image) ImageView sharedImage;
+
+        SenderImageHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+
+        void bind(final Message message) {
+            setSharedImage(message.getImageUrl());
         }
 
         private void setSharedImage(String imagetUrl) {
             sharedImage.setVisibility(View.VISIBLE);
-            File dir = new File(Environment.getExternalStorageDirectory().getPath(), "Shikshitha/Teacher/" + schoolId);
+            File dir = new File(Environment.getExternalStorageDirectory().getPath(), "Shikshitha/Admin/" + schoolId);
             if (!dir.exists()) {
                 dir.mkdirs();
             }
@@ -165,7 +181,6 @@ class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                         });
             }
         }
-
     }
 
     class ReceiverHolder extends ChatAdapter.ViewHolder {
