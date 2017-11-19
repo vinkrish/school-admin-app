@@ -65,4 +65,7 @@ public class Exam {
 		this.percentage = percentage;
 	}
 
+	public String toString() {
+		return examName;
+	}
 }

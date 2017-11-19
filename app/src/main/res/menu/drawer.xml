@@ -27,6 +27,11 @@
             android:icon="@drawable/ic_event_black"
             android:title="@string/events" />
         <item
+            android:id="@+id/result_item"
+            android:checked="false"
+            android:icon="@drawable/ic_assessment_black"
+            android:title="@string/title_activity_result" />
+        <item
             android:id="@+id/gallery_item"
             android:checked="false"
             android:icon="@drawable/ic_photo_library_black"

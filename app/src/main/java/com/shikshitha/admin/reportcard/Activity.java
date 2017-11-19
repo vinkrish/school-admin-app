@@ -101,4 +101,7 @@ public class Activity {
 		this.type = type;
 	}
 
+	public String toString() {
+		return activityName;
+	}
 }

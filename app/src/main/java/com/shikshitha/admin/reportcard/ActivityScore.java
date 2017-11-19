@@ -3,7 +3,9 @@ package com.shikshitha.admin.reportcard;
 public class ActivityScore {
 	private long id;
 	private long activityId;
+	private int rollNo;
 	private long studentId;
+	private String studentName;
 	private float mark;
 	private String grade;
 
@@ -47,4 +49,19 @@ public class ActivityScore {
 		this.grade = grade;
 	}
 
+	public int getRollNo() {
+		return rollNo;
+	}
+
+	public void setRollNo(int rollNo) {
+		this.rollNo = rollNo;
+	}
+
+	public String getStudentName() {
+		return studentName;
+	}
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
 }

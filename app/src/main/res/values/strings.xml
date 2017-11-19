@@ -94,6 +94,13 @@
     <string name="enter_hw">Enter homework</string>
     <string name="title_activity_group">GroupActivity</string>
 
+    <string name="no_exams">No Exams!</string>
+    <string name="no_score">No Score!</string>
+    <string name="no_act_score">No Activity Score!</string>
+    <string name="select_exam">Exam</string>
+    <string name="select_subject">Subject</string>
+    <string name="check_activity">Check Activity / Rubric</string>
+
     <string name="timetable">Timetable</string>
     <string name="events">Events</string>
     <string name="title_activity_new_group">New Group</string>
@@ -103,4 +110,8 @@
     <string name="title_activity_new_chat">New Chat</string>
     <string name="title_activity_chat">Chat</string>
     <string name="title_activity_message_recipient">Message Info</string>
+    <string name="title_activity_result">Result</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

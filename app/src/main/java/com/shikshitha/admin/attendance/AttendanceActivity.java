@@ -35,6 +35,7 @@ import com.shikshitha.admin.model.Clas;
 import com.shikshitha.admin.model.Section;
 import com.shikshitha.admin.model.Student;
 import com.shikshitha.admin.model.StudentSet;
+import com.shikshitha.admin.model.Teacher;
 import com.shikshitha.admin.model.Timetable;
 import com.shikshitha.admin.util.AlertDialogHelper;
 import com.shikshitha.admin.util.Conversion;
@@ -80,6 +81,7 @@ public class AttendanceActivity extends AppCompatActivity implements AttendanceV
 
     private AttendancePresenter presenter;
     private String attendanceDate;
+    private Teacher teacher;
     ActionMode mActionMode;
     boolean isMultiSelect = false;
     AlertDialogHelper alertDialogHelper;
@@ -113,8 +115,10 @@ public class AttendanceActivity extends AppCompatActivity implements AttendanceV
 
         showSession();
 
+        teacher = TeacherDao.getTeacher();
+
         if(NetworkUtil.isNetworkAvailable(this)) {
-            presenter.getClassList(TeacherDao.getTeacher().getSchoolId());
+            presenter.getClassList(teacher.getSchoolId());
         } else {
             showOfflineClass();
         }
@@ -172,7 +176,7 @@ public class AttendanceActivity extends AppCompatActivity implements AttendanceV
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.getClassList(TeacherDao.getTeacher().getSchoolId());
+                presenter.getClassList(teacher.getSchoolId());
             }
         });
     }
@@ -283,14 +287,14 @@ public class AttendanceActivity extends AppCompatActivity implements AttendanceV
         new Thread(new Runnable() {
             @Override
             public void run() {
-                ClassDao.delete(TeacherDao.getTeacher().getSchoolId());
+                ClassDao.delete(teacher.getSchoolId());
                 ClassDao.insert(classList);
             }
         }).start();
     }
 
     private void showOfflineClass() {
-        List<Clas> clasList = ClassDao.getClassList(TeacherDao.getTeacher().getSchoolId());
+        List<Clas> clasList = ClassDao.getClassList(teacher.getSchoolId());
         ArrayAdapter<Clas> adapter = new
                 ArrayAdapter<>(this, android.R.layout.simple_spinner_item, clasList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

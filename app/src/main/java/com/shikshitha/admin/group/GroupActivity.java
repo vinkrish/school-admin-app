@@ -46,6 +46,7 @@ import com.shikshitha.admin.model.Groups;
 import com.shikshitha.admin.model.Service;
 import com.shikshitha.admin.model.Teacher;
 import com.shikshitha.admin.newgroup.NewGroupActivity;
+import com.shikshitha.admin.reportcard.ReportActivity;
 import com.shikshitha.admin.sqlite.SqlDbHelper;
 import com.shikshitha.admin.timetable.TimetableActivity;
 import com.shikshitha.admin.util.DividerItemDecoration;
@@ -323,6 +324,9 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
                         break;
                     case R.id.event_item:
                         startActivity(new Intent(GroupActivity.this, CalendarActivity.class));
+                        break;
+                    case R.id.result_item:
+                        startActivity(new Intent(GroupActivity.this, ReportActivity.class));
                         break;
                     case R.id.gallery_item:
                         startActivity(new Intent(GroupActivity.this, GalleryActivity.class));
