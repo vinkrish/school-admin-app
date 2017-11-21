@@ -48,6 +48,7 @@ public class ReportActivity extends AppCompatActivity implements ReportView,
     @BindView(R.id.check_activity) Button checkActivity;
     @BindView(R.id.act_score_view) RecyclerView actScoreView;
     @BindView(R.id.no_act_score) LinearLayout noActScoreLayout;
+    @BindView(R.id.activity_score_layout) LinearLayout activityScoreLayout;
 
     private ReportPresenter presenter;
     private ScoreAdapter adapter;
@@ -190,6 +191,7 @@ public class ReportActivity extends AppCompatActivity implements ReportView,
 
     @Override
     public void showActivityScore(List<ActivityScore> activityScores) {
+        activityScoreLayout.setVisibility(View.VISIBLE);
         if(activityScores.size() > 0) {
             noActScoreLayout.setVisibility(View.GONE);
             activityAdapter.setDataSet(activityScores);
@@ -222,6 +224,7 @@ public class ReportActivity extends AppCompatActivity implements ReportView,
 
                     checkActivity.setVisibility(View.GONE);
                     activitySpinner.setVisibility(View.GONE);
+                    activityScoreLayout.setVisibility(View.GONE);
                 }
                 break;
             case R.id.spinner_section:
@@ -234,6 +237,7 @@ public class ReportActivity extends AppCompatActivity implements ReportView,
 
                     checkActivity.setVisibility(View.GONE);
                     activitySpinner.setVisibility(View.GONE);
+                    activityScoreLayout.setVisibility(View.GONE);
                 }
                 break;
             case R.id.spinner_exam:
@@ -245,6 +249,7 @@ public class ReportActivity extends AppCompatActivity implements ReportView,
 
                     checkActivity.setVisibility(View.GONE);
                     activitySpinner.setVisibility(View.GONE);
+                    activityScoreLayout.setVisibility(View.GONE);
                 }
                 break;
             case R.id.spinner_subject:
@@ -254,9 +259,10 @@ public class ReportActivity extends AppCompatActivity implements ReportView,
 
                     checkActivity.setVisibility(View.GONE);
                     activitySpinner.setVisibility(View.GONE);
+                    activityScoreLayout.setVisibility(View.GONE);
 
                     presenter.getScore(((Exam) examSpinner.getSelectedItem()).getId(),
-                            ((ExamSubject) subjectSpinner.getSelectedItem()).getId(),
+                            ((ExamSubject) subjectSpinner.getSelectedItem()).getSubjectId(),
                             ((Section) sectionSpinner.getSelectedItem()).getId());
                 }
                 break;

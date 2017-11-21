@@ -94,6 +94,8 @@
     <string name="enter_hw">Enter homework</string>
     <string name="title_activity_group">GroupActivity</string>
 
+    <string name="ash">#</string>
+    <string name="score">Score</string>
     <string name="no_exams">No Exams!</string>
     <string name="no_score">No Score!</string>
     <string name="no_act_score">No Activity Score!</string>

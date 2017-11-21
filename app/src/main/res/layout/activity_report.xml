@@ -121,44 +121,101 @@
                     android:paddingBottom="@dimen/spacing_small"
                     android:popupBackground="@color/default_white" />
 
-                <FrameLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_tiny">
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:orientation="vertical">
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/score_view"
+                    <View
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_tiny" />
+                        android:layout_height="0.5dp"
+                        android:background="@color/divider_light" />
 
                     <LinearLayout
-                        android:id="@+id/no_score"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="@dimen/spacing_large"
-                        android:layout_marginTop="@dimen/spacing_normal"
-                        android:orientation="vertical"
-                        android:visibility="invisible">
-
-                        <ImageView
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:layout_gravity="center"
-                            android:contentDescription="@string/app_name"
-                            app:srcCompat="@drawable/ic_empty_black" />
+                        android:background="@color/divider_lightest"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/text_small">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="@string/no_score"
-                            android:textColor="@color/default_tv_color" />
+                            android:layout_gravity="center_vertical"
+                            android:gravity="end"
+                            android:minWidth="15dp"
+                            android:text="@string/ash"
+                            android:textColor="@color/default_tv_color"
+                            android:textSize="@dimen/text_small"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:paddingLeft="@dimen/spacing_small"
+                            android:text="@string/_name"
+                            android:textColor="@color/default_tv_color"
+                            android:textSize="@dimen/text_small"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="@string/score"
+                            android:textColor="@color/default_tv_color"
+                            android:textSize="@dimen/text_small"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
-                </FrameLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/divider_light" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/score_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_tiny" />
+
+                        <LinearLayout
+                            android:id="@+id/no_score"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="@dimen/spacing_large"
+                            android:layout_marginTop="@dimen/spacing_large"
+                            android:orientation="vertical"
+                            android:visibility="invisible">
+
+                            <ImageView
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@string/app_name"
+                                app:srcCompat="@drawable/ic_empty_black" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="@string/no_score"
+                                android:textColor="@color/default_tv_color" />
+
+                        </LinearLayout>
+
+                    </FrameLayout>
+
+                </LinearLayout>
 
                 <Button
                     android:id="@+id/check_activity"
@@ -188,44 +245,103 @@
                     android:popupBackground="@color/default_white"
                     android:visibility="gone" />
 
-                <FrameLayout
+                <LinearLayout
+                    android:id="@+id/activity_score_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_tiny">
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/act_score_view"
+                    <View
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_tiny" />
+                        android:layout_height="0.5dp"
+                        android:background="@color/divider_light" />
 
                     <LinearLayout
-                        android:id="@+id/no_act_score"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="@dimen/spacing_large"
-                        android:layout_marginTop="@dimen/spacing_normal"
-                        android:orientation="vertical"
-                        android:visibility="gone">
-
-                        <ImageView
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:layout_gravity="center"
-                            android:contentDescription="@string/app_name"
-                            app:srcCompat="@drawable/ic_empty_black" />
+                        android:background="@color/divider_lightest"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/text_small">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="@string/no_act_score"
-                            android:textColor="@color/default_tv_color" />
+                            android:layout_gravity="center_vertical"
+                            android:gravity="end"
+                            android:minWidth="15dp"
+                            android:text="@string/ash"
+                            android:textColor="@color/default_tv_color"
+                            android:textSize="@dimen/text_small"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:paddingLeft="@dimen/spacing_small"
+                            android:text="@string/_name"
+                            android:textColor="@color/default_tv_color"
+                            android:textSize="@dimen/text_small"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="@string/score"
+                            android:textColor="@color/default_tv_color"
+                            android:textSize="@dimen/text_small"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
-                </FrameLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/divider_light" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/act_score_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_tiny" />
+
+                        <LinearLayout
+                            android:id="@+id/no_act_score"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="@dimen/spacing_large"
+                            android:layout_marginTop="@dimen/spacing_large"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@string/app_name"
+                                app:srcCompat="@drawable/ic_empty_black" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="@string/no_act_score"
+                                android:textColor="@color/default_tv_color" />
+
+                        </LinearLayout>
+
+                    </FrameLayout>
+
+                </LinearLayout>
 
             </LinearLayout>
 
