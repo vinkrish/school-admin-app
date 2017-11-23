@@ -48,6 +48,7 @@ public class ReportActivity extends AppCompatActivity implements ReportView,
     @BindView(R.id.check_activity) Button checkActivity;
     @BindView(R.id.act_score_view) RecyclerView actScoreView;
     @BindView(R.id.no_act_score) LinearLayout noActScoreLayout;
+    @BindView(R.id.score_layout) LinearLayout scoreLayout;
     @BindView(R.id.activity_score_layout) LinearLayout activityScoreLayout;
 
     private ReportPresenter presenter;
@@ -165,6 +166,7 @@ public class ReportActivity extends AppCompatActivity implements ReportView,
 
     @Override
     public void showScore(List<Mark> marks) {
+        scoreLayout.setVisibility(View.VISIBLE);
         checkActivity.setVisibility(View.VISIBLE);
         if(marks.size() > 0) {
             noScoreLayout.setVisibility(View.GONE);
@@ -222,9 +224,7 @@ public class ReportActivity extends AppCompatActivity implements ReportView,
                     activitySpinner.setAdapter(null);
                     activityAdapter.setDataSet(new ArrayList<ActivityScore>(0));
 
-                    checkActivity.setVisibility(View.GONE);
-                    activitySpinner.setVisibility(View.GONE);
-                    activityScoreLayout.setVisibility(View.GONE);
+                    hideVisibility();
                 }
                 break;
             case R.id.spinner_section:
@@ -235,9 +235,7 @@ public class ReportActivity extends AppCompatActivity implements ReportView,
                     activitySpinner.setAdapter(null);
                     activityAdapter.setDataSet(new ArrayList<ActivityScore>(0));
 
-                    checkActivity.setVisibility(View.GONE);
-                    activitySpinner.setVisibility(View.GONE);
-                    activityScoreLayout.setVisibility(View.GONE);
+                    hideVisibility();
                 }
                 break;
             case R.id.spinner_exam:
@@ -247,9 +245,7 @@ public class ReportActivity extends AppCompatActivity implements ReportView,
                     activitySpinner.setAdapter(null);
                     activityAdapter.setDataSet(new ArrayList<ActivityScore>(0));
 
-                    checkActivity.setVisibility(View.GONE);
-                    activitySpinner.setVisibility(View.GONE);
-                    activityScoreLayout.setVisibility(View.GONE);
+                    hideVisibility();
                 }
                 break;
             case R.id.spinner_subject:
@@ -257,9 +253,7 @@ public class ReportActivity extends AppCompatActivity implements ReportView,
                     activitySpinner.setAdapter(null);
                     activityAdapter.setDataSet(new ArrayList<ActivityScore>(0));
 
-                    checkActivity.setVisibility(View.GONE);
-                    activitySpinner.setVisibility(View.GONE);
-                    activityScoreLayout.setVisibility(View.GONE);
+                    hideVisibility();
 
                     presenter.getScore(((Exam) examSpinner.getSelectedItem()).getId(),
                             ((ExamSubject) subjectSpinner.getSelectedItem()).getSubjectId(),
@@ -280,6 +274,13 @@ public class ReportActivity extends AppCompatActivity implements ReportView,
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    private void hideVisibility() {
+        scoreLayout.setVisibility(View.GONE);
+        checkActivity.setVisibility(View.GONE);
+        activitySpinner.setVisibility(View.GONE);
+        activityScoreLayout.setVisibility(View.GONE);
     }
 
     @Override

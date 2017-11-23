@@ -28,7 +28,7 @@
         android:maxLines="2"
         android:paddingLeft="@dimen/spacing_small"
         android:textColor="@color/primaryTextColor"
-        android:textSize="@dimen/text_medium" />
+        android:textSize="@dimen/text_xsmall" />
 
     <TextView
         android:id="@+id/score"

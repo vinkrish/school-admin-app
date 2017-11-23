@@ -122,10 +122,12 @@
                     android:popupBackground="@color/default_white" />
 
                 <LinearLayout
+                    android:id="@+id/score_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_small"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <View
                         android:layout_width="match_parent"
@@ -137,7 +139,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/divider_lightest"
                         android:orientation="horizontal"
-                        android:padding="@dimen/text_small">
+                        android:padding="@dimen/spacing_small">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -184,8 +186,7 @@
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/score_view"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/spacing_tiny" />
+                            android:layout_height="wrap_content" />
 
                         <LinearLayout
                             android:id="@+id/no_score"
@@ -263,7 +264,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/divider_lightest"
                         android:orientation="horizontal"
-                        android:padding="@dimen/text_small">
+                        android:padding="@dimen/spacing_small">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -310,8 +311,7 @@
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/act_score_view"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/spacing_tiny" />
+                            android:layout_height="wrap_content" />
 
                         <LinearLayout
                             android:id="@+id/no_act_score"
