@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.shikshitha.admin.R;
 import com.shikshitha.admin.dao.TeacherDao;
@@ -28,6 +29,7 @@ import com.shikshitha.admin.util.NetworkUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,6 +52,8 @@ public class ReportActivity extends AppCompatActivity implements ReportView,
     @BindView(R.id.no_act_score) LinearLayout noActScoreLayout;
     @BindView(R.id.score_layout) LinearLayout scoreLayout;
     @BindView(R.id.activity_score_layout) LinearLayout activityScoreLayout;
+    @BindView(R.id.exam_max_score) TextView examMaxScore;
+    @BindView(R.id.activity_max_score) TextView activityMaxScore;
 
     private ReportPresenter presenter;
     private ScoreAdapter adapter;
@@ -170,9 +174,11 @@ public class ReportActivity extends AppCompatActivity implements ReportView,
         checkActivity.setVisibility(View.VISIBLE);
         if(marks.size() > 0) {
             noScoreLayout.setVisibility(View.GONE);
+            examMaxScore.setText(String.format(Locale.ENGLISH,"Max: %d", (int)((ExamSubject) subjectSpinner.getSelectedItem()).getMaximumMark()));
             adapter.setDataSet(marks);
         } else {
             noScoreLayout.setVisibility(View.VISIBLE);
+            examMaxScore.setText(getText(R.string.score));
             adapter.setDataSet(new ArrayList<Mark>(0));
         }
     }
@@ -196,9 +202,11 @@ public class ReportActivity extends AppCompatActivity implements ReportView,
         activityScoreLayout.setVisibility(View.VISIBLE);
         if(activityScores.size() > 0) {
             noActScoreLayout.setVisibility(View.GONE);
+            activityMaxScore.setText(String.format(Locale.ENGLISH,"Max: %d", (int)((Activity) activitySpinner.getSelectedItem()).getMaximumMark()));
             activityAdapter.setDataSet(activityScores);
         } else {
             noActScoreLayout.setVisibility(View.VISIBLE);
+            examMaxScore.setText(getText(R.string.score));
             activityAdapter.setDataSet(new ArrayList<ActivityScore>(0));
         }
     }
