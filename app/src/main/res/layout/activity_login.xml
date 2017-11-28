@@ -110,7 +110,7 @@
                     android:onClick="login"
                     android:text="@string/login"
                     android:textAllCaps="false"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/default_white"
                     android:textSize="@dimen/text_xmedium" />
 
             </LinearLayout>

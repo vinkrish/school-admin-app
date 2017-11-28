@@ -73,17 +73,14 @@
             android:paddingBottom="@dimen/spacing_small" />
 
         <Button
-            style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="20dp"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:background="@drawable/teal_btn_ripple"
             android:onClick="createChat"
             android:text="@string/save"
             android:textAllCaps="true"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/default_white"
             android:textSize="@dimen/text_xsmall" />
 
         <ProgressBar

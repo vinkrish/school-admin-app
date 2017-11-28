@@ -222,6 +222,7 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
         Service service = ServiceDao.getServices();
         if(!service.isAttendance()) menu.findItem(R.id.attendance_item).setVisible(false);
         if(!service.isHomework()) menu.findItem(R.id.homework_item).setVisible(false);
+        if(!service.isReport())menu.findItem(R.id.result_item).setVisible(false);
         if(!service.isChat()) menu.findItem(R.id.chat_item).setVisible(false);
         if (!service.isTimetable()) menu.findItem(R.id.timetable_item).setVisible(false);
     }
