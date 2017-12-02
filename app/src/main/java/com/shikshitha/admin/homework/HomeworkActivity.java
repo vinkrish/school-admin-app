@@ -165,16 +165,9 @@ public class HomeworkActivity extends AppCompatActivity implements HomeworkView,
             cal.set(year, monthOfYear, dayOfMonth);
             Date date = cal.getTime();
 
-            Calendar tomorrowCal = Calendar.getInstance();
-            Date tomorrowDate = tomorrowCal.getTime();
-
-            if (date.after(tomorrowDate)) {
-                showSnackbar(getResources().getText(R.string.future_date).toString());
-            } else {
-                dateView.setText(DateUtil.getDisplayFormattedDate(dateFormat.format(date)));
-                homeworkDate = dateFormat.format(date);
-                getHomework();
-            }
+            dateView.setText(DateUtil.getDisplayFormattedDate(dateFormat.format(date)));
+            homeworkDate = dateFormat.format(date);
+            getHomework();
         }
     };
 
