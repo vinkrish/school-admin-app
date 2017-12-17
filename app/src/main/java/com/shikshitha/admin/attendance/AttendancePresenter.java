@@ -2,7 +2,7 @@ package com.shikshitha.admin.attendance;
 
 import com.shikshitha.admin.model.Attendance;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Vinay on 21-04-2017.
@@ -17,9 +17,9 @@ interface AttendancePresenter {
 
     void getTimetable(long sectionId, String dayOfWeek);
 
-    void saveAttendance(ArrayList<Attendance> attendances);
+    void saveAttendance(List<Attendance> attendances);
 
-    void deleteAttendance(ArrayList<Attendance> attendances);
+    void deleteAttendance(List<Attendance> attendances);
 
     void onDestroy();
 }

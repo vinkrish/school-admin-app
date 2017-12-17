@@ -5,7 +5,6 @@ import com.shikshitha.admin.model.Clas;
 import com.shikshitha.admin.model.Section;
 import com.shikshitha.admin.model.Timetable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,7 +38,7 @@ interface AttendanceInteractor {
 
     void getAttendance(long sectionId, String date, int session, AttendanceInteractor.OnFinishedListener listener);
 
-    void saveAttendance(ArrayList<Attendance> attendances, AttendanceInteractor.OnFinishedListener listener);
+    void saveAttendance(List<Attendance> attendances, AttendanceInteractor.OnFinishedListener listener);
 
-    void deleteAttendance(ArrayList<Attendance> attendances, AttendanceInteractor.OnFinishedListener listener);
+    void deleteAttendance(List<Attendance> attendances, AttendanceInteractor.OnFinishedListener listener);
 }

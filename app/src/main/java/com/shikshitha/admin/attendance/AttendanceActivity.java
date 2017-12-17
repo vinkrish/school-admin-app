@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -76,6 +77,7 @@ public class AttendanceActivity extends AppCompatActivity implements AttendanceV
     @BindView(R.id.student_recycler_view) RecyclerView studentRecycler;
     @BindView(R.id.absentees_tv) TextView absenteesTv;
     @BindView(R.id.mark_students) TextView markStudentsTv;
+    @BindView(R.id.no_abs_btn) Button noAbsenteesBtn;
 
     private Menu menu;
 
@@ -365,8 +367,13 @@ public class AttendanceActivity extends AppCompatActivity implements AttendanceV
     public void showAttendance(AttendanceSet attendanceSet) {
         absentees = attendanceSet.getAttendanceList();
         attendanceAdapter.setDataSet(absentees, multiselect_list);
-        if(absentees.size() == 0) absenteesTv.setVisibility(View.GONE);
-        else absenteesTv.setVisibility(View.VISIBLE);
+        if(absentees.size() == 0) {
+            absenteesTv.setVisibility(View.GONE);
+            noAbsenteesBtn.setVisibility(View.VISIBLE);
+        } else {
+            absenteesTv.setVisibility(View.VISIBLE);
+            noAbsenteesBtn.setVisibility(View.GONE);
+        }
 
         ArrayList<StudentSet> studentSets = new ArrayList<>();
         for(Student s: attendanceSet.getStudents()) {
@@ -669,6 +676,31 @@ public class AttendanceActivity extends AppCompatActivity implements AttendanceV
     @Override
     public void onNeutralClick(int from) {
 
+    }
+
+    public void noAbsentees(View view) {
+        Attendance att = new Attendance();
+        att.setStudentId(0);
+        att.setStudentName("NA");
+        att.setSectionId(((Section)sectionSpinner.getSelectedItem()).getId());
+        att.setDateAttendance(attendanceDate);
+        att.setTypeOfLeave("Absent");
+        String attendanceType = ((Clas)classSpinner.getSelectedItem()).getAttendanceType();
+        att.setType(attendanceType);
+        switch (attendanceType) {
+            case "Daily":
+                att.setSession(0);
+                break;
+            case "Session":
+                att.setSession(sessionSpinner.getSelectedItem().equals("Morning") ? 0: 1);
+                break;
+            case "Period":
+                att.setSession(((Timetable)periodSpinner.getSelectedItem()).getPeriodNo());
+                break;
+            default:
+                break;
+        }
+        presenter.saveAttendance(Arrays.asList(att));
     }
 
     @Override

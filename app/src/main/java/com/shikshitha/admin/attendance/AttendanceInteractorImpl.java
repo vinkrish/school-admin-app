@@ -9,7 +9,6 @@ import com.shikshitha.admin.model.Clas;
 import com.shikshitha.admin.model.Section;
 import com.shikshitha.admin.model.Timetable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -114,7 +113,7 @@ class AttendanceInteractorImpl implements AttendanceInteractor {
     }
 
     @Override
-    public void saveAttendance(ArrayList<Attendance> attendances, final OnFinishedListener listener) {
+    public void saveAttendance(List<Attendance> attendances, final OnFinishedListener listener) {
         AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
 
         Call<Void> queue = api.saveAttendance(attendances);
@@ -135,7 +134,7 @@ class AttendanceInteractorImpl implements AttendanceInteractor {
     }
 
     @Override
-    public void deleteAttendance(ArrayList<Attendance> attendances, final OnFinishedListener listener) {
+    public void deleteAttendance(List<Attendance> attendances, final OnFinishedListener listener) {
         AdminApi api = ApiClient.getAuthorizedClient().create(AdminApi.class);
 
         Call<Void> queue = api.deleteAttendance(attendances);

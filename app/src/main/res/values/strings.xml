@@ -88,6 +88,7 @@
     <string name="homework">Homework</string>
     <string name="absentees">Absentees</string>
     <string name="mark_absentees">Mark Absentees</string>
+    <string name="no_absentees">No Absentes</string>
     <string name="change">Change</string>
     <string name="future_date">Selected date can\'t be future to present day</string>
     <string name="enter_homework">Enter homework for &#8230;</string>

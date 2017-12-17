@@ -5,7 +5,6 @@ import com.shikshitha.admin.model.Clas;
 import com.shikshitha.admin.model.Section;
 import com.shikshitha.admin.model.Timetable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,7 +55,7 @@ public class AttendancePresenterImpl implements AttendancePresenter,
     }
 
     @Override
-    public void saveAttendance(ArrayList<Attendance> attendances) {
+    public void saveAttendance(List<Attendance> attendances) {
         if (mView != null) {
             mView.showProgress();
             mInteractor.saveAttendance(attendances, this);
@@ -64,7 +63,7 @@ public class AttendancePresenterImpl implements AttendancePresenter,
     }
 
     @Override
-    public void deleteAttendance(ArrayList<Attendance> attendances) {
+    public void deleteAttendance(List<Attendance> attendances) {
         if (mView != null) {
             mView.showProgress();
             mInteractor.deleteAttendance(attendances, this);
@@ -126,16 +125,16 @@ public class AttendancePresenterImpl implements AttendancePresenter,
     @Override
     public void onAttendanceSaved() {
         if (mView != null) {
-            mView.attendanceSaved();
             mView.hideProgress();
+            mView.attendanceSaved();
         }
     }
 
     @Override
     public void onAttendanceDeleted() {
         if (mView != null) {
-            mView.attendanceDeleted();
             mView.hideProgress();
+            mView.attendanceDeleted();
         }
     }
 }
