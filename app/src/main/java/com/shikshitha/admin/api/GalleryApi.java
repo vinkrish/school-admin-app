@@ -21,7 +21,7 @@ import retrofit2.http.Path;
 
 public interface GalleryApi {
 
-    @POST("album")
+    @POST("album/new")
     Call<Album> saveAlbum(@Body Album album);
 
     @PUT("album")
@@ -37,12 +37,40 @@ public interface GalleryApi {
     @GET("album/school/{schoolId}")
     Call<List<Album>> getAlbums(@Path("schoolId") long schoolId);
 
-    @POST("deletedalbum")
+    @GET("album/{id}/class/{classId}")
+    Call<List<Album>> getClassAlbumAboveId(@Path("classId") long classId,
+                                           @Path("id") long id);
+
+    @GET("album/class/{classId}")
+    Call<List<Album>> getClassAlbums(@Path("classId") long classId);
+
+    @GET("album/{id}/section/{sectionId}")
+    Call<List<Album>> getSectionAlbumAboveId(@Path("sectionId") long sectionId,
+                                             @Path("id") long id);
+
+    @GET("album/section/{sectionId}")
+    Call<List<Album>> getSectionAlbums(@Path("sectionId") long sectionId);
+
+    @POST("deletedalbum/new")
     Call<DeletedAlbum> deleteAlbum(@Body DeletedAlbum deletedAlbum);
 
     @GET("deletedalbum/{id}/school/{schoolId}")
     Call<List<DeletedAlbum>> getDeletedAlbumsAboveId(@Path("schoolId") long schoolId,
                                                      @Path("id") long id);
+
+    @GET("deletedalbum/{id}/class/{classId}")
+    Call<List<DeletedAlbum>> getClassDelAlbAboveId(@Path("classId") long classId,
+                                                   @Path("id") long id);
+
+    @GET("deletedalbum/class/{classId}")
+    Call<List<DeletedAlbum>> getClassDelAlb(@Path("classId") long classId);
+
+    @GET("deletedalbum/{id}/section/{sectionId}")
+    Call<List<DeletedAlbum>> getSecDelAlbAboveId(@Path("sectionId") long sectionId,
+                                                 @Path("id") long id);
+
+    @GET("deletedalbum/section/{sectionId}")
+    Call<List<DeletedAlbum>> getSecDelAlb(@Path("sectionId") long sectionId);
 
     @GET("deletedalbum/school/{schoolId}")
     Call<List<DeletedAlbum>> getDeletedAlbums(@Path("schoolId") long schoolId);

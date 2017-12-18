@@ -17,8 +17,8 @@ import java.util.List;
 public class AlbumDao {
 
     public static int insert(List<Album> albums) {
-        String sql = "insert into album(Id, Name, CoverPic, CreatedBy, CreatorName, CreatorRole, CreatedAt, SchoolId) " +
-                "values(?,?,?,?,?,?,?,?)";
+        String sql = "insert into album(Id, Name, CoverPic, CreatedBy, CreatorName, CreatorRole, CreatedAt, SchoolId, ClassId, SectionId) " +
+                "values(?,?,?,?,?,?,?,?,?,?)";
         SQLiteDatabase db = AppGlobal.getSqlDbHelper().getWritableDatabase();
         db.beginTransactionNonExclusive();
         SQLiteStatement stmt = db.compileStatement(sql);
@@ -32,6 +32,8 @@ public class AlbumDao {
                 stmt.bindString(6, album.getCreatorRole());
                 stmt.bindLong(7, album.getCreatedAt());
                 stmt.bindLong(8, album.getSchoolId());
+                stmt.bindLong(9, album.getClassId());
+                stmt.bindLong(10, album.getSectionId());
                 stmt.executeInsert();
                 stmt.clearBindings();
             }
@@ -59,6 +61,8 @@ public class AlbumDao {
             album.setCreatorRole(c.getString(c.getColumnIndex("CreatorRole")));
             album.setCreatedAt(c.getLong(c.getColumnIndex("CreatedAt")));
             album.setSchoolId(c.getLong(c.getColumnIndex("SchoolId")));
+            album.setClassId(c.getLong(c.getColumnIndex("ClassId")));
+            album.setSectionId(c.getLong(c.getColumnIndex("SectionId")));
             albums.add(album);
             c.moveToNext();
         }

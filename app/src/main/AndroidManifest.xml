@@ -240,6 +240,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".group.GroupActivity" />
         </activity>
+        <activity android:name=".newalbum.NewAlbumActivity"></activity>
     </application>
 
 </manifest>
