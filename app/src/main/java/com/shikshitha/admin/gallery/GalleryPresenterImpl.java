@@ -2,7 +2,9 @@ package com.shikshitha.admin.gallery;
 
 import com.shikshitha.admin.dao.DeletedAlbumDao;
 import com.shikshitha.admin.model.Album;
+import com.shikshitha.admin.model.Clas;
 import com.shikshitha.admin.model.DeletedAlbum;
+import com.shikshitha.admin.model.Section;
 
 import java.util.List;
 
@@ -20,10 +22,18 @@ class GalleryPresenterImpl implements GalleryPresenter, GalleryInteractor.OnFini
     }
 
     @Override
-    public void saveAlbum(Album album) {
-        if(mView != null) {
+    public void getClassList(long schoolId) {
+        if (mView != null) {
             mView.showProgress();
-            mInteractor.saveAlbum(album, this);
+            mInteractor.getClassList(schoolId, this);
+        }
+    }
+
+    @Override
+    public void getSectionList(long classId) {
+        if (mView != null) {
+            mView.showProgress();
+            mInteractor.getSectionList(classId, this);
         }
     }
 
@@ -78,10 +88,18 @@ class GalleryPresenterImpl implements GalleryPresenter, GalleryInteractor.OnFini
     }
 
     @Override
-    public void onAlbumSaved(Album album) {
+    public void onClassReceived(List<Clas> classList) {
         if (mView != null) {
+            mView.showClass(classList);
             mView.hideProgress();
-            mView.setAlbum(album);
+        }
+    }
+
+    @Override
+    public void onSectionReceived(List<Section> sectionList) {
+        if (mView != null) {
+            mView.showSection(sectionList);
+            mView.hideProgress();
         }
     }
 
@@ -102,9 +120,9 @@ class GalleryPresenterImpl implements GalleryPresenter, GalleryInteractor.OnFini
     }
 
     @Override
-    public void onAlbumsReceived(List<Album> groupsList) {
+    public void onAlbumsReceived(List<Album> albumList) {
         if (mView != null) {
-            mView.setAlbums(groupsList);
+            mView.setAlbums(albumList);
             mView.hideProgress();
         }
     }

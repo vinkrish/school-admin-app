@@ -1,16 +1,16 @@
 package com.shikshitha.admin.gallery;
 
-import android.app.Dialog;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.Color;
+import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -19,13 +19,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Toast;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.shikshitha.admin.R;
 import com.shikshitha.admin.album.AlbumActivity;
@@ -33,8 +33,11 @@ import com.shikshitha.admin.dao.AlbumDao;
 import com.shikshitha.admin.dao.DeletedAlbumDao;
 import com.shikshitha.admin.dao.TeacherDao;
 import com.shikshitha.admin.model.Album;
+import com.shikshitha.admin.model.Clas;
 import com.shikshitha.admin.model.DeletedAlbum;
+import com.shikshitha.admin.model.Section;
 import com.shikshitha.admin.model.Teacher;
+import com.shikshitha.admin.newalbum.NewAlbumActivity;
 import com.shikshitha.admin.util.NetworkUtil;
 import com.shikshitha.admin.util.PermissionUtil;
 import com.shikshitha.admin.util.RecyclerItemClickListener;
@@ -46,11 +49,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class GalleryActivity extends AppCompatActivity implements GalleryView,
+        AdapterView.OnItemSelectedListener,
         ActivityCompat.OnRequestPermissionsResultCallback{
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
     @BindView(R.id.progress) ProgressBar progressBar;
-    @BindView(R.id.noGroups) LinearLayout noGroups;
+    @BindView(R.id.noAlbums) LinearLayout noAlbums;
+    @BindView(R.id.album_spinner) Spinner albumSpinner;
+    @BindView(R.id.class_spinner) Spinner classSpinner;
+    @BindView(R.id.section_spinner) Spinner sectionSpinner;
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
 
     private Teacher teacher;
@@ -63,6 +70,7 @@ public class GalleryActivity extends AppCompatActivity implements GalleryView,
     boolean isAlbumSelect = false;
 
     private static final int WRITE_STORAGE_PERMISSION = 333;
+    final static int REQ_CODE = 789;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +91,8 @@ public class GalleryActivity extends AppCompatActivity implements GalleryView,
         setupRecyclerView();
 
         loadOfflineData();
+
+        initAlbumSpinner();
 
         if (PermissionUtil.isStoragePermissionGranted(this, WRITE_STORAGE_PERMISSION)) {
             syncGallery();
@@ -116,11 +126,11 @@ public class GalleryActivity extends AppCompatActivity implements GalleryView,
     }
 
     private void loadOfflineData() {
-        List<Album> albums = AlbumDao.getAlbums(teacher.getSchoolId());
-        if(albums.size() == 0) {
-            noGroups.setVisibility(View.VISIBLE);
+        List<Album> albums = AlbumDao.getAlbums();
+        if (albums.size() == 0) {
+            noAlbums.setVisibility(View.VISIBLE);
         } else {
-            noGroups.setVisibility(View.INVISIBLE);
+            noAlbums.setVisibility(View.INVISIBLE);
             adapter.replaceData(albums, selectedAlbum);
         }
     }
@@ -129,6 +139,7 @@ public class GalleryActivity extends AppCompatActivity implements GalleryView,
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),2);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setNestedScrollingEnabled(false);
 
         adapter = new GalleryAdapter(getApplicationContext(), teacher.getSchoolId(), new ArrayList<Album>(0));
         recyclerView.setAdapter(adapter);
@@ -136,7 +147,7 @@ public class GalleryActivity extends AppCompatActivity implements GalleryView,
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                if(isAlbumSelect) {
+                if (isAlbumSelect) {
                     single_select(position);
                 } else {
                     Intent intent = new Intent(GalleryActivity.this, AlbumActivity.class);
@@ -162,55 +173,33 @@ public class GalleryActivity extends AppCompatActivity implements GalleryView,
         }));
     }
 
-    public Dialog addAlbum(MenuItem item) {
-        final Dialog dialog = new Dialog(GalleryActivity.this, R.style.DialogFadeAnim);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
-        dialog.setContentView(R.layout.dialog_new_album);
+    private void initAlbumSpinner() {
+        String[] albumFor = {"All Albums","School Album", "Class Album", "Section Album"};
+        ArrayAdapter<String> adapter = new
+                ArrayAdapter<>(this, android.R.layout.simple_spinner_item, albumFor);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        albumSpinner.setAdapter(adapter);
+        albumSpinner.setOnItemSelectedListener(this);
+    }
 
-        final EditText albumName = dialog.findViewById(R.id.album_name);
-        Button cancel = dialog.findViewById(R.id.cancel_btn);
-        Button save = dialog.findViewById(R.id.save_btn);
+    public void addAlbum(MenuItem item) {
+        if (NetworkUtil.isNetworkAvailable(this)) {
+            Intent intent = new Intent(this, NewAlbumActivity.class);
+            startActivityForResult(intent, REQ_CODE);
+        } else {
+            showSnackbar("You are offline,check your internet.");
+        }
+    }
 
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            if (adapter.getDataSet().size() == 0) {
+                presenter.getAlbums(teacher.getSchoolId());
+            } else {
+                presenter.getAlbumsAboveId(teacher.getSchoolId(), adapter.getDataSet().get(adapter.getItemCount() - 1).getId());
             }
-        });
-
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(albumName.getText().toString().isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Please enter album name", Toast.LENGTH_SHORT).show();
-                } else {
-                    Album album = new Album();
-                    album.setCoverPic("");
-                    album.setCreatedAt(System.currentTimeMillis());
-                    album.setCreatedBy(teacher.getId());
-                    album.setCreatorName(teacher.getName());
-                    album.setCreatorRole("teacher");
-                    album.setName(albumName.getText().toString());
-                    album.setSchoolId(teacher.getSchoolId());
-                    presenter.saveAlbum(album);
-                    dialog.dismiss();
-                }
-            }
-        });
-        dialog.show();
-
-        //Grab the window of the dialog, and change the width and height
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        Window window = dialog.getWindow();
-        lp.copyFrom(window.getAttributes());
-
-        //This makes the dialog take up the full width and height
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-        window.setAttributes(lp);
-
-        return dialog;
+        }
     }
 
     private void showSnackbar(String message) {
@@ -234,7 +223,7 @@ public class GalleryActivity extends AppCompatActivity implements GalleryView,
 
     @Override
     public void setAlbum(Album album) {
-        if(adapter.getDataSet().size() == 0) {
+        if (adapter.getDataSet().size() == 0) {
             presenter.getAlbums(teacher.getSchoolId());
         } else {
             presenter.getAlbumsAboveId(teacher.getSchoolId(), adapter.getDataSet().get(adapter.getItemCount() - 1).getId());
@@ -256,15 +245,75 @@ public class GalleryActivity extends AppCompatActivity implements GalleryView,
 
     @Override
     public void setAlbums(List<Album> albums) {
-        if(albums.size() == 0) {
+        if (albums.size() == 0) {
             recyclerView.invalidate();
-            noGroups.setVisibility(View.VISIBLE);
+            noAlbums.setVisibility(View.VISIBLE);
         } else {
-            noGroups.setVisibility(View.INVISIBLE);
+            noAlbums.setVisibility(View.INVISIBLE);
             adapter.replaceData(albums, selectedAlbum);
             backupAlbums(albums);
         }
         syncDeletedAlbums();
+    }
+
+    @Override
+    public void showClass(List<Clas> clasList) {
+        Clas classHint = new Clas();
+        classHint.setId(-1);
+        classHint.setClassName("Select Class...");
+        clasList.add(0, classHint);
+        ArrayAdapter<Clas> adapter = new
+            ArrayAdapter<Clas>(this, android.R.layout.simple_spinner_item, clasList) {
+                @Override
+                public boolean isEnabled(int position){
+                    return position != 0;
+                }
+                @Override
+                public View getDropDownView(int position, View convertView,
+                                            ViewGroup parent) {
+                    View view = super.getDropDownView(position, convertView, parent);
+                    TextView tv = (TextView) view;
+                    if(position == 0){// Set the hint text color gray
+                        tv.setTextColor(Color.GRAY);
+                    } else {
+                        tv.setTextColor(Color.BLACK);
+                    }
+                    return view;
+                }
+            };
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        classSpinner.setAdapter(adapter);
+        classSpinner.setOnItemSelectedListener(this);
+    }
+
+    @Override
+    public void showSection(List<Section> sectionList) {
+        Section sectionHint = new Section();
+        sectionHint.setId(-1);
+        sectionHint.setSectionName("Select Section...");
+        sectionList.add(0, sectionHint);
+        ArrayAdapter<Section> adapter = new
+            ArrayAdapter<Section>(this, android.R.layout.simple_spinner_item, sectionList){
+                @Override
+                public boolean isEnabled(int position){
+                    return position != 0;
+                }
+                @Override
+                public View getDropDownView(int position, View convertView,
+                                            ViewGroup parent) {
+                    View view = super.getDropDownView(position, convertView, parent);
+                    TextView tv = (TextView) view;
+                    if(position == 0){// Set the hint text color gray
+                        tv.setTextColor(Color.GRAY);
+                    } else {
+                        tv.setTextColor(Color.BLACK);
+                    }
+                    return view;
+                }
+            };
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sectionSpinner.setAdapter(adapter);
+        sectionSpinner.setOnItemSelectedListener(this);
     }
 
     private void backupAlbums(final List<Album> albums) {
@@ -278,7 +327,7 @@ public class GalleryActivity extends AppCompatActivity implements GalleryView,
 
     private void syncDeletedAlbums() {
         DeletedAlbum deletedAlbum = DeletedAlbumDao.getNewestDeletedAlbum();
-        if(deletedAlbum.getId() == 0) {
+        if (deletedAlbum.getId() == 0) {
             presenter.getDeletedAlbums(teacher.getSchoolId());
         } else {
             presenter.getRecentDeletedAlbums(teacher.getSchoolId(), deletedAlbum.getId());
@@ -342,7 +391,7 @@ public class GalleryActivity extends AppCompatActivity implements GalleryView,
     public void single_select(int position) {
         selectedAlbumPosition = position;
         if (mActionMode != null) {
-            if(selectedAlbum.getId() == adapter.getDataSet().get(position).getId() ) {
+            if (selectedAlbum.getId() == adapter.getDataSet().get(position).getId() ) {
                 selectedAlbum = new Album();
                 mActionMode.finish();
                 adapter.selectedItemChanged(position, selectedAlbum);
@@ -353,6 +402,86 @@ public class GalleryActivity extends AppCompatActivity implements GalleryView,
                 selectedAlbum = adapter.getDataSet().get(position);
                 adapter.selectedItemChanged(position, selectedAlbum);
             }
+        }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
+        switch (parent.getId()) {
+            case R.id.album_spinner:
+                albumTargetVisibility();
+                break;
+            case R.id.class_spinner:
+                presenter.getSectionList(((Clas) classSpinner.getSelectedItem()).getId());
+                loadClassAlbum();
+                break;
+            case R.id.section_spinner:
+                loadSectionAlbum();
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+    private void albumTargetVisibility() {
+        switch (albumSpinner.getSelectedItem().toString()){
+            case "All Albums":
+                classSpinner.setVisibility(View.GONE);
+                sectionSpinner.setVisibility(View.GONE);
+                loadOfflineData();
+                break;
+            case "School Album":
+                classSpinner.setVisibility(View.GONE);
+                sectionSpinner.setVisibility(View.GONE);
+                loadSchoolAlbum();
+                break;
+            case "Class Album":
+                classSpinner.setVisibility(View.VISIBLE);
+                sectionSpinner.setVisibility(View.GONE);
+                presenter.getClassList(teacher.getSchoolId());
+                break;
+            case "Section Album":
+                classSpinner.setVisibility(View.VISIBLE);
+                sectionSpinner.setVisibility(View.VISIBLE);
+                presenter.getClassList(teacher.getSchoolId());
+                break;
+        }
+    }
+
+    private void loadSchoolAlbum() {
+        List<Album> albums = AlbumDao.getSchoolAlbums(teacher.getSchoolId());
+        if(albums.size() == 0) {
+            noAlbums.setVisibility(View.VISIBLE);
+        } else {
+            noAlbums.setVisibility(View.INVISIBLE);
+            adapter.replaceData(albums, selectedAlbum);
+        }
+    }
+
+    private void loadClassAlbum() {
+        List<Album> albums = AlbumDao.getClassAlbums(((Clas) classSpinner.getSelectedItem()).getId());
+        if(albums.size() == 0) {
+            noAlbums.setVisibility(View.VISIBLE);
+            adapter.replaceData(new ArrayList<Album>(0), selectedAlbum);
+        } else {
+            noAlbums.setVisibility(View.INVISIBLE);
+            adapter.replaceData(albums, selectedAlbum);
+        }
+    }
+
+    private void loadSectionAlbum() {
+        List<Album> albums = AlbumDao.getSectionAlbums(((Section) sectionSpinner.getSelectedItem()).getId());
+        if(albums.size() == 0) {
+            noAlbums.setVisibility(View.VISIBLE);
+            adapter.replaceData(new ArrayList<Album>(0), selectedAlbum);
+        } else {
+            noAlbums.setVisibility(View.INVISIBLE);
+            adapter.replaceData(albums, selectedAlbum);
         }
     }
 

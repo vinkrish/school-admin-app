@@ -1,6 +1,5 @@
 package com.shikshitha.admin.gallery;
 
-import com.shikshitha.admin.model.Album;
 import com.shikshitha.admin.model.DeletedAlbum;
 
 /**
@@ -8,7 +7,9 @@ import com.shikshitha.admin.model.DeletedAlbum;
  */
 
 interface GalleryPresenter {
-    void saveAlbum(Album album);
+    void getClassList(long schoolId);
+
+    void getSectionList(long classId);
 
     void deleteAlbum(DeletedAlbum deletedAlbum);
 

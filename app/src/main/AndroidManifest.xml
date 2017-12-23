@@ -240,7 +240,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".group.GroupActivity" />
         </activity>
-        <activity android:name=".newalbum.NewAlbumActivity"></activity>
+        <activity
+            android:name=".newalbum.NewAlbumActivity"
+            android:label="@string/new_album"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".gallery.GalleryActivity" />
+        </activity>
     </application>
 
 </manifest>

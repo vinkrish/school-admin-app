@@ -1,4 +1,4 @@
-package com.shikshitha.admin.gallery;
+package com.shikshitha.admin.newalbum;
 
 import com.shikshitha.admin.model.Album;
 import com.shikshitha.admin.model.Clas;
@@ -7,25 +7,19 @@ import com.shikshitha.admin.model.Section;
 import java.util.List;
 
 /**
- * Created by Vinay on 30-10-2017.
+ * Created by Vinay on 19-12-2017.
  */
 
-interface GalleryView {
+public interface NewAlbumView {
     void showProgress();
 
     void hideProgress();
 
     void showError(String message);
 
-    void setAlbum(Album album);
-
-    void albumDeleted();
-
-    void setRecentAlbums(List<Album> albums);
-
-    void setAlbums(List<Album> albums);
-
     void showClass(List<Clas> clasList);
 
     void showSection(List<Section> sectionList);
+
+    void albumSaved(Album album);
 }

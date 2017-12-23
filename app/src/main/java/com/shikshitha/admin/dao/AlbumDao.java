@@ -46,10 +46,82 @@ public class AlbumDao {
         return 1;
     }
 
-    public static List<Album> getAlbums(long schoolId) {
+    public static List<Album> getAlbums() {
+        List<Album> albums = new ArrayList<>();
+        SQLiteDatabase sqliteDatabase = AppGlobal.getSqlDbHelper().getReadableDatabase();
+        Cursor c = sqliteDatabase.rawQuery("select * from album", null);
+        c.moveToFirst();
+        while (!c.isAfterLast()) {
+            Album album = new Album();
+            album.setId(c.getLong(c.getColumnIndex("Id")));
+            album.setName(c.getString(c.getColumnIndex("Name")));
+            album.setCoverPic(c.getString(c.getColumnIndex("CoverPic")));
+            album.setCreatedBy(c.getLong(c.getColumnIndex("CreatedBy")));
+            album.setCreatorName(c.getString(c.getColumnIndex("CreatorName")));
+            album.setCreatorRole(c.getString(c.getColumnIndex("CreatorRole")));
+            album.setCreatedAt(c.getLong(c.getColumnIndex("CreatedAt")));
+            album.setSchoolId(c.getLong(c.getColumnIndex("SchoolId")));
+            album.setClassId(c.getLong(c.getColumnIndex("ClassId")));
+            album.setSectionId(c.getLong(c.getColumnIndex("SectionId")));
+            albums.add(album);
+            c.moveToNext();
+        }
+        c.close();
+        return albums;
+    }
+
+    public static List<Album> getSchoolAlbums(long schoolId) {
         List<Album> albums = new ArrayList<>();
         SQLiteDatabase sqliteDatabase = AppGlobal.getSqlDbHelper().getReadableDatabase();
         Cursor c = sqliteDatabase.rawQuery("select * from album where SchoolId = " + schoolId, null);
+        c.moveToFirst();
+        while (!c.isAfterLast()) {
+            Album album = new Album();
+            album.setId(c.getLong(c.getColumnIndex("Id")));
+            album.setName(c.getString(c.getColumnIndex("Name")));
+            album.setCoverPic(c.getString(c.getColumnIndex("CoverPic")));
+            album.setCreatedBy(c.getLong(c.getColumnIndex("CreatedBy")));
+            album.setCreatorName(c.getString(c.getColumnIndex("CreatorName")));
+            album.setCreatorRole(c.getString(c.getColumnIndex("CreatorRole")));
+            album.setCreatedAt(c.getLong(c.getColumnIndex("CreatedAt")));
+            album.setSchoolId(c.getLong(c.getColumnIndex("SchoolId")));
+            album.setClassId(c.getLong(c.getColumnIndex("ClassId")));
+            album.setSectionId(c.getLong(c.getColumnIndex("SectionId")));
+            albums.add(album);
+            c.moveToNext();
+        }
+        c.close();
+        return albums;
+    }
+
+    public static List<Album> getClassAlbums(long classId) {
+        List<Album> albums = new ArrayList<>();
+        SQLiteDatabase sqliteDatabase = AppGlobal.getSqlDbHelper().getReadableDatabase();
+        Cursor c = sqliteDatabase.rawQuery("select * from album where ClassId = " + classId, null);
+        c.moveToFirst();
+        while (!c.isAfterLast()) {
+            Album album = new Album();
+            album.setId(c.getLong(c.getColumnIndex("Id")));
+            album.setName(c.getString(c.getColumnIndex("Name")));
+            album.setCoverPic(c.getString(c.getColumnIndex("CoverPic")));
+            album.setCreatedBy(c.getLong(c.getColumnIndex("CreatedBy")));
+            album.setCreatorName(c.getString(c.getColumnIndex("CreatorName")));
+            album.setCreatorRole(c.getString(c.getColumnIndex("CreatorRole")));
+            album.setCreatedAt(c.getLong(c.getColumnIndex("CreatedAt")));
+            album.setSchoolId(c.getLong(c.getColumnIndex("SchoolId")));
+            album.setClassId(c.getLong(c.getColumnIndex("ClassId")));
+            album.setSectionId(c.getLong(c.getColumnIndex("SectionId")));
+            albums.add(album);
+            c.moveToNext();
+        }
+        c.close();
+        return albums;
+    }
+
+    public static List<Album> getSectionAlbums(long sectionId) {
+        List<Album> albums = new ArrayList<>();
+        SQLiteDatabase sqliteDatabase = AppGlobal.getSqlDbHelper().getReadableDatabase();
+        Cursor c = sqliteDatabase.rawQuery("select * from album where SectionId = " + sectionId, null);
         c.moveToFirst();
         while (!c.isAfterLast()) {
             Album album = new Album();
