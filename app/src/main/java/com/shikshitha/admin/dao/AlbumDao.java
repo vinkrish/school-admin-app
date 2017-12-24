@@ -49,7 +49,7 @@ public class AlbumDao {
     public static List<Album> getAlbums() {
         List<Album> albums = new ArrayList<>();
         SQLiteDatabase sqliteDatabase = AppGlobal.getSqlDbHelper().getReadableDatabase();
-        Cursor c = sqliteDatabase.rawQuery("select * from album", null);
+        Cursor c = sqliteDatabase.rawQuery("select * from album order by Id asc", null);
         c.moveToFirst();
         while (!c.isAfterLast()) {
             Album album = new Album();
@@ -73,7 +73,7 @@ public class AlbumDao {
     public static List<Album> getSchoolAlbums(long schoolId) {
         List<Album> albums = new ArrayList<>();
         SQLiteDatabase sqliteDatabase = AppGlobal.getSqlDbHelper().getReadableDatabase();
-        Cursor c = sqliteDatabase.rawQuery("select * from album where SchoolId = " + schoolId, null);
+        Cursor c = sqliteDatabase.rawQuery("select * from album where SchoolId = " + schoolId + " order by Id asc", null);
         c.moveToFirst();
         while (!c.isAfterLast()) {
             Album album = new Album();
@@ -97,7 +97,7 @@ public class AlbumDao {
     public static List<Album> getClassAlbums(long classId) {
         List<Album> albums = new ArrayList<>();
         SQLiteDatabase sqliteDatabase = AppGlobal.getSqlDbHelper().getReadableDatabase();
-        Cursor c = sqliteDatabase.rawQuery("select * from album where ClassId = " + classId, null);
+        Cursor c = sqliteDatabase.rawQuery("select * from album where ClassId = " + classId + " order by Id asc", null);
         c.moveToFirst();
         while (!c.isAfterLast()) {
             Album album = new Album();
@@ -121,7 +121,7 @@ public class AlbumDao {
     public static List<Album> getSectionAlbums(long sectionId) {
         List<Album> albums = new ArrayList<>();
         SQLiteDatabase sqliteDatabase = AppGlobal.getSqlDbHelper().getReadableDatabase();
-        Cursor c = sqliteDatabase.rawQuery("select * from album where SectionId = " + sectionId, null);
+        Cursor c = sqliteDatabase.rawQuery("select * from album where SectionId = " + sectionId + " order by Id asc", null);
         c.moveToFirst();
         while (!c.isAfterLast()) {
             Album album = new Album();

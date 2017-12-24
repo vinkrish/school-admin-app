@@ -92,11 +92,11 @@ public class GalleryActivity extends AppCompatActivity implements GalleryView,
 
         loadOfflineData();
 
-        initAlbumSpinner();
-
         if (PermissionUtil.isStoragePermissionGranted(this, WRITE_STORAGE_PERMISSION)) {
             syncGallery();
         }
+
+        initAlbumSpinner();
     }
 
     private void syncGallery() {
