@@ -31,6 +31,7 @@ import com.shikshitha.admin.model.Message;
 import com.shikshitha.admin.model.MessageRecipient;
 import com.shikshitha.admin.util.DividerItemDecoration;
 import com.shikshitha.admin.util.EndlessRecyclerViewScrollListener;
+import com.shikshitha.admin.util.PaddedItemDecoration;
 import com.shikshitha.admin.util.SharedPreferenceUtil;
 import com.shikshitha.admin.util.YouTubeHelper;
 import com.shikshitha.admin.util.YoutubeDeveloperKey;
@@ -181,14 +182,14 @@ public class MessageRecipientActivity extends AppCompatActivity implements Messa
         readRecyclerView.setNestedScrollingEnabled(false);
         readRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         readRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        readRecyclerView.addItemDecoration(new DividerItemDecoration(this));
+        readRecyclerView.addItemDecoration(new PaddedItemDecoration(this));
         readAdapter = new MessageRecipientAdapter(new ArrayList<MessageRecipient>(0));
         readRecyclerView.setAdapter(readAdapter);
 
         deliveredRecyclerView.setNestedScrollingEnabled(false);
         deliveredRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         deliveredRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        deliveredRecyclerView.addItemDecoration(new DividerItemDecoration(this));
+        deliveredRecyclerView.addItemDecoration(new PaddedItemDecoration(this));
         deliveredAdapter = new MessageRecipientAdapter(new ArrayList<MessageRecipient>(0));
         deliveredRecyclerView.setAdapter(deliveredAdapter);
 
