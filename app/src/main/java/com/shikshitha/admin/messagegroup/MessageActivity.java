@@ -324,7 +324,9 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
         new Thread(new Runnable() {
             @Override
             public void run() {
-                MessageDao.insertGroupMessages(messages);
+                if(messages.size() > 0) {
+                    MessageDao.insertGroupMessages(messages);
+                }
             }
         }).start();
     }

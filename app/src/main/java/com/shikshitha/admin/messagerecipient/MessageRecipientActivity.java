@@ -29,6 +29,7 @@ import com.shikshitha.admin.R;
 import com.shikshitha.admin.dao.GroupDao;
 import com.shikshitha.admin.model.Message;
 import com.shikshitha.admin.model.MessageRecipient;
+import com.shikshitha.admin.util.Conversion;
 import com.shikshitha.admin.util.DividerItemDecoration;
 import com.shikshitha.admin.util.EndlessRecyclerViewScrollListener;
 import com.shikshitha.admin.util.PaddedItemDecoration;
@@ -182,14 +183,14 @@ public class MessageRecipientActivity extends AppCompatActivity implements Messa
         readRecyclerView.setNestedScrollingEnabled(false);
         readRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         readRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        readRecyclerView.addItemDecoration(new PaddedItemDecoration(this));
+        readRecyclerView.addItemDecoration(new PaddedItemDecoration(this, Conversion.dpToPx(68, getApplicationContext())));
         readAdapter = new MessageRecipientAdapter(new ArrayList<MessageRecipient>(0));
         readRecyclerView.setAdapter(readAdapter);
 
         deliveredRecyclerView.setNestedScrollingEnabled(false);
         deliveredRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         deliveredRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        deliveredRecyclerView.addItemDecoration(new PaddedItemDecoration(this));
+        deliveredRecyclerView.addItemDecoration(new PaddedItemDecoration(this, Conversion.dpToPx(68, getApplicationContext())));
         deliveredAdapter = new MessageRecipientAdapter(new ArrayList<MessageRecipient>(0));
         deliveredRecyclerView.setAdapter(deliveredAdapter);
 

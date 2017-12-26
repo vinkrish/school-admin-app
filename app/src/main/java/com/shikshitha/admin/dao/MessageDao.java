@@ -47,7 +47,34 @@ public class MessageDao {
         }
         db.setTransactionSuccessful();
         db.endTransaction();
+        updateGroupRecentMsg(messages.get(0));
         return 1;
+    }
+
+    private static void updateGroupRecentMsg(Message message) {
+        String sql = "update groups set RecentMessage = ? where Id = ?";
+        SQLiteDatabase db = AppGlobal.getSqlDbHelper().getWritableDatabase();
+        SQLiteStatement stmt = db.compileStatement(sql);
+        try {
+            switch (message.getMessageType()){
+                case "text":
+                    stmt.bindString(1, message.getMessageBody());
+                    break;
+                case "image":
+                    stmt.bindString(1, "image");
+                    break;
+                case "video":
+                    stmt.bindString(1, "video");
+                    break;
+                case "both":
+                    stmt.bindString(1, "both");
+                    break;
+            }
+            stmt.bindLong(2, message.getGroupId());
+            stmt.executeUpdateDelete();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static int insertChatMessages(List<Message> messages) {

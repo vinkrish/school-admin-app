@@ -19,8 +19,8 @@ public class GroupDao {
 
     public static int insertMany(List<Groups> groups) {
         String sql = "insert into groups(Id, Name, IsSchool, SectionId, IsSection, ClassId, IsClass, " +
-                "CreatedBy, CreatorName, CreatorRole, CreatedDate, IsActive, SchoolId) " +
-                "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                "CreatedBy, CreatorName, CreatorRole, CreatedDate, IsActive, SchoolId, RecentMessage) " +
+                "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         SQLiteDatabase db = AppGlobal.getSqlDbHelper().getWritableDatabase();
         db.beginTransactionNonExclusive();
         SQLiteStatement stmt = db.compileStatement(sql);
@@ -39,6 +39,7 @@ public class GroupDao {
                 stmt.bindString(11, group.getCreatedDate());
                 stmt.bindString(12, Boolean.toString(group.isActive()));
                 stmt.bindLong(13, group.getSchoolId());
+                stmt.bindString(14, "");
                 stmt.executeInsert();
                 stmt.clearBindings();
             }
@@ -70,6 +71,7 @@ public class GroupDao {
             group.setCreatedDate(c.getString(c.getColumnIndex("CreatedDate")));
             group.setActive(Boolean.parseBoolean(c.getString(c.getColumnIndex("IsActive"))));
             group.setSchoolId(c.getLong(c.getColumnIndex("SchoolId")));
+            group.setRecentMessage(c.getString(c.getColumnIndex("RecentMessage")));
             c.moveToNext();
         }
         c.close();
@@ -96,20 +98,11 @@ public class GroupDao {
             group.setCreatedDate(c.getString(c.getColumnIndex("CreatedDate")));
             group.setActive(Boolean.parseBoolean(c.getString(c.getColumnIndex("IsActive"))));
             group.setSchoolId(c.getLong(c.getColumnIndex("SchoolId")));
+            group.setRecentMessage(c.getString(c.getColumnIndex("RecentMessage")));
             groups.add(group);
             c.moveToNext();
         }
         c.close();
         return groups;
-    }
-
-    public static int clear() {
-        SQLiteDatabase sqliteDb = AppGlobal.getSqlDbHelper().getWritableDatabase();
-        try {
-            sqliteDb.execSQL("delete from groups");
-        } catch(SQLException e) {
-            return 0;
-        }
-        return 1;
     }
 }

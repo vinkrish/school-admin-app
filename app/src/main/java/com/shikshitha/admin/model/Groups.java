@@ -16,6 +16,7 @@ public class Groups implements Serializable{
     private String createdDate;
     private boolean active;
     private long schoolId;
+    private String recentMessage;
 
     public long getId() {
         return id;
@@ -121,4 +122,11 @@ public class Groups implements Serializable{
         this.schoolId = schoolId;
     }
 
+    public String getRecentMessage() {
+        return recentMessage;
+    }
+
+    public void setRecentMessage(String recentMessage) {
+        this.recentMessage = recentMessage;
+    }
 }

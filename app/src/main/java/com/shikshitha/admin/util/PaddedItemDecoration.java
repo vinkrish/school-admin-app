@@ -15,17 +15,17 @@ import com.shikshitha.admin.R;
  */
 
 public class PaddedItemDecoration extends RecyclerView.ItemDecoration  {
-    private Context mContext;
+    private int leftPadding;
     private Drawable mDivider;
 
-    public PaddedItemDecoration(Context context) {
-        mContext = context;
+    public PaddedItemDecoration(Context context, int leftPadding) {
+        this.leftPadding = leftPadding;
         mDivider = ContextCompat.getDrawable(context, R.drawable.line_divider);
     }
 
     @Override
     public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
-        int left = dpToPx(64, mContext);
+        int left = leftPadding;
         int right = parent.getWidth() - parent.getPaddingRight();
 
         int childCount = parent.getChildCount();
@@ -42,8 +42,4 @@ public class PaddedItemDecoration extends RecyclerView.ItemDecoration  {
         }
     }
 
-    private int dpToPx(int dp, Context context) {
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-    }
 }

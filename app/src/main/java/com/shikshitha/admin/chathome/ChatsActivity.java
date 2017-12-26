@@ -26,6 +26,7 @@ import com.shikshitha.admin.dao.ChatDao;
 import com.shikshitha.admin.dao.TeacherDao;
 import com.shikshitha.admin.model.Chat;
 import com.shikshitha.admin.newchat.NewChatActivity;
+import com.shikshitha.admin.util.Conversion;
 import com.shikshitha.admin.util.DividerItemDecoration;
 import com.shikshitha.admin.util.NetworkUtil;
 import com.shikshitha.admin.util.PaddedItemDecoration;
@@ -92,7 +93,7 @@ public class ChatsActivity extends AppCompatActivity implements ChatsView {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new PaddedItemDecoration(this));
+        recyclerView.addItemDecoration(new PaddedItemDecoration(this, Conversion.dpToPx(68, getApplicationContext())));
 
         adapter = new ChatsAdapter(getApplicationContext(), new ArrayList<Chat>(0));
         recyclerView.setAdapter(adapter);

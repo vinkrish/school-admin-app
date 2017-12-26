@@ -49,6 +49,7 @@ import com.shikshitha.admin.newgroup.NewGroupActivity;
 import com.shikshitha.admin.reportcard.ReportActivity;
 import com.shikshitha.admin.sqlite.SqlDbHelper;
 import com.shikshitha.admin.timetable.TimetableActivity;
+import com.shikshitha.admin.util.Conversion;
 import com.shikshitha.admin.util.DividerItemDecoration;
 import com.shikshitha.admin.util.NetworkUtil;
 import com.shikshitha.admin.util.PaddedItemDecoration;
@@ -136,7 +137,7 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new PaddedItemDecoration(this));
+        recyclerView.addItemDecoration(new PaddedItemDecoration(this, Conversion.dpToPx(68, getApplicationContext())));
 
         adapter = new GroupAdapter(new ArrayList<Groups>(0), mItemListener);
         recyclerView.setAdapter(adapter);

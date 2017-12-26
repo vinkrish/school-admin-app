@@ -65,7 +65,9 @@
     <string name="upload_image">Upload Image</string>
     <string name="select_image">Click here to choose image</string>
     <string name="send">Send</string>
+    <string name="photo">Photo</string>
     <string name="video">Video</string>
+    <string name="photo_video">Photo + Video</string>
     <string name="read_by">Read by</string>
     <string name="delivered_to">Delivered to</string>
     <string name="dash">-</string>
