@@ -443,33 +443,60 @@ public class TimetableActivity extends AppCompatActivity implements TimetableVie
 
             int loopCount = ((TableRow)this.tableB.getChildAt(0)).getChildCount();
 
-            SparseArray<String> sparseArray = new SparseArray<>();
+            SparseArray<String> subjectArray = new SparseArray<>();
+            SparseArray<String> teacherArray = new SparseArray<>();
             for(Timetable timtbl: timetables){
-                sparseArray.put(timtbl.getPeriodNo(), timtbl.getSubjectName() + "\n [ " + timtbl.getTeacherName() + " ]");
+                if(teacherArray.get(timtbl.getPeriodNo()) != null) {
+                    teacherArray.put(timtbl.getPeriodNo(), teacherArray.get(timtbl.getPeriodNo()).split("\\r?\\n")[1] + "/" + timtbl.getTeacherName() + " ");
+                } else {
+                    subjectArray.put(timtbl.getPeriodNo(), timtbl.getSubjectName());
+                    teacherArray.put(timtbl.getPeriodNo(), timtbl.getTeacherName());
+                }
             }
 
             for(int x=1 ; x<=loopCount; x++){
                 TableRow.LayoutParams params = new TableRow.LayoutParams( headerCellsWidth[x],LayoutParams.MATCH_PARENT);
                 params.setMargins(2, 2, 0, 0);
 
-                TextView textViewB = this.bodyTextView(sparseArray.get(x)!=null?sparseArray.get(x):"");
-                textViewB.setPadding(8, 32, 8, 32);
-                textViewB.setTextSize(14);
-                textViewB.setTextColor(ContextCompat.getColor(context, R.color.primaryTextColor));
-                taleRowForTableD.addView(textViewB, params);
+                LinearLayout ll = new LinearLayout(this.context);
+                ll.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+                ll.setOrientation(LinearLayout.VERTICAL);
+                ll.setBackgroundColor(Color.WHITE);
+                ll.setPadding(8, 30, 8, 32);
+
+                TextView tv1 = this.bodyTextView(subjectArray.get(x)!=null?subjectArray.get(x):"");
+                ll.addView(tv1);
+                TextView tv2 = this.teacherTextView(teacherArray.get(x)!=null?teacherArray.get(x):"");
+                if(!tv2.getText().equals("")){
+                    ll.addView(tv2);
+                }
+                taleRowForTableD.addView(ll, params);
             }
             return taleRowForTableD;
 
         }
 
-        // table cell standard TextView
         TextView bodyTextView(String label){
             TextView bodyTextView = new TextView(this.context);
             bodyTextView.setBackgroundColor(Color.WHITE);
+            bodyTextView.setTextColor(ContextCompat.getColor(context, R.color.primaryTextColor));
             bodyTextView.setText(label);
+            bodyTextView.setTextSize(14);
             bodyTextView.setGravity(Gravity.CENTER);
-            bodyTextView.setPadding(5, 5, 5, 5);
+            bodyTextView.setPadding(4, 4, 4, 4);
             return bodyTextView;
+        }
+
+        TextView teacherTextView(String label){
+            TextView teacherTextView = new TextView(this.context);
+            teacherTextView.setBackgroundColor(ContextCompat.getColor(context, R.color.default_tv_color));
+            teacherTextView.setTextColor(Color.WHITE);
+            //teacherTextView.setTextColor(ContextCompat.getColor(context, R.color.primaryTextColor));
+            teacherTextView.setText(label);
+            teacherTextView.setTextSize(12);
+            teacherTextView.setGravity(Gravity.CENTER);
+            teacherTextView.setPadding(4, 4, 4, 4);
+            return teacherTextView;
         }
 
         // header standard TextView
