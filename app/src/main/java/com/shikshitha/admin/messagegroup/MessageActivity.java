@@ -194,6 +194,7 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
                     }
                     intent.putExtras(args);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.activity_open_translate,R.anim.activity_close_scale);
                 }
             }
 
@@ -569,6 +570,7 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
             enterMsg.setImageResource(R.drawable.ic_send_black);
         } else {
             super.onBackPressed();
+            overridePendingTransition(R.anim.activity_open_scale,R.anim.activity_close_translate);
         }
     }
 }

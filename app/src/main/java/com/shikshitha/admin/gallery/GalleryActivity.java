@@ -155,6 +155,7 @@ public class GalleryActivity extends AppCompatActivity implements GalleryView,
                     args.putSerializable("album", adapter.getDataSet().get(position));
                     intent.putExtras(args);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.activity_open_translate,R.anim.activity_close_scale);
                 }
             }
 

@@ -109,6 +109,7 @@ public class ChatsActivity extends AppCompatActivity implements ChatsView {
                     intent.putExtra("recipientId", chat.getStudentId());
                     intent.putExtra("recipientName", chat.getStudentName());
                     startActivity(intent);
+                    overridePendingTransition(R.anim.activity_open_translate,R.anim.activity_close_scale);
                 }
             }
 

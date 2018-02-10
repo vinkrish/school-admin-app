@@ -404,6 +404,12 @@ public class AlbumActivity extends AppCompatActivity implements AlbumView {
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.activity_open_scale,R.anim.activity_close_translate);
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         presenter.onDestroy();
