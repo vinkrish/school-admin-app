@@ -187,6 +187,7 @@ public class GalleryActivity extends AppCompatActivity implements GalleryView,
         if (NetworkUtil.isNetworkAvailable(this)) {
             Intent intent = new Intent(this, NewAlbumActivity.class);
             startActivityForResult(intent, REQ_CODE);
+            overridePendingTransition(R.anim.activity_open_translate,R.anim.activity_close_scale);
         } else {
             showSnackbar("You are offline,check your internet.");
         }
@@ -484,6 +485,23 @@ public class GalleryActivity extends AppCompatActivity implements GalleryView,
             noAlbums.setVisibility(View.INVISIBLE);
             adapter.replaceData(albums, selectedAlbum);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                overridePendingTransition(R.anim.activity_open_scale,R.anim.activity_close_translate);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.activity_open_scale,R.anim.activity_close_translate);
     }
 
     @Override

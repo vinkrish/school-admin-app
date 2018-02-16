@@ -233,6 +233,7 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
         if (NetworkUtil.isNetworkAvailable(this)) {
             Intent intent = new Intent(this, NewGroupActivity.class);
             startActivityForResult(intent, REQ_CODE);
+            overridePendingTransition(R.anim.activity_open_translate,R.anim.activity_close_scale);
         } else {
             showSnackbar("You are offline,check your internet.");
         }
@@ -342,6 +343,7 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
                     default:
                         break;
                 }
+                overridePendingTransition(R.anim.activity_open_translate,R.anim.activity_close_scale);
                 menuItem.setChecked(false);
                 drawerLayout.closeDrawers();
                 return false;

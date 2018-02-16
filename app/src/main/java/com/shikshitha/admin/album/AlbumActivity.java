@@ -4,9 +4,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.os.Environment;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -123,7 +125,13 @@ public class AlbumActivity extends AppCompatActivity implements AlbumView {
                     args.putInt("position", position);
                     args.putLong("schoolId", teacher.getSchoolId());
                     intent.putExtras(args);
-                    startActivity(intent);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                        ActivityOptionsCompat options = ActivityOptionsCompat.
+                                makeSceneTransitionAnimation(AlbumActivity.this, view.findViewById(R.id.imageView), "transitImage");
+                        startActivity(intent, options.toBundle());
+                    } else{
+                        startActivity(intent);
+                    }
                 }
             }
 
@@ -401,6 +409,17 @@ public class AlbumActivity extends AppCompatActivity implements AlbumView {
 
     public void refreshAdapter() {
         adapter.setDataSet(localAlbumImages, multiselect_list);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                overridePendingTransition(R.anim.activity_open_scale,R.anim.activity_close_translate);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

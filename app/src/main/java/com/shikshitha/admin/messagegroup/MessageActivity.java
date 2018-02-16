@@ -141,6 +141,17 @@ public class MessageActivity extends AppCompatActivity implements MessageView, V
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                overridePendingTransition(R.anim.activity_open_scale,R.anim.activity_close_translate);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void getBackupMessages() {
         List<Message> messages = MessageDao.getGroupMessages(group.getId());
         adapter.setDataSet(messages, selectedMessage);
