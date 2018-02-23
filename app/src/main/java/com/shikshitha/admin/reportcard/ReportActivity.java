@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.shikshitha.admin.BaseActivity;
 import com.shikshitha.admin.R;
 import com.shikshitha.admin.dao.TeacherDao;
 import com.shikshitha.admin.model.Clas;
@@ -35,7 +36,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ReportActivity extends AppCompatActivity implements ReportView,
+public class ReportActivity extends BaseActivity implements ReportView,
         AdapterView.OnItemSelectedListener {
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
@@ -72,13 +73,17 @@ public class ReportActivity extends AppCompatActivity implements ReportView,
 
     private void init() {
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         presenter = new ReportPresenterImpl(this, new ReportInteractorImpl());
 
         teacher = TeacherDao.getTeacher();
 
         setupRecyclerView();
+
+        setProfile(teacher);
+
+        setNavigationItem(5);
 
         if(NetworkUtil.isNetworkAvailable(getApplicationContext())) {
             presenter.getClassList(teacher.getSchoolId());
@@ -290,17 +295,6 @@ public class ReportActivity extends AppCompatActivity implements ReportView,
         checkActivity.setVisibility(View.GONE);
         activitySpinner.setVisibility(View.GONE);
         activityScoreLayout.setVisibility(View.GONE);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                overridePendingTransition(R.anim.activity_open_scale,R.anim.activity_close_translate);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

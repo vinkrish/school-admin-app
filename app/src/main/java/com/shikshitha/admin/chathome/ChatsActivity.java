@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.shikshitha.admin.BaseActivity;
 import com.shikshitha.admin.R;
 import com.shikshitha.admin.chat.ChatActivity;
 import com.shikshitha.admin.dao.ChatDao;
@@ -38,7 +39,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ChatsActivity extends AppCompatActivity implements ChatsView {
+public class ChatsActivity extends BaseActivity implements ChatsView {
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
     @BindView(R.id.refreshLayout) SwipeRefreshLayout refreshLayout;
@@ -63,11 +64,15 @@ public class ChatsActivity extends AppCompatActivity implements ChatsView {
 
     private void init() {
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         presenter = new ChatsPresenterImpl(this, new ChatsInteractorImpl());
 
         setupRecyclerView();
+
+        setProfile(TeacherDao.getTeacher());
+
+        setNavigationItem(7);
 
         refreshLayout.setColorSchemeColors(
                 ContextCompat.getColor(this, R.color.colorPrimary),
@@ -142,7 +147,7 @@ public class ChatsActivity extends AppCompatActivity implements ChatsView {
         if (NetworkUtil.isNetworkAvailable(this)) {
             startActivity(new Intent(ChatsActivity.this, NewChatActivity.class));
             overridePendingTransition(R.anim.activity_open_translate,R.anim.activity_close_scale);
-            finish();
+            //finish();
         } else {
             showSnackbar("You are offline,check your internet.");
         }
@@ -260,17 +265,6 @@ public class ChatsActivity extends AppCompatActivity implements ChatsView {
                 adapter.selectedItemChanged(position, selectedChat);
             }
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                overridePendingTransition(R.anim.activity_open_scale,R.anim.activity_close_translate);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

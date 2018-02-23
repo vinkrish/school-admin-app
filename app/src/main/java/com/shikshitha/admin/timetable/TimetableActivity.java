@@ -26,6 +26,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.shikshitha.admin.BaseActivity;
 import com.shikshitha.admin.R;
 import com.shikshitha.admin.dao.ClassDao;
 import com.shikshitha.admin.dao.SectionDao;
@@ -45,7 +46,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TimetableActivity extends AppCompatActivity implements TimetableView,
+public class TimetableActivity extends BaseActivity implements TimetableView,
         AdapterView.OnItemSelectedListener {
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
@@ -69,9 +70,13 @@ public class TimetableActivity extends AppCompatActivity implements TimetableVie
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         presenter = new TimetablePresenterImpl(this, new TimetableInteractorImpl());
+
+        setProfile(TeacherDao.getTeacher());
+
+        setNavigationItem(3);
 
         if(NetworkUtil.isNetworkAvailable(this)) {
             presenter.getClassList(TeacherDao.getTeacher().getSchoolId());

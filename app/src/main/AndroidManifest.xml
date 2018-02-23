@@ -78,30 +78,18 @@
             android:label="@string/attendance"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.ContextToolbarTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".group.GroupActivity" />
-        </activity>
+            android:theme="@style/AppTheme.ContextToolbarTheme" />
         <activity
             android:name=".homework.HomeworkActivity"
             android:label="@string/homework"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.ContextToolbarTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".group.GroupActivity" />
-        </activity>
+            android:theme="@style/AppTheme.ContextToolbarTheme" />
         <activity
             android:name=".timetable.TimetableActivity"
             android:label="@string/timetable"
             android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".group.GroupActivity" />
-        </activity>
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".calendar.CalendarActivity"
             android:launchMode="singleTop"
@@ -116,11 +104,7 @@
             android:label="@string/title_activity_chats"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.ContextToolbarTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".group.GroupActivity" />
-        </activity>
+            android:theme="@style/AppTheme.ContextToolbarTheme" />
         <activity
             android:name=".newchat.NewChatActivity"
             android:label="@string/title_activity_new_chat"
@@ -196,11 +180,7 @@
             android:name=".gallery.GalleryActivity"
             android:label="@string/gallery"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.ContextToolbarTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".group.GroupActivity" />
-        </activity>
+            android:theme="@style/AppTheme.ContextToolbarTheme" />
         <activity
             android:name=".album.AlbumActivity"
             android:launchMode="singleTop"
@@ -235,11 +215,7 @@
             android:name=".reportcard.ReportActivity"
             android:label="@string/title_activity_result"
             android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".group.GroupActivity" />
-        </activity>
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".newalbum.NewAlbumActivity"
             android:label="@string/new_album"
@@ -249,6 +225,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".gallery.GalleryActivity" />
         </activity>
+        <activity android:name=".BaseActivity"></activity>
     </application>
 
 </manifest>

@@ -315,27 +315,34 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
                 switch (menuItem.getItemId()) {
                     case R.id.dashboard_item:
                         startActivity(new Intent(GroupActivity.this, GroupActivity.class));
+                        finish();
                         break;
                     case R.id.attendance_item:
                         startActivity(new Intent(GroupActivity.this, AttendanceActivity.class));
+                        finish();
                         break;
                     case R.id.homework_item:
                         startActivity(new Intent(GroupActivity.this, HomeworkActivity.class));
+                        finish();
                         break;
                     case R.id.timetable_item:
                         startActivity(new Intent(GroupActivity.this, TimetableActivity.class));
+                        finish();
                         break;
                     case R.id.event_item:
                         startActivity(new Intent(GroupActivity.this, CalendarActivity.class));
                         break;
                     case R.id.result_item:
                         startActivity(new Intent(GroupActivity.this, ReportActivity.class));
+                        finish();
                         break;
                     case R.id.gallery_item:
                         startActivity(new Intent(GroupActivity.this, GalleryActivity.class));
+                        finish();
                         break;
                     case R.id.chat_item:
                         startActivity(new Intent(GroupActivity.this, ChatsActivity.class));
+                        finish();
                         break;
                     case R.id.logout_item:
                         logout();
@@ -396,8 +403,6 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
     public void onBackPressed() {
         if (isNavDrawerOpen()) {
             closeNavDrawer();
-        } else {
-            super.onBackPressed();
         }
     }
 
