@@ -131,33 +131,41 @@ public class BaseActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.dashboard_item:
+                        menuItem.setChecked(true);
                         startActivity(new Intent(BaseActivity.this, GroupActivity.class));
                         finish();
                         break;
                     case R.id.attendance_item:
+                        menuItem.setChecked(true);
                         startActivity(new Intent(BaseActivity.this, AttendanceActivity.class));
                         finish();
                         break;
                     case R.id.homework_item:
+                        menuItem.setChecked(true);
                         startActivity(new Intent(BaseActivity.this, HomeworkActivity.class));
                         finish();
                         break;
                     case R.id.timetable_item:
+                        menuItem.setChecked(true);
                         startActivity(new Intent(BaseActivity.this, TimetableActivity.class));
                         finish();
                         break;
                     case R.id.event_item:
+                        drawerLayout.closeDrawers();
                         startActivity(new Intent(BaseActivity.this, CalendarActivity.class));
                         break;
                     case R.id.result_item:
+                        menuItem.setChecked(true);
                         startActivity(new Intent(BaseActivity.this, ReportActivity.class));
                         finish();
                         break;
                     case R.id.gallery_item:
+                        menuItem.setChecked(true);
                         startActivity(new Intent(BaseActivity.this, GalleryActivity.class));
                         finish();
                         break;
                     case R.id.chat_item:
+                        menuItem.setChecked(true);
                         startActivity(new Intent(BaseActivity.this, ChatsActivity.class));
                         finish();
                         break;
@@ -166,7 +174,6 @@ public class BaseActivity extends AppCompatActivity {
                         break;
                 }
                 overridePendingTransition(R.anim.activity_open_translate,R.anim.activity_close_scale);
-                drawerLayout.closeDrawers();
                 return false;
             }
         });

@@ -314,45 +314,49 @@ public class GroupActivity extends AppCompatActivity implements GroupView{
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.dashboard_item:
+                        menuItem.setChecked(true);
                         startActivity(new Intent(GroupActivity.this, GroupActivity.class));
                         finish();
                         break;
                     case R.id.attendance_item:
+                        menuItem.setChecked(true);
                         startActivity(new Intent(GroupActivity.this, AttendanceActivity.class));
                         finish();
                         break;
                     case R.id.homework_item:
+                        menuItem.setChecked(true);
                         startActivity(new Intent(GroupActivity.this, HomeworkActivity.class));
                         finish();
                         break;
                     case R.id.timetable_item:
+                        menuItem.setChecked(true);
                         startActivity(new Intent(GroupActivity.this, TimetableActivity.class));
                         finish();
                         break;
                     case R.id.event_item:
+                        drawerLayout.closeDrawers();
                         startActivity(new Intent(GroupActivity.this, CalendarActivity.class));
                         break;
                     case R.id.result_item:
+                        menuItem.setChecked(true);
                         startActivity(new Intent(GroupActivity.this, ReportActivity.class));
                         finish();
                         break;
                     case R.id.gallery_item:
+                        menuItem.setChecked(true);
                         startActivity(new Intent(GroupActivity.this, GalleryActivity.class));
                         finish();
                         break;
                     case R.id.chat_item:
+                        menuItem.setChecked(true);
                         startActivity(new Intent(GroupActivity.this, ChatsActivity.class));
                         finish();
                         break;
                     case R.id.logout_item:
                         logout();
                         break;
-                    default:
-                        break;
                 }
                 overridePendingTransition(R.anim.activity_open_translate,R.anim.activity_close_scale);
-                menuItem.setChecked(false);
-                drawerLayout.closeDrawers();
                 return false;
             }
         });

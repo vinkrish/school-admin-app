@@ -92,7 +92,9 @@
         android:id="@+id/noTimetable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_below="@+id/topBorder"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/spacing_extra_large"
         android:orientation="vertical"
         android:visibility="invisible">
 
