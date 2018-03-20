@@ -15,10 +15,9 @@ import com.shikshitha.admin.util.AppGlobal;
 public class ServiceDao {
     public static int insert(Service service) {
         String sql = "insert into service(Id, SchoolId, IsMessage, IsSms, IsChat, " +
-                "IsAttendance, IsAttendanceSms, IsHomework, IsHomeworkSms, IsTimetable, IsReport) " +
-                "values(?,?,?,?,?,?,?,?,?,?,?)";
+                "IsAttendance, IsAttendanceSms, IsHomework, IsHomeworkSms, IsTimetable, IsReport, IsGallery) " +
+                "values(?,?,?,?,?,?,?,?,?,?,?,?)";
         SQLiteDatabase db = AppGlobal.getSqlDbHelper().getWritableDatabase();
-        db.beginTransactionNonExclusive();
         SQLiteStatement stmt = db.compileStatement(sql);
         try {
             stmt.bindLong(1, service.getId());
@@ -32,14 +31,11 @@ public class ServiceDao {
             stmt.bindString(9, Boolean.toString(service.isHomeworkSms()));
             stmt.bindString(10, Boolean.toString(service.isTimetable()));
             stmt.bindString(11, Boolean.toString(service.isReport()));
-            stmt.execute();
-            stmt.clearBindings();
+            stmt.bindString(12, Boolean.toString(service.isGallery()));
+            stmt.executeInsert();
         } catch (Exception e) {
-            db.endTransaction();
             return 0;
         }
-        db.setTransactionSuccessful();
-        db.endTransaction();
         return 1;
     }
 
@@ -60,10 +56,35 @@ public class ServiceDao {
             service.setHomeworkSms(Boolean.parseBoolean(c.getString(c.getColumnIndex("IsHomeworkSms"))));
             service.setTimetable(Boolean.parseBoolean(c.getString(c.getColumnIndex("IsTimetable"))));
             service.setReport(Boolean.parseBoolean(c.getString(c.getColumnIndex("IsReport"))));
+            service.setGallery(Boolean.parseBoolean(c.getString(c.getColumnIndex("IsGallery"))));
             c.moveToNext();
         }
         c.close();
         return service;
+    }
+
+    public static int update(Service service) {
+        String sql = "update service set IsMessage=?, IsSms=?, IsChat=?, IsAttendance=?, IsAttendanceSms=?, " +
+                "IsHomework=?, IsHomeworkSms=?, IsTimetable=?, IsReport=?, IsGallery=? where Id=?";
+        SQLiteDatabase db = AppGlobal.getSqlDbHelper().getWritableDatabase();
+        SQLiteStatement stmt = db.compileStatement(sql);
+        try {
+            stmt.bindString(1, Boolean.toString(service.isMessage()));
+            stmt.bindString(2, Boolean.toString(service.isSms()));
+            stmt.bindString(3, Boolean.toString(service.isChat()));
+            stmt.bindString(4, Boolean.toString(service.isAttendance()));
+            stmt.bindString(5, Boolean.toString(service.isAttendanceSms()));
+            stmt.bindString(6, Boolean.toString(service.isHomework()));
+            stmt.bindString(7, Boolean.toString(service.isHomeworkSms()));
+            stmt.bindString(8, Boolean.toString(service.isTimetable()));
+            stmt.bindString(9, Boolean.toString(service.isReport()));
+            stmt.bindString(10, Boolean.toString(service.isGallery()));
+            stmt.bindLong(11, service.getId());
+            stmt.executeUpdateDelete();
+        } catch (Exception e) {
+            return 0;
+        }
+        return 1;
     }
 
     public static int clear() {
@@ -75,4 +96,5 @@ public class ServiceDao {
         }
         return 1;
     }
+
 }

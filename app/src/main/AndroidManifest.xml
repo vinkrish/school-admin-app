@@ -225,7 +225,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".gallery.GalleryActivity" />
         </activity>
-        <activity android:name=".BaseActivity"></activity>
+        <activity android:name=".BaseActivity" />
+        <activity
+            android:name=".settings.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".group.GroupActivity" />
+        </activity>
     </application>
 
 </manifest>

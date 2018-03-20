@@ -16,6 +16,7 @@ import com.shikshitha.admin.model.Homework;
 import com.shikshitha.admin.model.Message;
 import com.shikshitha.admin.model.MessageRecipient;
 import com.shikshitha.admin.model.Section;
+import com.shikshitha.admin.model.Service;
 import com.shikshitha.admin.model.Student;
 import com.shikshitha.admin.model.TeacherCredentials;
 import com.shikshitha.admin.model.Timetable;
@@ -204,5 +205,10 @@ public interface AdminApi {
 
     @GET("event/school/{schoolId}")
     Call<List<Evnt>> getEvents(@Path("schoolId") long schoolId);
+
+    //Service API
+
+    @GET("service/school/{id}")
+    Call<Service> getService(@Path("id") long id);
 
 }

@@ -103,4 +103,16 @@ public class SharedPreferenceUtil {
         editor.apply();
     }
 
+    public static boolean isNotifiable(Context context){
+        SharedPreferences sharedPref = context.getSharedPreferences("notify", Context.MODE_PRIVATE);
+        return sharedPref.getBoolean("is_notifiable", true);
+    }
+
+    public static void setNotifiable(Context context, boolean isNotifiable) {
+        SharedPreferences sharedPref = context.getSharedPreferences("notify", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean("is_notifiable", isNotifiable);
+        editor.apply();
+    }
+
 }

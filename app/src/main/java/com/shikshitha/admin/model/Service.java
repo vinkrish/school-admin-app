@@ -12,6 +12,7 @@ public class Service {
     private boolean isHomeworkSms;
     private boolean isTimetable;
     private boolean isReport;
+    private boolean isGallery;
 
     public long getId() {
         return id;
@@ -99,5 +100,13 @@ public class Service {
 
     public void setReport(boolean report) {
         isReport = report;
+    }
+
+    public boolean isGallery() {
+        return isGallery;
+    }
+
+    public void setGallery(boolean gallery) {
+        isGallery = gallery;
     }
 }

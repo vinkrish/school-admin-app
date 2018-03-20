@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/grp_1"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/dashboard_item"
             android:checked="true"
@@ -41,6 +43,15 @@
             android:checked="false"
             android:icon="@drawable/ic_chat_black"
             android:title="@string/chat" />
+    </group>
+    <group
+        android:id="@+id/grp_2"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/settings_item"
+            android:checked="false"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/title_activity_settings" />
         <item
             android:id="@+id/logout_item"
             android:checked="false"

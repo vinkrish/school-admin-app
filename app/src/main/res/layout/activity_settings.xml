@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.shikshitha.admin.settings.SettingsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/refreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <android.support.v4.widget.NestedScrollView
+                android:id="@+id/myScrollingContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    tools:context="com.aanglearning.instructorapp.settings.SettingsActivity">
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/notifications_switch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/spacing_normal"
+                        android:text="@string/notifications"
+                        android:textColor="@color/primaryTextColor"
+                        android:textSize="@dimen/text_xsmall" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/spacing_normal"
+                        android:paddingTop="@dimen/spacing_tiny"
+                        android:text="@string/features_enabled"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textStyle="bold" />
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/attendance_switch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:padding="@dimen/spacing_normal"
+                        android:text="@string/attendance"
+                        android:textColor="@color/primaryTextColor"
+                        android:textSize="@dimen/text_xsmall" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/dividerColor" />
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/homework_switch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:padding="@dimen/spacing_normal"
+                        android:text="@string/homework"
+                        android:textColor="@color/primaryTextColor"
+                        android:textSize="@dimen/text_xsmall" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/dividerColor" />
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/timetable_switch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:padding="@dimen/spacing_normal"
+                        android:text="@string/timetable"
+                        android:textColor="@color/primaryTextColor"
+                        android:textSize="@dimen/text_xsmall" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/dividerColor" />
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/result_switch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:padding="@dimen/spacing_normal"
+                        android:text="@string/title_activity_result"
+                        android:textColor="@color/primaryTextColor"
+                        android:textSize="@dimen/text_xsmall" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/dividerColor" />
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/gallery_switch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:padding="@dimen/spacing_normal"
+                        android:text="@string/gallery"
+                        android:textColor="@color/primaryTextColor"
+                        android:textSize="@dimen/text_xsmall" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/dividerColor" />
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/chat_switch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:padding="@dimen/spacing_normal"
+                        android:text="@string/chat"
+                        android:textColor="@color/primaryTextColor"
+                        android:textSize="@dimen/text_xsmall" />
+
+                </LinearLayout>
+
+            </android.support.v4.widget.NestedScrollView>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>
