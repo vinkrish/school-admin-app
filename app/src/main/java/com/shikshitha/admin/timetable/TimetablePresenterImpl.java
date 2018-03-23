@@ -21,38 +21,30 @@ class TimetablePresenterImpl implements TimetablePresenter, TimetableInteractor.
 
     @Override
     public void getClassList(long schoolId) {
-        if (mView != null) {
-            mView.showProgress();
-            mInteractor.getClassList(schoolId, this);
-        }
+        mView.showProgress();
+        mInteractor.getClassList(schoolId, this);
     }
 
     @Override
     public void getSectionList(long classId) {
-        if (mView != null) {
-            mView.showProgress();
-            mInteractor.getSectionList(classId, this);
-        }
+        mView.showProgress();
+        mInteractor.getSectionList(classId, this);
     }
 
     @Override
     public void getTimetable(long sectionId) {
-        if(mView != null) {
-            mView.showProgress();
-            mInteractor.getTimetable(sectionId, this);
-        }
+        mView.showProgress();
+        mInteractor.getTimetable(sectionId, this);
     }
 
     @Override
     public void onDestroy() {
-        if(mView != null) {
-            mView = null;
-        }
+        mView = null;
     }
 
     @Override
     public void onError(String message) {
-        if(mView != null) {
+        if (mView != null) {
             mView.hideProgress();
             mView.showError(message);
         }
@@ -60,7 +52,7 @@ class TimetablePresenterImpl implements TimetablePresenter, TimetableInteractor.
 
     @Override
     public void loadOffline(String tableName) {
-        if(mView != null) {
+        if (mView != null) {
             mView.showOffline(tableName);
         }
     }
@@ -83,7 +75,7 @@ class TimetablePresenterImpl implements TimetablePresenter, TimetableInteractor.
 
     @Override
     public void onTimetableReceived(List<Timetable> timetableList) {
-        if(mView != null) {
+        if (mView != null) {
             mView.showTimetable(timetableList);
             mView.hideProgress();
         }

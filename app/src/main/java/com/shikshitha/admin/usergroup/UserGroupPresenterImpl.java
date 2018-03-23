@@ -25,50 +25,38 @@ class UserGroupPresenterImpl implements UserGroupPresenter,
 
     @Override
     public void getUserGroup(long groupId) {
-        if (mView != null) {
-            mView.showProgress();
-            mInteractor.getUserGroup(groupId, this);
-        }
+        mView.showProgress();
+        mInteractor.getUserGroup(groupId, this);
     }
 
     @Override
     public void saveUserGroup(ArrayList<UserGroup> userGroups) {
-        if (mView != null) {
-            mView.showProgress();
-            mInteractor.saveUserGroup(userGroups, this);
-        }
+        mView.showProgress();
+        mInteractor.saveUserGroup(userGroups, this);
     }
 
     @Override
     public void deleteUsers(ArrayList<UserGroup> userGroups) {
-        if (mView != null) {
-            mView.showProgress();
-            mInteractor.deleteUsers(userGroups, this);
-        }
+        mView.showProgress();
+        mInteractor.deleteUsers(userGroups, this);
     }
 
     @Override
     public void deleteGroup(DeletedGroup deletedGroup) {
-        if (mView != null) {
-            mView.showProgress();
-            mInteractor.deleteGroup(deletedGroup, this);
-        }
+        mView.showProgress();
+        mInteractor.deleteGroup(deletedGroup, this);
     }
 
     @Override
     public void getRecentDeletedGroups(long schoolId, long id) {
-        if (mView != null) {
-            mView.showProgress();
-            mInteractor.getRecentDeletedGroups(schoolId, id, this);
-        }
+        mView.showProgress();
+        mInteractor.getRecentDeletedGroups(schoolId, id, this);
     }
 
     @Override
     public void getDeletedGroups(long schoolId) {
-        if (mView != null) {
-            mView.showProgress();
-            mInteractor.getDeletedGroups(schoolId, this);
-        }
+        mView.showProgress();
+        mInteractor.getDeletedGroups(schoolId, this);
     }
 
     @Override
@@ -94,7 +82,7 @@ class UserGroupPresenterImpl implements UserGroupPresenter,
 
     @Override
     public void onUserGroupSaved() {
-        if(mView != null) {
+        if (mView != null) {
             mView.hideProgress();
             mView.userGroupSaved();
         }
@@ -102,7 +90,7 @@ class UserGroupPresenterImpl implements UserGroupPresenter,
 
     @Override
     public void onUsersDeleted() {
-        if(mView != null) {
+        if (mView != null) {
             mView.hideProgress();
             mView.userGroupDeleted();
         }
@@ -110,7 +98,7 @@ class UserGroupPresenterImpl implements UserGroupPresenter,
 
     @Override
     public void onGroupDeleted(DeletedGroup deletedGroup) {
-        if(mView != null) {
+        if (mView != null) {
             mView.hideProgress();
             mView.groupDeleted();
         }
@@ -118,7 +106,7 @@ class UserGroupPresenterImpl implements UserGroupPresenter,
 
     @Override
     public void onDeletedGroupsReceived(List<DeletedGroup> deletedGroups) {
-        if(mView != null) {
+        if (mView != null) {
             DeletedGroupDao.insertDeletedGroups(deletedGroups);
             mView.hideProgress();
             mView.onDeletedGroupSync();

@@ -22,53 +22,39 @@ class AlbumPresenterImpl implements AlbumPresenter, AlbumInteractor.OnFinishedLi
 
     @Override
     public void getAlbumUpdate(long albumId) {
-        if(mView != null) {
-            mInteractor.getAlbumUpdate(albumId, this);
-        }
+        mInteractor.getAlbumUpdate(albumId, this);
     }
 
     @Override
     public void saveAlbumImages(List<AlbumImage> albumImages) {
-        if(mView != null) {
-            mView.showProgress();
-            mInteractor.saveAlbumImages(albumImages, this);
-        }
+        mView.showProgress();
+        mInteractor.saveAlbumImages(albumImages, this);
     }
 
     @Override
     public void deleteAlbumImages(ArrayList<DeletedAlbumImage> deletedAlbumImages) {
-        if(mView != null) {
-            mView.showProgress();
-            mInteractor.deleteAlbumImages(deletedAlbumImages, this);
-        }
+        mView.showProgress();
+        mInteractor.deleteAlbumImages(deletedAlbumImages, this);
     }
 
     @Override
     public void getAlbumImagesAboveId(long albumId, long id) {
-        if (mView != null) {
-            mInteractor.getAlbumImagesAboveId(albumId, id, this);
-        }
+        mInteractor.getAlbumImagesAboveId(albumId, id, this);
     }
 
     @Override
     public void getAlbumImages(long albumId) {
-        if (mView != null) {
-            mInteractor.getAlbumImages(albumId, this);
-        }
+        mInteractor.getAlbumImages(albumId, this);
     }
 
     @Override
     public void getRecentDeletedAlbumImages(long albumId, long id) {
-        if (mView != null) {
-            mInteractor.getRecentDeletedAlbumImages(albumId, id, this);
-        }
+        mInteractor.getRecentDeletedAlbumImages(albumId, id, this);
     }
 
     @Override
     public void getDeletedAlbumImages(long albumId) {
-        if (mView != null) {
-            mInteractor.getDeletedAlbumImages(albumId, this);
-        }
+        mInteractor.getDeletedAlbumImages(albumId, this);
     }
 
     @Override
@@ -118,7 +104,7 @@ class AlbumPresenterImpl implements AlbumPresenter, AlbumInteractor.OnFinishedLi
     @Override
     public void onAlbumImagesDeleted(List<DeletedAlbumImage> deletedAlbumImages) {
         if (mView != null) {
-            if(deletedAlbumImages.size() > 0) {
+            if (deletedAlbumImages.size() > 0) {
                 DeletedAlbumImageDao.insertDeletedAlbumImages(deletedAlbumImages);
             }
             mView.onDeletedAlbumImageSync();

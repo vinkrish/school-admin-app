@@ -20,26 +20,20 @@ class MessageRecipientPresenterImpl implements MessageRecipientPresenter,
 
     @Override
     public void getMessageRecipient(long groupId, long groupMessageId) {
-        if(mView != null) {
-            mView.showProgress();
-            mInteractor.getMessageRecipient(groupId, groupMessageId, this);
-        }
+        mView.showProgress();
+        mInteractor.getMessageRecipient(groupId, groupMessageId, this);
     }
 
     @Override
     public void getSchoolRecipient(long groupId, long groupMessageId) {
-        if(mView != null) {
-            mView.showProgress();
-            mInteractor.getSchoolRecipient(groupId, groupMessageId, this);
-        }
+        mView.showProgress();
+        mInteractor.getSchoolRecipient(groupId, groupMessageId, this);
     }
 
     @Override
     public void getSchoolRecipientFromId(long groupId, long groupMessageId, long id) {
-        if(mView != null) {
-            mView.showProgress();
-            mInteractor.getSchoolRecipientFromId(groupId, groupMessageId, id, this);
-        }
+        mView.showProgress();
+        mInteractor.getSchoolRecipientFromId(groupId, groupMessageId, id, this);
     }
 
     @Override
@@ -57,7 +51,7 @@ class MessageRecipientPresenterImpl implements MessageRecipientPresenter,
 
     @Override
     public void onMessageRecipientReceived(List<MessageRecipient> messageRecipient) {
-        if(mView != null) {
+        if (mView != null) {
             mView.showMessageRecipient(messageRecipient);
             mView.hideProgress();
         }
@@ -65,7 +59,7 @@ class MessageRecipientPresenterImpl implements MessageRecipientPresenter,
 
     @Override
     public void onSchoolRecipientReceived(List<MessageRecipient> messageRecipient) {
-        if(mView != null) {
+        if (mView != null) {
             mView.showSchoolRecipient(messageRecipient);
             mView.hideProgress();
         }
@@ -73,7 +67,7 @@ class MessageRecipientPresenterImpl implements MessageRecipientPresenter,
 
     @Override
     public void onFollowUpRecipientReceived(List<MessageRecipient> messageRecipient) {
-        if(mView != null) {
+        if (mView != null) {
             mView.showFollowUpRecipient(messageRecipient);
             mView.hideProgress();
         }

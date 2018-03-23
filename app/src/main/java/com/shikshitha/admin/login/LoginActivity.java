@@ -109,7 +109,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
         TeacherDao.insert(teacherCredentials.getTeacher());
         ServiceDao.clear();
         ServiceDao.insert(teacherCredentials.getService());
-        teacherCredentials.setMobileNo(loginId.getText().toString());
         SharedPreferenceUtil.saveTeacher(this, teacherCredentials);
         startService(new Intent(this, FCMIntentService.class));
     }

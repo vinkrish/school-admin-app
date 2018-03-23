@@ -19,18 +19,14 @@ class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnLoginFinis
 
     @Override
     public void validateCredentials(Credentials credentials) {
-        if(loginView != null) {
-            loginView.showProgress();
-            interactor.login(credentials, this);
-        }
+        loginView.showProgress();
+        interactor.login(credentials, this);
     }
 
     @Override
     public void pwdRecovery(String username) {
-        if(loginView != null) {
-            loginView.showProgress();
-            interactor.recoverPwd(username, this);
-        }
+        loginView.showProgress();
+        interactor.recoverPwd(username, this);
     }
 
     @Override
@@ -40,7 +36,7 @@ class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnLoginFinis
 
     @Override
     public void onSuccess(TeacherCredentials credentials) {
-        if(loginView != null) {
+        if (loginView != null) {
             loginView.saveUser(credentials);
             loginView.hideProgress();
             loginView.navigateToDashboard();
@@ -49,7 +45,7 @@ class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnLoginFinis
 
     @Override
     public void onPwdRecovered() {
-        if(loginView != null) {
+        if (loginView != null) {
             loginView.hideProgress();
             loginView.pwdRecovered();
         }
@@ -57,7 +53,7 @@ class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnLoginFinis
 
     @Override
     public void onNoUser() {
-        if(loginView != null) {
+        if (loginView != null) {
             loginView.hideProgress();
             loginView.noUser();
         }
@@ -65,7 +61,7 @@ class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnLoginFinis
 
     @Override
     public void onError(String message) {
-        if(loginView != null) {
+        if (loginView != null) {
             loginView.hideProgress();
             loginView.showError(message);
         }

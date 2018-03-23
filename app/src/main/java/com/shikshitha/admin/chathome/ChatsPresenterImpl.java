@@ -19,18 +19,14 @@ class ChatsPresenterImpl implements ChatsPresenter, ChatsInteractor.OnFinishedLi
 
     @Override
     public void getChats(long teacherId) {
-        if (mView != null) {
-            mView.showProgress();
-            mInteractor.getChats(teacherId, this);
-        }
+        mView.showProgress();
+        mInteractor.getChats(teacherId, this);
     }
 
     @Override
     public void deleteChat(long id) {
-        if (mView != null) {
-            mView.showProgress();
-            mInteractor.deleteChat(id, this);
-        }
+        mView.showProgress();
+        mInteractor.deleteChat(id, this);
     }
 
     @Override

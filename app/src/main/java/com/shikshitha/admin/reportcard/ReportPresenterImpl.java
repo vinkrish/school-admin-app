@@ -20,58 +20,44 @@ public class ReportPresenterImpl implements ReportPresenter, ReportInteractor.On
 
     @Override
     public void getClassList(long teacherId) {
-        if (mView != null) {
-            mView.showProgress();
-            mInteractor.getClassList(teacherId, this);
-        }
+        mView.showProgress();
+        mInteractor.getClassList(teacherId, this);
     }
 
     @Override
     public void getSectionList(long classId, long teacherId) {
-        if (mView != null) {
-            mView.showProgress();
-            mInteractor.getSectionList(classId, teacherId, this);
-        }
+        mView.showProgress();
+        mInteractor.getSectionList(classId, teacherId, this);
     }
 
     @Override
     public void getExams(long classId) {
-        if (mView != null) {
-            mView.showProgress();
-            mInteractor.getExams(classId, this);
-        }
+        mView.showProgress();
+        mInteractor.getExams(classId, this);
     }
 
     @Override
     public void getExamSubjects(long examId) {
-        if (mView != null) {
-            mView.showProgress();
-            mInteractor.getExamSubjects(examId, this);
-        }
+        mView.showProgress();
+        mInteractor.getExamSubjects(examId, this);
     }
 
     @Override
     public void getScore(long examId, long subjectId, long sectionId) {
-        if (mView != null) {
-            mView.showProgress();
-            mInteractor.getMarks(examId, subjectId, sectionId, this);
-        }
+        mView.showProgress();
+        mInteractor.getMarks(examId, subjectId, sectionId, this);
     }
 
     @Override
     public void getActivityList(long sectionId, long examId, long subjectId) {
-        if (mView != null) {
-            mView.showProgress();
-            mInteractor.getActivityList(sectionId, examId, subjectId, this);
-        }
+        mView.showProgress();
+        mInteractor.getActivityList(sectionId, examId, subjectId, this);
     }
 
     @Override
     public void getActivityScore(long activityId) {
-        if (mView != null) {
-            mView.showProgress();
-            mInteractor.getActivityScore(activityId, this);
-        }
+        mView.showProgress();
+        mInteractor.getActivityScore(activityId, this);
     }
 
     @Override

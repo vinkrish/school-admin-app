@@ -21,26 +21,20 @@ public class NewGroupPresenterImpl implements NewGroupPresenter, NewGroupInterac
 
     @Override
     public void getClassList(long schoolId) {
-        if (mView != null) {
-            mView.showProgress();
-            mInteractor.getClassList(schoolId, this);
-        }
+        mView.showProgress();
+        mInteractor.getClassList(schoolId, this);
     }
 
     @Override
     public void getSectionList(long classId) {
-        if (mView != null) {
-            mView.showProgress();
-            mInteractor.getSectionList(classId, this);
-        }
+        mView.showProgress();
+        mInteractor.getSectionList(classId, this);
     }
 
     @Override
     public void saveGroup(Groups groups) {
-        if (mView != null) {
-            mView.showProgress();
-            mInteractor.saveGroup(groups, this);
-        }
+        mView.showProgress();
+        mInteractor.saveGroup(groups, this);
     }
 
     @Override

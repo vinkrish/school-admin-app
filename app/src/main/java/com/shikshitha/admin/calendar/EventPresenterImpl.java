@@ -19,10 +19,8 @@ class EventPresenterImpl implements EventPresenter, EventInteractor.OnFinishedLi
 
     @Override
     public void getEvents(long schoolId) {
-        if (mView != null) {
-            mView.showProgress();
-            mInteractor.getEvents(schoolId, this);
-        }
+        mView.showProgress();
+        mInteractor.getEvents(schoolId, this);
     }
 
     @Override

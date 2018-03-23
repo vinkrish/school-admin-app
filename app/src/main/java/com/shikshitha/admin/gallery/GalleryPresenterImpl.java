@@ -23,55 +23,41 @@ class GalleryPresenterImpl implements GalleryPresenter, GalleryInteractor.OnFini
 
     @Override
     public void getClassList(long schoolId) {
-        if (mView != null) {
-            mView.showProgress();
-            mInteractor.getClassList(schoolId, this);
-        }
+        mView.showProgress();
+        mInteractor.getClassList(schoolId, this);
     }
 
     @Override
     public void getSectionList(long classId) {
-        if (mView != null) {
-            mView.showProgress();
-            mInteractor.getSectionList(classId, this);
-        }
+        mView.showProgress();
+        mInteractor.getSectionList(classId, this);
     }
 
     @Override
     public void deleteAlbum(DeletedAlbum deletedAlbum) {
-        if(mView != null) {
-            mView.showProgress();
-            mInteractor.deleteAlbum(deletedAlbum, this);
-        }
+        mView.showProgress();
+        mInteractor.deleteAlbum(deletedAlbum, this);
     }
 
     @Override
     public void getAlbumsAboveId(long schoolId, long id) {
-        if (mView != null) {
-            mInteractor.getAlbumsAboveId(schoolId, id, this);
-        }
+        mInteractor.getAlbumsAboveId(schoolId, id, this);
     }
 
     @Override
     public void getAlbums(long schoolId) {
-        if (mView != null) {
-            mView.showProgress();
-            mInteractor.getAlbums(schoolId, this);
-        }
+        mView.showProgress();
+        mInteractor.getAlbums(schoolId, this);
     }
 
     @Override
     public void getRecentDeletedAlbums(long schoolId, long id) {
-        if (mView != null) {
-            mInteractor.getRecentDeletedAlbums(schoolId, id, this);
-        }
+        mInteractor.getRecentDeletedAlbums(schoolId, id, this);
     }
 
     @Override
     public void getDeletedAlbums(long schoolId) {
-        if (mView != null) {
-            mInteractor.getDeletedAlbums(schoolId, this);
-        }
+        mInteractor.getDeletedAlbums(schoolId, this);
     }
 
     @Override

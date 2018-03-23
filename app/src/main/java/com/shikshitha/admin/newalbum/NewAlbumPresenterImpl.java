@@ -21,26 +21,20 @@ public class NewAlbumPresenterImpl implements NewAlbumPresenter, NewAlbumInterac
 
     @Override
     public void getClassList(long schoolId) {
-        if (mView != null) {
-            mView.showProgress();
-            mInteractor.getClassList(schoolId, this);
-        }
+        mView.showProgress();
+        mInteractor.getClassList(schoolId, this);
     }
 
     @Override
     public void getSectionList(long classId) {
-        if (mView != null) {
-            mView.showProgress();
-            mInteractor.getSectionList(classId, this);
-        }
+        mView.showProgress();
+        mInteractor.getSectionList(classId, this);
     }
 
     @Override
     public void saveAlbum(Album album) {
-        if (mView != null) {
-            mView.showProgress();
-            mInteractor.saveAlbum(album, this);
-        }
+        mView.showProgress();
+        mInteractor.saveAlbum(album, this);
     }
 
     @Override
