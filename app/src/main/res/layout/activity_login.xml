@@ -107,6 +107,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/teal_btn_ripple"
+                    android:foreground="?selectableItemBackground"
                     android:onClick="login"
                     android:text="@string/login"
                     android:textAllCaps="false"
